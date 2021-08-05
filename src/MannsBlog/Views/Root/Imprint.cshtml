@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = "";
+    ViewBag.PageImage = "/img/headers/imprint.jpg";
+}
+
+<h1>@_localizer["imprint-header"]</h1>
+<h2 id="m46">@_localizer["imprint-service"]</h2>
+<p>Sascha Manns</p>
+<p>Kelbergerstraße 18</p>
+<p>56727 Mayen</p>
+<p>Deutschland</p>
+<h2 id="m56">@_localizer["contact"]</h2>
+<p><strong>@_localizer["email"]:</strong> <a href="mailto:Sascha.Manns@outlook.de">Sascha.Manns@outlook.de</a></p>
+<p><strong>@_localizer["telefon"]:</strong> +49-172-3142738</p>
+<p><strong>@_localizer["contact-form"]:</strong> <a href="https://saschamanns.de/contact" target="_blank">https://saschamanns.de/contact</a></p>
+<h2 id="m154">@_localizer["journalistic"]</h2><p><strong>@_localizer["responsibility"]:</strong> Sascha Manns (@_localizer["adress"])</p>
+<h2 id="m172">@_localizer["socialmedia"]</h2><p><strong>@_localizer["other"]:</strong> </p>
+<p><a href="https://mastodon.social/@@saigkill" target="_blank">https://mastodon.social/@@saigkill</a></p>
+<p><a href="https://www.facebook.com/sascha.manns" target="_blank">https://www.facebook.com/sascha.manns</a></p>
+<p><a href="https://twitter.com/saigkill" target="_blank">https://twitter.com/saigkill</a></p>
+<p><a href="https://instagram.com/sascha.manns" target="_blank">https://instagram.com/sascha.manns</a></p>
+<p><a href="https://www.linkedin.com/in/saigkill" target="_blank">https://www.linkedin.com/in/saigkill</a></p>
+<p><a href="https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv" target="_blank">https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv</a></p>
+<p><a href="https://github.com/saigkill" target="_blank">https://github.com/saigkill</a></p>
+<p><a href="https://stackoverflow.com/users/7404985/sascha-manns" target="_blank">https://stackoverflow.com/users/7404985/sascha-manns</a></p>
+<p><a href="https://dev.to/saigkill" target="_blank">https://dev.to/saigkill</a></p>
+<p><a href="https://www.last.fm/user/illuminatus1979" target="_blank">https://www.last.fm/user/illuminatus1979</a></p>
+<h2 id="m65">@_localizer["liability"]</h2><p><strong>@_localizer["disclaimer"]</strong>: @_localizer["disclaimer1"]</p>
+<p>@_localizer["disclaimer2"]</p>
+<p>@_localizer["disclaimer3"]</p>
+<p>@_localizer["disclaimer4"]</p>
+<p class="seal"><a href="https://datenschutz-generator.de/?l=de" title="Rechtstext von Dr. Schwenke - für weitere Informationen bitte anklicken." target="_blank" rel="noopener noreferrer nofollow">@_localizer["seal"]</a></p>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
+    ViewBag.PageImage = "/img/headers/code2.jpg";
+}
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IConfiguration _config
+@inject IViewLocalizer _localizer
+@section styles {
+}
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
+    <script>
+        window.captchaId = '@_config["Google:CaptchaSiteId"]';
+    </script>
+    <environment include="Development">
+        <script src="~/js/recaptcha.js"></script>
+        <script src="~/app/js/chunk-vendors.js"></script>
+        <script src="~/app/js/contact.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>
+        <script src="~/app/js/contact.js" asp-append-version="true"></script>
+    </environment>
+    <script src="~/js/contact.js"></script>
+}
+<div id="contact"></div>
+<hr />

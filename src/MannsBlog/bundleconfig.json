@@ -1,0 +1,122 @@
+[
+  {
+    "outputFileName": "wwwroot/css/buymeacoffee.min.css",
+    "inputFiles": [
+      "wwwroot/css/buymeacoffee.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/fonts.min.css",
+    "inputFiles": [
+      "wwwroot/css/fonts.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/style-cv.min.css",
+    "inputFiles": [
+      "wwwroot/css/style-cv.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Testimonials.min.css",
+    "inputFiles": [
+      "wwwroot/css/Testimonials.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/about.min.js",
+    "inputFiles": [
+      "wwwroot/js/about.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/audio.min.js",
+    "inputFiles": [
+      "wwwroot/js/audio.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/clean-blog.min.js",
+    "inputFiles": [
+      "wwwroot/js/clean-blog.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwrun/js/contact.min.js",
+    "inputFiles": [
+      "wwwrun/js/contact.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/interface.min.js",
+    "inputFiles": [
+      "wwwroot/js/interface.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/recaptcha.min.js",
+    "inputFiles": [
+      "wwwroot/js/recaptcha.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/talk.min.js",
+    "inputFiles": [
+      "wwwroot/js/talk.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Testimonials.min.js",
+    "inputFiles": [
+      "wwwroot/js/Testimonials.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/typeit.min.js",
+    "inputFiles": [
+      "wwwroot/js/typeit.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/typeit-de.min.js",
+    "inputFiles": [
+      "wwwroot/js/typeit-de.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/video.min.js",
+    "inputFiles": [
+      "wwwroot/js/video.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/clean-blog.min.css",
+    "inputFiles": [
+      "wwwroot/css/clean-blog.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/video-de.min.js",
+    "inputFiles": [
+      "wwwroot/js/video-de.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/talk-de.min.js",
+    "inputFiles": [
+      "wwwroot/js/talk-de.js"
+    ]
+  }
+]

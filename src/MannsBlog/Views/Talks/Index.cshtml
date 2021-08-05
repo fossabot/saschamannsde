@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+@inject IViewLocalizer _localizer
+@model IEnumerable<MannsBlog.Services.DataProviders.Talk>
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
+    ViewBag.PageImage = "/img/headers/code2.jpg";
+
+    var culture = CultureInfo.CurrentCulture.Name;
+    string videotarget = String.Empty;
+    videotarget = culture == "de-DE" ? "talk-de" : "talk";
+
+    bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+    string cleanedtarget = String.Empty;
+    if (isDevelopment)
+    {
+        cleanedtarget = videotarget + ".js";
+    }
+    else
+    {
+        cleanedtarget = videotarget + ".min.js";
+    }
+}
+@inject IConfiguration _config
+@section styles {
+    <environment names="Development">
+    </environment>
+    <environment names="Production,Staging">
+        
+    </environment>
+}
+@section scripts {
+    <environment names="Development">
+        <script src="~/js/@cleanedtarget"></script>
+    </environment>
+    <environment names="Production,Staging">
+        <script src="~/js/@cleanedtarget"></script>
+    </environment>
+
+}
+<div class="row">
+    <p>@_localizer["slides"]:</p>
+    @foreach (var t in Model)
+    {
+        <div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ">
+                <div class="card-body">
+                    <button class="btn btn-outline-primary pull-right talk-toggle" data-id="@t.Id">@_localizer["show-talk"]</button>
+                    @*<a class="btn btn-outline-primary pull-right" asp-controller="Talks" asp-action="Talk" asp-route-id="@t.Id" target="_blank" role="button">View in new Tab</a>*@
+                    <h3 itemprop="headline" class="card-title">@t.Title</h3>
+                    <div class="card-text"><small>@_localizer["held"]: @t.Date.ToString("D") on @t.Where</small></div>
+                    <p class="card-text">@t.Blurp</p>
+                </div>
+                <div class="collapse" id="talk-@t.Id">
+                    <iframe src="@t.Link" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe><div style="margin-bottom:5px"> <strong> <a href="@t.Link" title="@t.Title" target="_blank">@t.Title</a> </strong> von <strong><a href="https://www.slideshare.net/saigkill" target="_blank">Sascha Manns</a></strong> </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

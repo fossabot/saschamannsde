@@ -1,0 +1,89 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Regular-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Regular-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Regular-102.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Bold-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Bold-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Bold-102.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arezzo Pro Light';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arezzo Pro Light'), url(../fonts/WOFF/arezzo-pro-cd-light-webfont.woff) format('woff');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+@font-face {
+    font-family: 'Hubert';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Hubert'), url(../fonts/WOFF/hubert-webfont.woff) format('woff');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+@font-face {
+    font-family: 'Isonorm Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Isonorm Pro'), url(../fonts/TTF/Isonorm-Pro.ttf) format('ttf');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+@font-face {
+    font-family: 'Koblenz Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Koblenz Pro'), local('KoblenzPro'), url(../fonts/WOFF/koblenz-pro-regular-webfont.woff) format('woff');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+@font-face {
+    font-family: 'Stafford Pro Light';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Stafford Pro Light'), url(../fonts/WOFF/stafford-pro-light-webfont.woff) format('woff');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+@font-face {
+    font-family: 'Segoe UI Light';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Segoe UI Light'), local('SegoeUILight'), url(../fonts/TTF/segoeuil.ttf) format('ttf');
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+}
+
+/*@font-face {
+    font-family: 'Hobo Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Hobo Pro'), local('HoboPro'), url(../fonts/WOFF/hobo-pro-webfont.woff) format('woff');*/
+    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
+/*}*/
+
+/*@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Italic-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Italic-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Italic-102.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-BoldItalic-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-BoldItalic-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-BoldItalic-102.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}*/

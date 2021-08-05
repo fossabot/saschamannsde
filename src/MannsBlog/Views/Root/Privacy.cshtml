@@ -1,0 +1,226 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = "Data Privacy";
+    ViewBag.PageBlurb = "";
+    ViewBag.PageImage = "/img/headers/privacy.jpg";
+}
+<h1>@_localizer["viewbag-pagename"]</h1>
+<h2>@_localizer["introduction"]</h2>
+<p>@_localizer["introduction-blurp"]</p>
+<p>@_localizer["introduction-gender"]</p>
+<p>@_localizer["introduction-status"] 31. Oktober 2020</p>
+<h2>@_localizer["toc-overview"]</h2>
+<ul class="index">
+    <li><a class="index-link" href="#m14">@_localizer["introduction"]</a></li>
+    <li><a class="index-link" href="#m3">@_localizer["toc-responsible"]</a></li>
+    <li><a class="index-link" href="#mOverview">@_localizer["toc-processing"]</a></li>
+    <li><a class="index-link" href="#m13">@_localizer["toc-legal-bases"]</a></li>
+    <li><a class="index-link" href="#m27">@_localizer["toc-safety"]</a></li>
+    <li><a class="index-link" href="#m134">@_localizer["toc-cookies"]</a></li>
+    <li><a class="index-link" href="#m104">@_localizer["toc-blogs"]</a></li>
+    <li><a class="index-link" href="#m182">@_localizer["toc-contact"]</a></li>
+    <li><a class="index-link" href="#m263">@_localizer["toc-analytics"]</a></li>
+    <li><a class="index-link" href="#m264">@_localizer["toc-onlinemarketing"]</a></li>
+    <li><a class="index-link" href="#m136">@_localizer["toc-onlinemedia"]</a></li>
+    <li><a class="index-link" href="#m328">@_localizer["toc-plugins"]</a></li>
+    <li><a class="index-link" href="#m12">@_localizer["toc-deletedata"]</a></li>
+    <li><a class="index-link" href="#m15">@_localizer["toc-update"]</a></li>
+    <li><a class="index-link" href="#m10">@_localizer["toc-rights"]</a></li>
+    <li><a class="index-link" href="#m42">@_localizer["toc-definitions"]</a></li>
+</ul>
+<h2 id="m3">@_localizer["toc-responsible"]</h2>
+<p>Sascha Manns<br>Kelbergerstraße 18<br>56727 Mayen</p>
+<p><strong>@_localizer["responsible-person"]:</strong> Sascha Manns</p>
+<p><strong>@_localizer["responsible-email"]:</strong> <a href="mailto:Sascha.Manns@outlook.de">Sascha.Manns@outlook.de</a></p>
+<p><strong>@_localizer["responsible-phone"]:</strong> +49-172-3142738</p>
+<p><strong>@_localizer["responsible-imprint"]:</strong> <a href="https://saschamanns.de/imprint" target="_blank">https://saschamanns.de/imprint</a></p>
+<br />
+<h2 id="mOverview">@_localizer["toc-processing"]</h2>
+<p>@_localizer["processing-purposes"]</p>
+<h3>@_localizer["processing-types"]</h3>
+<ul>
+    <li>@_localizer["processing-contentdata"].</li>
+    <li>@_localizer["processing-contactdetails"].</li>
+    <li>@_localizer["processing-meta"].</li>
+    <li>@_localizer["processing-usage"].</li>
+</ul>
+<h3>@_localizer["processing-personcategory"]</h3>
+<ul>
+    <li>@_localizer["processing-interests"].</li>
+    <li>@_localizer["processing-communicationpartner"].</li>
+    <li>@_localizer["processing-user"].</li>
+</ul>
+<h3>@_localizer["processing-toc-purpose"]</h3>
+<ul>
+    <li>@_localizer["processing-toc-provision"].</li>
+    <li>@_localizer["processing-toc-feedback"].</li>
+    <li>@_localizer["processing-toc-contact"].</li>
+    <li>@_localizer["processing-toc-access"].</li>
+    <li>@_localizer["processing-toc-security"].</li>
+    <li>@_localizer["processing-toc-tracking"].</li>
+    <li>@_localizer["processing-toc-managing"].</li>
+</ul>
+<h3 id="m13">@_localizer["toc-legal-bases"]</h3>
+<p>@_localizer["legal-bases-blurp"]</p>
+<ul>
+    <li>@_localizer["legal-bases-consent"]</li>
+    <li>@_localizer["legal-bases-contract"]</li>
+    <li>@_localizer["legal-bases-interests"]</li>
+</ul>
+<p>@_localizer["legal-bases-additionals"]</p>
+<h2 id="m27">@_localizer["toc-safety"]</h2>
+<p>@_localizer["legal-bases-measures"]</p>
+<p>@_localizer["legal-bases-control"]</p>
+<p>@_localizer["legal-bases-ssl"]</p>
+<h2 id="m134">@_localizer["toc-cookies"]</h2>
+<p>@_localizer["cookies-blurp"]</p>
+<p>@_localizer["cookies-types"]</p>
+<ul>
+    <li>@_localizer["cookies-type-temp"]</li>
+    <li>@_localizer["cookies-type-permanent"]</li>
+    <li>@_localizer["cookies-type-first"]</li>
+    <li>@_localizer["cookies-type-third"]</li>
+    <li>@_localizer["cookies-type-essential"]</li>
+    <li>@_localizer["cookies-type-statistic"]</li>
+</ul>
+<p>@_localizer["cookies-type-rights"]</p>
+<p>@_localizer["cookies-type-save"]</p>
+<p>@_localizer["cookies-type-revocation"]</p>
+<p>@_localizer["cookies-type-processing"]</p>
+<ul class="m-elements">
+    <li>@_localizer["cookies-type-data"]</li>
+    <li>@_localizer["cookies-type-affected"]</li>
+    <li>@_localizer["cookies-legal-basis"]</li>
+</ul>
+<h2 id="m104">@_localizer["toc-blogs"]</h2>
+<p>@_localizer["blogs-blurp"]</p>
+<p>@_localizer["blogs-comments"]</p>
+<p>@_localizer["blogs-spam"]</p>
+<p>@_localizer["blogs-survey"]</p>
+<p>@_localizer["blogs-comments-data"]</p>
+<ul class="m-elements">
+    <li>@_localizer["blogs-processed-data"]</li>
+    <li>@_localizer["blogs-affected-person"]</li>
+    <li>@_localizer["blogs-purpose"]</li>
+    <li>@_localizer["blogs-legal"]</li>
+</ul>
+<h2 id="m182">@_localizer["toc-contact"]</h2>
+<p>@_localizer["contact-us"]</p>
+<p>@_localizer["contact-answering"]</p>
+<ul class="m-elements">
+    <li>@_localizer["contact-data-types"]</li>
+    <li>@_localizer["contact-affected"]</li>
+    <li>@_localizer["contact-purposes"]</li>
+    <li>@_localizer["contact-legal"]</li>
+</ul>
+<h2 id="m263">@_localizer["toc-analytics"]</h2>
+<p>@_localizer["analytics-blurp"]</p>
+<p>@_localizer["analytics-tests"]</p>
+<p>@_localizer["analytics-userprofile"]</p>
+<p>@_localizer["analytics-ip"]</p>
+<p>@_localizer["analytics-legal-bases"]</p>
+<ul class="m-elements">
+    <li>@_localizer["analytics-data"]</li>
+    <li>@_localizer["blogs-affected-person"]</li>
+    <li>@_localizer["analytics-purpose"]</li>
+    <li>@_localizer["analytics-security"]</li>
+    <li>@_localizer["analytics-legal"]</li>
+</ul>
+<p>@_localizer["analytics-services"]</p>
+<ul class="m-elements">
+    <li>@_localizer["analytics-google"]</li>
+</ul>
+<h2 id="m264">@_localizer["toc-onlinemarketing"]</h2>
+<p>@_localizer["onlinemarketing-blurp"]</p>
+<p>@_localizer["onlinemarketing-userprofile"]</p>
+<p>@_localizer["onlinemarketing-ip"]</p>
+<p>@_localizer["onlinemarketing-profile"]</p>
+<p>@_localizer["onlinemarketing-profile1"]</p>
+<p>@_localizer["onlinemarketing-marketing"]</p>
+<p>@_localizer["onlinemarketing-cookies"]</p>
+<p>@_localizer["onlinemarketing-legal"]</p>
+<ul class="m-elements">
+    <li>@_localizer["onlinemarketing-datatypes"]</li>
+    <li>@_localizer["onlinemarketing-affected"]</li>
+    <li>@_localizer["onlinemarketing-purpose"]</li>
+    <li>@_localizer["onlinemarketing-security"]</li>
+    <li>@_localizer["onlinemarketing-legalbase"]</li>
+    <li>@_localizer["onlinemarketing-optout"]</li>
+</ul>
+<p><strong>@_localizer["onlinemarketing-services"]:</strong></p>
+<ul class="m-elements">
+    <li>@_localizer["onlinemarketing-google"]</li>
+</ul>
+<h2 id="m136">@_localizer["toc-onlinemedia"]</h2>
+<p>@_localizer["onlinemedia-blurp"]</p>
+<p>@_localizer["onlinemedia-blurp1"]</p>
+<p>@_localizer["onlinemedia-blurp2"]</p>
+<p>@_localizer["onlinemedia-blurp3"]</p>
+<p>@_localizer["onlinemedia-blurp4"]</p>
+<p>@_localizer["onlinemedia-facebook"]</p>
+<ul class="m-elements">
+    <li>@_localizer["onlinemedia-processed"]</li>
+    <li>@_localizer["onlinemedia-affected"]</li>
+    <li>@_localizer["onlinemedia-purpose"]</li>
+    <li>@_localizer["onlinemedia-law"]</li>
+</ul>
+<p>@_localizer["onlinemarketing-services"]</p>
+<ul class="m-elements">
+    <li>@_localizer["onlinemedia-instagram"]</li>
+    <li>@_localizer["onlinemedia-facebook1"]</li>
+    <li>@_localizer["onlinemedia-linkedin"]</li>
+    <li>@_localizer["onlinemedia-twitter"]</li>
+    <li>@_localizer["onlinemedia-xing"]</li>
+</ul>
+<h2 id="m328">@_localizer["toc-plugins"]</h2>
+<p>@_localizer["plugins-blurp"]</p>
+<p>@_localizer["plugins-blurp2"]</p>
+<p>@_localizer["plugins-law"]</p>
+<ul class="m-elements">
+    <li>@_localizer["plugins-processed"]</li>
+    <li>@_localizer["plugins-affected"]</li>
+    <li>@_localizer["plugins-purpose"]</li>
+    <li>@_localizer["plugins-law"]</li>
+</ul>
+<p>@_localizer["analytics-services"]</p>
+<ul class="m-elements">
+    <li>@_localizer["plugins-fontawesome"]</li>
+    <li>@_localizer["plugins-googlefonts"]</li>
+    <li>@_localizer["plugins-recaptcha"]</li>
+    <li>@_localizer["plugins-slideshare"]</li>
+</ul>
+<h2 id="m12">@_localizer["delete"]</h2>
+<p>@_localizer["plugins-deletion-blurp"]</p>
+<p>@_localizer["plugins-deletion-blurp1"]</p>
+<p>@_localizer["plugins-deletion-blurp2"]</p>
+<h2 id="m15">@_localizer["plugins-changes"]</h2>
+<p>@_localizer["plugins-changes-blurp"]</p>
+<p>@_localizer["plugins-changes-blurp1"]</p>
+<h2 id="m10">@_localizer["plugins-changes-rights"]</h2>
+<p>@_localizer["plugins-changes-rights1"]</p>
+<ul>
+    <li>@_localizer["plugins-changes-rights2"]</li>
+    <li>@_localizer["plugins-changes-rights3"]</li>
+    <li>@_localizer["plugins-changes-rights4"]</li>
+    <li>@_localizer["plugins-changes-rights5"]</li>
+    <li>@_localizer["plugins-changes-rights6"]</li>
+    <li>@_localizer["plugins-changes-rights7"]</li>
+    <li>@_localizer["plugins-changes-rights8"]</li>
+</ul>
+<h2 id="m42">@_localizer["glossary-title"]</h2>
+<p>@_localizer["glossary-blurp"]</p>
+<ul class="glossary">
+    <li>@_localizer["glossary-ip-mask"]</li>
+    <li>@_localizer["glossary-marketing"]</li>
+    <li>@_localizer["glossary-conversion-measurement"]</li>
+    <li>@_localizer["glossary-personal-data"]</li>
+    <li>@_localizer["glossary-profiling"]</li>
+    <li>@_localizer["glossary-range-measurement"]</li>
+    <li>@_localizer["glossary-remarketing"]</li>
+    <li>@_localizer["glossary-tracking"]</li>
+    <li>@_localizer["glossary-responsible"]</li>
+    <li>@_localizer["glossary-processing"]</li>
+</ul>
+<p class="seal"><a href="https://datenschutz-generator.de/?l=de" title="@_localizer["seal"]" target="_blank" rel="noopener noreferrer nofollow">@_localizer["seal1"]</a></p>

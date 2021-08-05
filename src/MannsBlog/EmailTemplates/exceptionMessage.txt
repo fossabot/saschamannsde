@@ -1,0 +1,6 @@
+﻿Exception Occurred on MannsBlog
+
+{2}
+
+Exception Info:
+{3}

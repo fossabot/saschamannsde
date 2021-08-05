@@ -1,0 +1,338 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+@inject IViewLocalizer _localizer
+@inject Microsoft.Extensions.Configuration.IConfiguration _config
+@{
+    var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript";
+    var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
+    var host = "https://saschamanns.de";
+    //var host = "localhost:8099";
+    var culture = CultureInfo.CurrentCulture.Name;
+    var typittarget = String.Empty;
+    if (culture == "de-DE")
+    {
+        typittarget = "typeit-de.js";
+    }
+    else
+    {
+        typittarget = "typeit.js";
+    }
+}
+<!DOCTYPE html>
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta itemprop="publisher" name='article:publisher' content='https://facebook.com/sascha.manns' />
+    <meta itemprop="description" name='description' content='@description' />
+    <meta itemprop="keywords" name='keywords' content='@keywords' />
+    <meta itemprop="author" name='author' content='Sascha Manns' />
+    <meta name='designer' content='Sascha Manns' />
+    <meta name='contact' content='Sascha.Manns@@outlook.de' />
+    <meta itemprop="copyrightHolder" name='copyright' content='Copyright (c) 2017 - @DateTime.Now.Year @_localizer["copyright"]' />
+    <meta itemprop="copyrightYear" content="@DateTime.Now.Year" />
+    <meta name="Distribution" content="global" />
+    <meta itemprop="inLanguage" name="language" content="German, English" />
+    <meta name="rating" content="General" />
+    <meta name="Robots" content="index, all" />
+    <meta name="Robots" content="index, follow" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="MSSmartTagsPreventParsing" content="True" />
+    <meta id="DescriptionMetaTag" content="@ViewBag.Title"
+          name="DESCRIPTION" />
+
+    <!-- Site Verification Services (Google, Yandex, Bing-->
+    <meta name='yandex-verification' content='dd2b44d7943d61b8' />
+    <meta name='msvalidate.01' content='13161CB112E1782E7512360E04499E03' />
+    <meta name='norton-safeweb-site-verification' content='94wloxobzmzcuvxt9m4jk4-fo-lcbzcm8q25a1gsfelmow6hj23omu76k9cjgd7qevr256-hz5x0bbdh-3gua6b2f7-rue7lubp4n76wzkm29s49yj-m2bbjlrhsqfyo' />
+    <meta name='wot-verification' content='4342b071a6863eac12d4' />
+
+    <!-- Dublin Core Tags -->
+    <meta name="DC.Publisher" content="Sascha Manns" />
+    <meta name="DC.Language" scheme="UTF-8" content="de-DE" />
+    <meta name="DC.Creator" content="@ViewBag.Title" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Format.MIME" content="text/html" />
+    <meta name="DC.Format.SysReq" content="Internet browser" />
+    <meta name="DC.Source" content="@host">
+    <meta name="DC.Coverage" content="World">
+    <meta name="DC.Identifier" content="@host" />
+    <meta name="DC.Subject" content="Allgemein" />
+    <meta name="DC.Subject.Keyword" content="@keywords" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="@host/img/me/Sascha.jpg" />
+    <meta property="og:description" content="@ViewBag.Title" />
+    <meta property="og:site_name" content="@ViewBag.Title" />
+    <meta property="og:determiner" content="auto" />
+    <meta property="og:locale" content="de-DE" />
+    <meta property="og:url" content="@host" />
+    <meta property="og:site_name" content="@ViewBag.Title" />
+    <meta property="fb:app_id" content="225909907991067" />
+    <meta property="og:website" content="@host" />
+
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    <meta name="twitter:description" content="@ViewBag.Title" />
+    <meta name="twitter:image" content="@host/img/me/Sascha.jpg" />
+    <meta name='twitter:site' content='@@saigkill' />
+    <meta name='twitter:creator' content='@@saigkill' />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://feeds.feedburner.com/saigkills-backtrace" />
+
+    <title>@ViewBag.Title</title>
+
+    <environment names="Production,Staging">
+        <link rel="stylesheet" href="~/css/fonts.min.css" />
+        <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css" />
+        <link rel="stylesheet" href="~/lib/aos/dist/aos.css" />
+        <link rel="stylesheet" href="~/lib/jarallax/dist/jarallax.css"/>
+        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="~/lib/pagepiling.js/jquery.pagepiling.css" />
+        <link rel="stylesheet" href="~/lib/animsition/dist/css/animsition.css">
+        <link rel="stylesheet" href="~/css/style-cv.min.css" />
+    </environment>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/fonts.css" />
+        <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css" />
+        <link rel="stylesheet" href="~/lib/aos/dist/aos.css" />
+        <link rel="stylesheet" href="~/lib/jarallax/dist/jarallax.css" />
+        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="~/lib/pagepiling.js/jquery.pagepiling.css" />
+        <link rel="stylesheet" href="~/lib/animsition/dist/css/animsition.min.css"/>
+        <link rel="stylesheet" href="~/css/style-cv.css" />
+    </environment>
+
+
+
+
+    @RenderSection("Styles", required: false)
+
+</head>
+<body class="fullpage">
+
+    <!-- Loader -->
+    <div class="loader">
+        <div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>
+    </div>
+
+    <!-- Click capture -->
+    <div class="click-capture"></div>
+
+    <!-- Navbar -->
+    <nav id="scrollspy" class="navbar navbar-desctop">
+
+        <div class="d-flex position-relative w-100">
+            
+            <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-inverse" style="background-color: #23a592">
+                <a class="navbar-brand" asp-controller="Root" asp-action="Index">Sascha Manns's Twilight Zone</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#theMenu">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-collapse" id="theMenu">
+                    <ul class="navbar-nav nav-pills ml-auto">
+                        <partial name="_Menu" />
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Brand-->
+            <!--<a class="navbar-brand" href="#">Sascha.</a>-->
+
+            <!-- Social -->
+            <!--<ul class="social-icons mr-auto mr-lg-0 d-none d-sm-block">
+                <li><a href="https://www.facebook.com/sascha.manns"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                <li><a href="https://twitter.com/saigkill"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                <li><a href="https://www.linkedin.com/in/saigkill"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                <li><a href="https://instagram.com/sascha.manns"> <ion-icon name="logo-instagram"></ion-icon></a></li>
+            </ul>
+
+            <span class="phone h6 my-0 d-none d-md-block">+49 172 314 27 38</span>-->
+
+            <!-- Toggler -->
+            <!--<button class="toggler ml-auto">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>-->
+        </div>
+    </nav>
+
+    <!-- Navbar Mobile -->
+    <!--<nav id="navbar-mobile" class="navbar navbar-mobile">
+        <ion-icon class="close" name="close-outline"></ion-icon>-->
+
+        <!-- Social -->
+        <!--<ul class="social-icons mr-auto mr-lg-0">
+            <li><a href="https://www.facebook.com/sascha.manns"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            <li><a href="https://twitter.com/saigkill"><ion-icon name="logo-twitter"></ion-icon></a></li>
+            <li><a href="https://www.linkedin.com/in/saigkill"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+            <li><a href="https://instagram.com/sascha.manns"> <ion-icon name="logo-instagram"></ion-icon></a></li>
+        </ul>
+
+        <ul class="navbar-nav navbar-nav-mobile">
+            <li class="active"><a class="nav-link" data-menuanchor="home" href="#home">@_localizer["start"]</a></li>
+            <li><a class="nav-link" data-menuanchor="about" href="#about">@_localizer["about"]</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="video" href="#video">Trailer</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="experience" href="#experience">@_localizer["experience"]</a></li>
+            <li><a class="nav-link" data-menuanchor="specialization" href="#specialization">@_localizer["specialize"]</a></li>
+            <li><a class="nav-link" data-menuanchor="projects" href="#projects">@_localizer["projects"]</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="partners" href="#partners">Partners</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="testimonials" href="#testimonials">@_localizer["testimonials"]</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="news" href="#news">News</a></li>-->
+            <!--<li><a class="nav-link" data-menuanchor="website" asp-controller="Root" asp-action="Index">@_localizer["back"]</a></li>
+        </ul>
+        <div class="navbar-mobile-footer">
+            <p>© 2017-@DateTime.Now.Year @_localizer["copyright"]</p>
+        </div>
+    </nav>-->
+    @*<partial name="_CookieConsentPartial" />*@
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer>
+        <div class="section bg-dark py-5 pb-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <h6 class="text-white mb-4">Phone:</h6>
+                        <p class="text-white mb-4">+49-172-3142738:</p>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h6 class="text-white mb-4">Email:</h6>
+                        <p class="text-white mb-4">Sascha.Manns@@outlook.de</p>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h6 class="text-white mb-4">Follow me:</h6>
+                        <ul class="social-icons">
+                            <li><a href="https://www.facebook.com/sascha.manns"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                            <li><a href="https://twitter.com/saigkill"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                            <li><a href="https://www.linkedin.com/in/saigkill"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                            <li><a href="https://instagram.com/sascha.manns"> <ion-icon name="logo-instagram"></ion-icon></a></li>
+                        </ul>
+                    </div>
+                    @*<div class="col-md-6 col-lg-3">
+                            <h6 class="text-white mb-4">Subscribe:</h6>
+                            <form class="js-subscribe-form">
+                                <div class="input-group">
+                                    <input id="mc-email" type="email" class="form-control" placeholder="Email">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="submit">Go</button>
+                                    </div>
+                                </div>
+                                <label class="mc-label" for="mc-email" id="mc-notification"></label>
+                            </form>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy section-sm">
+            <div class="container">© 2017-@DateTime.Now.Year @_localizer["copyright"]</div>
+        </div>
+    </footer>
+
+    <environment names="Development">
+        <script src="~/js/jquery-1.12.4.min.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/lib/ionicons/dist/ionicons.js"></script>
+        <script src="~/lib/jarallax/dist/jarallax.js"></script>
+        <script src="~/lib/ajaxchimp/jquery.ajaxchimp.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+        <script src="~/lib/animsition/dist/js/animsition.js"></script>
+        <script src="~/lib/aos/dist/aos.js"></script>
+        <script src="~/lib/pagepiling.js/jquery.pagepiling.js"></script>
+        <script src="~/lib/owl.carousel/dist/owl.carousel.js"></script>
+        <script src="~/js/interface.js"></script>
+        <script src="~/lib/typeit/typeit.min.js"></script>
+        <script src="~/js/@typittarget"></script>
+        @*<script src="~/lib/github-calendar/dist/github-calendar.min.js"></script>
+            <script>
+                GitHubCalendar(".calendar", "saigkill", { responsive: true });
+            </script>*@
+        <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+
+    <environment names="Production,Staging">
+        <script src="~/js/jquery-1.12.4.min.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/lib/ionicons/dist/ionicons.js"></script>
+        <script src="~/lib/jarallax/dist/jarallax.min.js"></script>
+        <script src="~/lib/ajaxchimp/jquery.ajaxchimp.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+        <script src="~/lib/animsition/dist/js/animsition.min.js"></script>
+        <script src="~/lib/aos/dist/aos.js"></script>
+        <script src="~/lib/pagepiling.js/jquery.pagepiling.min.js"></script>
+        <script src="~/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+        <script src="~/js/interface.min.js"></script>
+        <script src="~/lib/typeit/typeit.min.js"></script>
+        <script src="~/js/@typittarget"></script>
+        @*<script src="~/lib/github-calendar/dist/github-calendar.min.js"></script>
+            <script>
+                GitHubCalendar(".calendar", "saigkill", { responsive: true });
+            </script>*@
+        <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
+
+        <!-- Clarity -->
+        <script type="text/javascript">
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "@(_config["Clarity:ApiKey"])");
+        </script>
+
+        <!-- Google -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "https://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        var pageTracker = _gat._getTracker("@(_config["Google:Analytics"])");
+        pageTracker._initData();
+        pageTracker._trackPageview();
+        </script>
+    </environment>
+
+</body>
+</html>

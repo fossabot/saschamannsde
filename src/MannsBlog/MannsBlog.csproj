@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	<Authors>Sascha Manns</Authors>
+		<AssemblyName>MannsBlog</AssemblyName>
+		<PackageId>MannsBlog</PackageId>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<Version>5.0.4</Version>
+		<AssemblyVersion>5.0.4.0</AssemblyVersion>
+		<FileVersion>5.0.4.0</FileVersion>
+		<UserSecretsId>f0f97328-119d-4980-873f-f1a692135d6e</UserSecretsId>
+		<Nullable>enable</Nullable>
+		<ApplicationInsightsResourceId>/subscriptions/7872a12f-66bb-46b3-8b12-edfaa181e48c/resourceGroups/WS-saschamannsde/providers/microsoft.insights/components/saschamanns</ApplicationInsightsResourceId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Properties\PublishProfiles\saschamanns - Web Deploy.pubxml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\**\*" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+		<None Include="bundleconfig.json" />
+		<None Include="config.json" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="web.config" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="Data\**\*" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="EmailTemplates\**\*" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MannsBlog.Data\MannsBlog.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AspNetcore.HealthChecks.Publisher.ApplicationInsights" Version="5.0.1" />
+		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="5.0.2" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="5.0.1" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.30" />
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.3" />
+		<PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.3" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="Sendgrid" Version="9.22.0" />
+		<PackageReference Include="WilderMinds.AzureImageStorageService" Version="0.4.1" />
+		<PackageReference Include="WilderMinds.MetaWeblog" Version="5.0.0" />
+		<PackageReference Include="WilderMinds.RssSyndication" Version="1.7.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="EmailTemplates/**/*.txt" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="bundleconfig.json" />
+		<Content Remove="wwwroot\css\clean-blog.css" />
+		<Content Remove="wwwroot\js\about.min.js" />
+		<Content Remove="wwwroot\js\talk-de.js" />
+		<Content Remove="wwwroot\js\video-de.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="logs\" />
+		<Folder Include="node_modules\" />
+		<Folder Include="wwwroot\img\ads\" />
+		<Folder Include="wwwroot\img\AppThumbs\" />
+		<Folder Include="wwwroot\img\cv\news\" />
+		<Folder Include="wwwroot\img\cv\partners\" />
+		<Folder Include="wwwroot\img\headshots\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="wwwroot\css\fonts.css">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+	<Target Name="PrepublishScript" BeforeTargets="BeforePublish">
+		<Exec Command="echo Vue Client" />
+		<Exec Command="npm ci" WorkingDirectory="client/" />
+		<Exec Command="npm run build" WorkingDirectory="client/" />
+	</Target>
+
+</Project>

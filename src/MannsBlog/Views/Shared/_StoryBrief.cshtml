@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@model BlogStory
+@{
+    var wordCount = @Model.Body; // Get all content of the story
+    var counts = wordCount.Count(ch => ch == ' ') + 1;
+    var minutes = counts / 200; // Calculate Minutes
+    var seconds = counts % 200 / (200 / 60); // Calculate Seconds
+    var strMinutes = (minutes == 1) ? _localizer["minute"].Value : _localizer["minutes"].Value;
+    var strSeconds = (seconds == 1) ? _localizer["second"].Value : _localizer["seconds"].Value;
+
+    string imgsrc = String.Empty;
+    string imgid = String.Empty;
+
+    if (Model.Categories.Contains("Development"))
+    {
+        imgsrc = "https://raw.githubusercontent.com/Gapur/Gapur/master/coding.gif";
+        imgid = "developmentsbrief";
+    }
+    if ((Model.Categories.Contains("Opensource")))
+    {
+        imgsrc = "/img/markers/opensource.png";
+        imgid = "opensourcesbrief";
+
+    }
+    if (Model.Categories.Contains("Linux"))
+    {
+        imgsrc = "/img/markers/tux.png";
+        imgid = "linuxsbrief";
+    }
+    if (Model.Categories.Contains("Windows"))
+    {
+        imgsrc = "/img/markers/Windows-10.png";
+        imgid = "winsbrief";
+    }
+    if (Model.Categories.Contains("C-Sharp"))
+    {
+        imgsrc = "/img/markers/c-sharp.png";
+        imgid = "csharpsbrief";
+    }
+    if (Model.Categories.Contains("Insider"))
+    {
+        imgsrc = "/img/markers/win-insider.png";
+        imgid = "insidersbrief";
+    }
+
+}
+<div class="card card-body post-card">
+    <div class="post-preview">
+        <img class="card-img-top" id="@imgid" src="@imgsrc" alt="Post Image" />
+        <h3 itemprop="headline" class="post-title">@Model.Title</h3>
+        <p class="post-meta">
+            <i class="fas fa-calendar"></i> @Model.DatePublished.AddHours(-4).ToString("MMMM dd, yyyy")
+            <i class="fas fa-edit"></i> Sascha Manns
+            <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
+            <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
+            <br/>
+            <i class="fas fa-tags"></i>
+            @foreach (var tag in Model.Categories.Split(','))
+            {
+                <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="">@tag</a>
+            }
+        </p>
+        @Html.Raw(Model.GetSummary())
+        <a href="@Model.Slug" id="btn-read" class="btn btn-primary">@_localizer["btn-read"]</a>
+        <script>
+            ;
+            (function(d, s) {
+                var x = d.createElement(s),
+                    s = d.getElementsByTagName(s)[0];
+                x.src = "https://www.xing-share.com/plugins/share.js";
+                s.parentNode.insertBefore(x, s);
+            })(document, "script");
+        </script>
+    </div>
+</div>

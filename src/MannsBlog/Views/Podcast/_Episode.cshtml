@@ -1,0 +1,38 @@
+﻿@model MannsBlog.Services.DataProviders.PodcastEpisode
+<div class="flex justify-between">
+  <div class="w-full">
+    @foreach (var bio in Model.GuestBio)
+    {
+      <p>@Html.Raw(bio)</p>
+    }
+    @foreach (var l in Model.GuestLinks)
+    {
+      <blockquote><p><a href="@l.Link">@l.Name</a></p></blockquote>
+    }
+
+    <div>
+      <p>Listen now:</p>
+      <audio src="@Model.AudioLink" preload="auto" controls></audio>
+      <a href="@Model.AudioLink">Download MP3</a><br />
+      <a asp-controller="Podcast" asp-action="Episode" asp-route-id="@Model.EpisodeNumber" asp-route-tag="@Model.GuestName.Replace(" ", "-")" target="_blank">Open this episode in a separate window/tab</a>
+      @if (!string.IsNullOrWhiteSpace(Model.YouTubeLink))
+      {
+        <br /><a href="@Model.YouTubeLink">Open this episode in YouTube</a>
+      }
+    </div>
+  </div>
+  <div class="text-center p-2">
+    <div>
+      <img src="@Model.GuestHeadshot" alt="@Model.GuestName" class="headshot" />
+    </div>
+    <div>
+      <small>@Model.GuestName</small>
+    </div>
+    <div>
+      <a href="@Model.GuestFirstMachineLink" target="_blank"><img src="@Model.GuestFirstMachineImage" alt="@Model.GuestFirstMachineName" class="headshot" /></a>
+    </div>
+    <div>
+      <small>First Computer: <br /><a href="@Model.GuestFirstMachineLink" target="_blank">@Model.GuestFirstMachineName</a></small>
+    </div>
+  </div>
+</div>

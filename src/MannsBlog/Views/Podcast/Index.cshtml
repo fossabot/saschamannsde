@@ -1,0 +1,61 @@
+﻿@using MannsBlog.Services.DataProviders
+@using System
+@model Tuple<MannsBlog.Services.DataProviders.PodcastEpisode, IEnumerable<MannsBlog.Services.DataProviders.PodcastEpisode>>
+@{
+  ViewBag.Title = "Hello World Podcast";
+  ViewBag.PageName = "Hello World Podcast";
+  ViewBag.PageBlurb = "Interviews with your favorite speakers about how they got started!";
+  ViewBag.PageImage = "/img/headers/podcast.jpg";
+
+  var latest = Model.Item1;
+  var episodes = Model.Item2;
+}
+@section Styles {
+  <link href="~/3rdparty/css/audioplayer.css" rel="stylesheet" />
+}
+@section Scripts {
+  <script src="~/3rdparty/js/audioplayer.min.js"></script>
+}
+
+<div>
+  <div role="menu" class="flex justify-end tags">
+    <span><a href="http://hwpod.libsyn.com/rss"><i class="fas fa-rss"></i> Subscribe</a></span>
+    <span><a href="https://itunes.apple.com/us/podcast/the-hello-world-podcast/id768018561"><i class="fab fa-itunes"></i> iTunes</a></span>
+    <span><a href="http://www.stitcher.com/s?fid=48433&refid=stpr"><img class="inline" src="http://cloudfront.assets.stitcher.com/promo.assets/stitcher-icon-50x50.jpg" width="15" height="15" alt="Listen to Stitcher"> Stitcher</a></span>
+    <span><a href="http://www.youtube.com/user/hwpod"><i class="fab fa-youtube"></i> YouTube</a></span>
+  </div>
+</div>
+<div>
+  <a href="http://hwpod.com"><img class="float-right m-1" src="//Mannsmuth.com/img/hwpod/logo_125.jpg" alt="Hello World Podcast" /></a>
+  <p>
+    Not just another technical podcast. Shawn Mannsmuth brings you his
+    "Hello World" podcast where we learn about how your favorite developers
+    tell their story of how they got started writing software!
+  </p>
+</div>
+<div class="clear-right"></div>
+<hr />
+<div>
+  <div>
+    <div>
+      <div><small class="float-right"><i class="fas fa-calendar"></i> Released: @latest.PublishedDate.ToString("d")</small></div>
+      <div><h3><a asp-controller="Podcast" asp-action="Episode" asp-route-id="@latest.EpisodeNumber" asp-route-tag="@latest.GuestName.Replace(" ", "-")">Episode @latest.EpisodeNumber - @latest.GuestName</a></h3></div>
+    </div>
+  </div>
+</div>
+<partial name="_Episode" model="latest" />
+<hr />
+<h3>Upcoming Guests</h3>
+<div class="grid grid-cols-4 gap-1">
+  @foreach (var upcoming in episodes.Where(e => e.Status == PodcastEpisodeStatus.Planned || (e.Status == PodcastEpisodeStatus.Live && e.PublishedDate.AddHours(14) > DateTime.UtcNow)).OrderBy(e => e.PublishedDate))
+  {
+    <partial name="_Headshot" model="upcoming" />
+  }
+</div>
+<h3>Archive</h3>
+<div class="grid grid-cols-4 gap-1">
+  @foreach (var archived in episodes.Where(e => e.Status == PodcastEpisodeStatus.Live && e != latest && e.PublishedDate.AddHours(14) <= DateTime.UtcNow).OrderByDescending(e => e.PublishedDate))
+  {
+    <partial name="_Headshot" model="archived" />
+  }
+</div>

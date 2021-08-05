@@ -1,0 +1,98 @@
+﻿[
+  {
+    "id": "1",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha is one of the most active and enthusiastic members of openSUSE Marketing Team and the Second Chief-Editor of openSUSE Weekly News. I love so much working with him. ;-)",
+    "recommender": "Satoru Matsumoto",
+    "recommenderJob": "Member of the openSUSE Project",
+    "recommenderLocation": "Tokyo, Japan",
+    "relationship": "working in the same project",
+    "imagePath": "img/testimonials/satoru.jpg",
+    "date": "2009-12-04",
+    "language": "en-US"
+  },
+  {
+    "id": "2",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha ist eines der aktivsten und enthusiastischsten Mitglieder des openSUSE Marketing Teams und der zweite Chefredakteur der openSUSE Weekly News. Ich liebe es so sehr, mit ihm zu arbeiten. ;-)",
+    "recommender": "Satoru Matsumoto",
+    "recommenderJob": "Member of the openSUSE Project",
+    "recommenderLocation": "Tokyo, Japan",
+    "relationship": "working in the same project",
+    "imagePath": "img/testimonials/satoru.jpg",
+    "date": "2009-12-04",
+    "language": "de-DE"
+  },
+  {
+    "id": "3",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha is currently the main driving force behind the openSUSE Weekly news letter. He works together with different community members world wide to create the newsletter. During his time as editor and due to his efforts, the weekly news team has grown and the news letter gets translated in more than a dozen languages. I appreciate the enthusiasm Sascha shows for openSUSE marketing in general and for the news letter especially.",
+    "recommender": "Andreas Jaeger",
+    "recommenderJob": "Product Manager at SUSE",
+    "recommenderLocation": "Nuernberg, Germany",
+    "relationship": "working in the same project",
+    "imagePath": "img/testimonials/andreas.jpg",
+    "date": "2010-02-04",
+    "language": "en-US" 
+  },
+  {
+    "id": "4",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha ist derzeit die treibende Kraft hinter dem openSUSE Weekly News Letter. Er arbeitet mit verschiedenen Community-Mitgliedern weltweit zusammen, um den Newsletter zu erstellen. Während seiner Zeit als Redakteur und aufgrund seiner Bemühungen ist das wöchentliche Nachrichtenteam gewachsen und der Nachrichtenbrief wird in mehr als ein Dutzend Sprachen übersetzt. Ich schätze die Begeisterung, die Sascha für das openSUSE-Marketing im Allgemeinen und für den News-Brief im Besonderen zeigt.",
+    "recommender": "Andreas Jaeger",
+    "recommenderJob": "Product Manager at SUSE",
+    "recommenderLocation": "Nuernberg, Germany",
+    "relationship": "working in the same project",
+    "imagePath": "img/testimonials/andreas.jpg",
+    "date": "2010-02-04",
+    "language": "de-DE" 
+  },
+  {
+    "id": "5",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha is an excellent leader and a very skilled one.",
+    "recommender": "Marco Antonio Flores",
+    "recommenderJob": "Computer Systems Engineer",
+    "recommenderLocation": "Polanco I Seccion, Mexico City, Mexico",
+    "relationship": "worked in Saschas Project",
+    "imagePath": "img/testimonials/alpvonkri.jpg",
+    "date": "2019-04-25",
+    "language": "en-US" 
+  },
+  {
+    "id": "6",
+    "link": "https://www.linkedin.com/in/saigkill/",
+    "blurp": "Sascha ist eine ausgezeichnete Führungskraft und eine sehr geschickte.",
+    "recommender": "Marco Antonio Flores",
+    "recommenderJob": "Computer Systems Engineer",
+    "recommenderLocation": "Polanco I Seccion, Mexico City, Mexico",
+    "relationship": "worked in Saschas Project",
+    "imagePath": "img/testimonials/alpvonkri.jpg",
+    "date": "2019-04-25",
+    "language": "de-DE" 
+  },
+  {
+    "id": "7",
+    "link": "",
+    "blurp": "Such a termination hits you hard. Think we lose a very sympathetic and trusting colleague as a result. Your help will definitely be missing now, but you are a great guy and will certainly find something different and above all better.",
+    "recommender": "Falk König",
+    "recommenderJob": "Mitarbeiter Logis GmbH",
+    "recommenderLocation": "Andernach, Germany",
+    "relationship": "Kollege",
+    "imagePath": "img/testimonials/FalkKoenig.jpg",
+    "date": "2020-09-25",
+    "language": "en-US" 
+  },
+  {
+    "id": "8",
+    "link": "",
+    "blurp": "So eine Kündigung trifft einen hart. Denke, wir verlieren dadurch einen sehr sympathischen und vertrauensvollen Kollegen. Deine Hilfe wird jetzt definitiv fehlen, aber du bist ein super Typ und wirst bestimmt etwas anderes und vor allem besseres finden.",
+    "recommender": "Falk König",
+    "recommenderJob": "Mitarbeiter Logis GmbH",
+    "recommenderLocation": "Andernach, Germany",
+    "relationship": "Kollege",
+    "imagePath": "img/testimonials/FalkKoenig.jpg",
+    "date": "2020-09-25",
+    "language": "de-DE" 
+  }
+]

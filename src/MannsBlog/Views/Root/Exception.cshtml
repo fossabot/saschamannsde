@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
+    ViewBag.PageImage = "/img/headers/cats.jpg";
+    ViewBag.ControllerName = "Root";
+}
+<h3>@_localizer["exception-message"]</h3>

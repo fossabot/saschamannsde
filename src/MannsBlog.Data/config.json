@@ -1,0 +1,6 @@
+﻿{
+  "MannsDb": {
+    "OldConnectionString": "Server=CONNECTION STRING",
+    "ConnectionString": "Server=CONNECTION STRING"
+  }
+}

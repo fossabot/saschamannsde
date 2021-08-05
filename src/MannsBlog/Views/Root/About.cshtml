@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@*@inject MannsBlog.Services.DataProviders.CalendarProvider appearances*@
+@inject MannsBlog.Services.DataProviders.PublicationsProvider _pubs
+@inject IViewLocalizer _localizer
+
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
+    ViewBag.PageImage = "/img/headers/code2.jpg";
+}
+@section scripts {
+    <script src="~/lib/lodash/lodash.js"></script>
+
+}
+<div class="row">
+    <div class="col-lg-3 hidden-sm-down">
+        <img src="~/Sascha1.jpg" class="img-fluid img-rounded" alt="Sascha Manns" />
+    </div>
+    <div class="col-lg-9 col-sm-12 col-xs-12">
+        <h3>Bio</h3>
+        <p>@_localizer["bio"]</p>
+        <p>@_localizer["bio1"]</p>
+        <p>@_localizer["bio2"]</p>
+        <p>@_localizer["bio3"]</p>
+        <h4>@_localizer["connect"]</h4>
+        <ul class="list-unstyled">
+            <li><a href="https://twitter.com/saigkill" target="_blank"><i class="fab fa-twitter-square"></i> Twitter</a></li>
+            <li><a href="https://www.facebook.com/sascha.manns" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+            <li><a href="https://instagram.com/sascha.manns" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/saigkill/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="https://www.amazon.de/-/e/B07J3CPKR1" target="_blank"><i class="fab fa-amazon"></i> @_localizer["amazon-page"]</a></li>
+            <li><a href="skype:schurik0815"><i class="fab fa-skype"></i> Skype</a></li>
+            <li><a href="https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv" target="_blank"><i class="fab fa-xing-square"></i> XING</a></li>
+            <li><a href="https://www.last.fm/user/illuminatus1979" target="_blank"><i class="fab fa-lastfm-square"></i> Last.fm</a></li>
+            <li><a href="https://dev.to/saigkill" title="Dev.to Community"><i class="fab fa-dev"></i> Dev.to</a></li>
+        </ul>
+        <h4>@_localizer["coding-activity"]</h4>
+        <ul class="list-unstyled">
+            <li><img src="~/img/social/openhub.png" alt="" class="alignnone size-medium wp-image-86" width="20" height="20"><a href="https://openhub.net/accounts/saigkill" target="_blank"> OpenHub</a></li>
+            <li><img src="~/img/social/codestats.png" alt="" class="alignnone size-medium wp-image-86" width="20" height="20" /><a href="https://codestats.net/users/saigkill" target="_blank"> Codestats</a></li>
+            <li><img src="~/img/social/codeproject.png" class="alignnone size-medium wp-image-86" width="20" height="20" /><a href="https://www.codeproject.com/Members/SaschaManns" target="_blank"> Codeproject</a></li>
+            <li><a href="https://rubygems.org/profiles/saigkill" target="_blank"><i class="far fa-gem"></i> Rubygems</a></li>
+            <li><a href="https://github.com/saigkill" target="_blank"><i class="fab fa-github-square"></i> GitHub</a></li>
+            <li><a href="https://stackoverflow.com/users/7404985/sascha-manns" target="_blank"><i class="fab fa-stack-overflow"></i> Stack Overflow</a></li>
+        </ul>
+        <h4>@_localizer["supporter"]</h4>
+        <div id="besupporter">
+            <ul class="list-unstyled">
+                <li><a target="_blank" href="https://www.buymeacoffee.com/PE0y8DF"><img src="~/img/misc/buymeacoffee.jpg" alt="Buy me a coffee" width="12%"></a></li>
+                <li><a href="https://www.amazon.de/registry/wishlist/D75HOEQ00BDD"><img src="~/img/misc/amazon.svg" width="12%" style="margin-top: 10px" /></a></li>
+                <li><a href="https://paypal.me/SaschaManns" target="_blank"><img src="~/img/misc/paypal_donate.svg" width="12%" style="margin-right: 5px; margin-top: 10px" /></a></li>
+                <li><a href="https://www.patreon.com/saigkill"><img src="~/img/misc/patreon.svg" width="12%" style="margin-top: 10px" /></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-6">
+        <h4>@_localizer["publications"]</h4>
+        <div class="card">
+
+            @foreach (var pub in _pubs.Get())
+            {
+                <div class="card-header">
+                    <h4 class="card-subtitle"><a href="@pub.Link" target="_blank">@pub.Title</a></h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-text"><small>@pub.Comments</small></div>
+                    <div class="card-text"><small>@pub.PublicationName - @pub.Publisher</small></div>
+                    @if (!string.IsNullOrWhiteSpace(pub.Identifier))
+                    {
+                        <div class="muted"><small>@pub.Identifier, @_localizer["publisher-published"]: <time datetime="@pub.DatePublished">@pub.DatePublished</time></small></div>
+                    }
+                    else
+                    {
+                        <div class="muted"><small>@_localizer["publisher-published"]: @pub.DatePublished</small></div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <h4>@_localizer["opensource"]</h4>
+        <div class="card" id="openSourceList">
+
+        </div>
+    </div>
+</div>
