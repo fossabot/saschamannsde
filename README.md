@@ -2,7 +2,7 @@
 
 Project Status:
 
-Prod: [![Build Status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/saschamannsde-Azure%20Web%20App%20for%20ASP.NET-CI?branchName=master&jobName=Build%2C%20Test%20and%20Deploy%20Productive)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=24&branchName=master)
+Prod: [![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/Production)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=26)
 
 Dev: [![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/saschamannsde-Azure%20Web%20App%20for%20ASP.NET-CI%20Development)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=25)
 

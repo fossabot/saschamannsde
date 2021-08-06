@@ -8,8 +8,17 @@
 
     var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF";
     var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
-    var host = "https://saschamanns.de";
-    //var host = "localhost:8099";
+    bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+    var host = String.Empty;
+    if (isDevelopment)
+    {
+        host = "localhost:8099";
+    }
+    else
+    {
+        host = "https://saschamanns.de";
+    }
+
     var culture = CultureInfo.CurrentCulture.Name;
     var typittarget = String.Empty;
     if (culture == "de-DE")

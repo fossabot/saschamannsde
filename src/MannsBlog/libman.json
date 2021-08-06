@@ -73,6 +73,11 @@
     },
     {
       "provider": "unpkg",
+      "library": "normalize-url@4.5.1",
+      "destination": "wwwroot/lib/normalize-url"
+    },
+    {
+      "provider": "unpkg",
       "library": "popper@1.0.1",
       "destination": "wwwroot/lib/popper/"
     },
