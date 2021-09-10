@@ -2,9 +2,11 @@
 
 Project Status:
 
-Prod: [![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/Production)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=26)
+[![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/Production)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=26) (Prod)
 
-Dev: [![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/saschamannsde-Azure%20Web%20App%20for%20ASP.NET-CI%20Development)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=25)
+[![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/saschamannsde-Azure%20Web%20App%20for%20ASP.NET-CI%20Development)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=25) (Dev)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_saschamannsde2&metric=alert_status)](https://sonarcloud.io/dashboard?id=saigkill_saschamannsde2)
 
 I re-wrote my blog using a new stack of web technologies including:
 

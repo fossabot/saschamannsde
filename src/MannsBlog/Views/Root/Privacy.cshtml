@@ -1,4 +1,20 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@*
+Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
     ViewBag.Title = _localizer["viewbag-title"];
@@ -34,7 +50,6 @@
 <p>Sascha Manns<br>Kelbergerstraße 18<br>56727 Mayen</p>
 <p><strong>@_localizer["responsible-person"]:</strong> Sascha Manns</p>
 <p><strong>@_localizer["responsible-email"]:</strong> <a href="mailto:Sascha.Manns@outlook.de">Sascha.Manns@outlook.de</a></p>
-<p><strong>@_localizer["responsible-phone"]:</strong> +49-172-3142738</p>
 <p><strong>@_localizer["responsible-imprint"]:</strong> <a href="https://saschamanns.de/imprint" target="_blank">https://saschamanns.de/imprint</a></p>
 <br />
 <h2 id="mOverview">@_localizer["toc-processing"]</h2>

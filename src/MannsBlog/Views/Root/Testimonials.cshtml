@@ -1,4 +1,20 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@*
+Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
     ViewBag.Title = _localizer["viewbag-title"];
@@ -9,25 +25,25 @@
 @inject IConfiguration _config
 @inject MannsBlog.Services.DataProviders.TestimonialsProvider _tests
 @section styles {
-    <environment names="Development">
+    <environment include="Development">
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.default.css" />
         <link rel="stylesheet" href="~/css/Testimonials.css" />
     </environment>
-    <environment names="Production,Staging">
+    <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.css" />
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.css" />
-        <link rel="stylesheet" href="~/css/Testimonials.css" />
+        <link rel="stylesheet" href="~/css/Testimonials.min.css" />
     </environment>
 }
 @section scripts {
-    <environment names="Development">
+    <environment include="Development">
         <script src="~/lib/owl.carousel/dist/owl.carousel.js"></script>
         <script src="~/js/Testimonials.js"></script>
     </environment>
-    <environment names="Production,Staging">
+    <environment exclude="Production,Staging">
         <script src="~/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-        <script src="~/js/Testimonials.js"></script>
+        <script src="~/js/Testimonials.min.js"></script>
     </environment>
 
 }

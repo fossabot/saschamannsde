@@ -1,20 +1,27 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@*
+Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
 @using System.Globalization
 @inject IViewLocalizer _localizer
 @inject Microsoft.Extensions.Configuration.IConfiguration _config
 @{
     var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript";
     var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
-    bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-    var host = String.Empty;
-    if (isDevelopment)
-    {
-        host = "localhost:8099";
-    }
-    else
-    {
-        host = "https://saschamanns.de";
-    }
+    
     var culture = CultureInfo.CurrentCulture.Name;
     var typittarget = String.Empty;
     typittarget = culture == "de-DE" ? "typeit-de.js" : "typeit.js";
@@ -62,30 +69,30 @@
     <meta name="DC.Format" scheme="IMT" content="text/html" />
     <meta name="DC.Format.MIME" content="text/html" />
     <meta name="DC.Format.SysReq" content="Internet browser" />
-    <meta name="DC.Source" content="@host">
+    <meta name="DC.Source" content="https://saschamanns.de">
     <meta name="DC.Coverage" content="World">
-    <meta name="DC.Identifier" content="@host" />
+    <meta name="DC.Identifier" content="https://saschamanns.de" />
     <meta name="DC.Subject" content="Allgemein" />
     <meta name="DC.Subject.Keyword" content="@keywords" />
 
     <!-- for Facebook -->
     <meta property="og:title" content="@ViewBag.Title" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="@host/img/me/Sascha.jpg" />
+    <meta property="og:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
     <meta property="og:description" content="@ViewBag.Title" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="og:determiner" content="auto" />
     <meta property="og:locale" content="de-DE" />
-    <meta property="og:url" content="@host" />
+    <meta property="og:url" content="https://saschamanns.de" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="fb:app_id" content="225909907991067" />
-    <meta property="og:website" content="@host" />
+    <meta property="og:website" content="https://saschamanns.de" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@ViewBag.Title" />
     <meta name="twitter:description" content="@ViewBag.Title" />
-    <meta name="twitter:image" content="@host/img/me/Sascha.jpg" />
+    <meta name="twitter:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
     <meta name='twitter:site' content='@@saigkill' />
     <meta name='twitter:creator' content='@@saigkill' />
 
@@ -112,7 +119,7 @@
 
     <title>@ViewBag.Title</title>
 
-    <environment names="Production,Staging">
+    <environment exlude="Development">
         <link rel="stylesheet" href="~/css/fonts.min.css" />
         <link rel="stylesheet" href="~/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css" />
@@ -124,7 +131,7 @@
         <link rel="stylesheet" href="~/css/style-cv.min.css" />
     </environment>
 
-    <environment names="Development">
+    <environment include="Development">
         <link rel="stylesheet" href="~/css/fonts.css" />
         <link rel="stylesheet" href="~/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css" />
@@ -135,9 +142,6 @@
         <link rel="stylesheet" href="~/lib/animsition/dist/css/animsition.min.css"/>
         <link rel="stylesheet" href="~/css/style-cv.css" />
     </environment>
-
-
-
 
     @RenderSection("Styles", required: false)
 
@@ -264,7 +268,7 @@
         </div>
     </footer>
 
-    <environment names="Development">
+    <environment include="Development">
         <script src="~/js/jquery-1.12.4.min.js"></script>
         <script src="~/js/popper.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
@@ -284,12 +288,11 @@
             <script>
                 GitHubCalendar(".calendar", "saigkill", { responsive: true });
             </script>*@
-        <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
 
-    <environment names="Production,Staging">
+    <environment exclude="Development">
         <script src="~/js/jquery-1.12.4.min.js"></script>
         <script src="~/js/popper.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>

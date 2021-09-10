@@ -1,4 +1,20 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@*
+Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
     ViewBag.Title = _localizer["viewbag-title"];
@@ -15,7 +31,6 @@
 <p>Deutschland</p>
 <h2 id="m56">@_localizer["contact"]</h2>
 <p><strong>@_localizer["email"]:</strong> <a href="mailto:Sascha.Manns@outlook.de">Sascha.Manns@outlook.de</a></p>
-<p><strong>@_localizer["telefon"]:</strong> +49-172-3142738</p>
 <p><strong>@_localizer["contact-form"]:</strong> <a href="https://saschamanns.de/contact" target="_blank">https://saschamanns.de/contact</a></p>
 <h2 id="m154">@_localizer["journalistic"]</h2><p><strong>@_localizer["responsibility"]:</strong> Sascha Manns (@_localizer["adress"])</p>
 <h2 id="m172">@_localizer["socialmedia"]</h2><p><strong>@_localizer["other"]:</strong> </p>

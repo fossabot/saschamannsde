@@ -2,7 +2,7 @@
 
 body {
     font-size: 22px;
-    font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI Light', 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 p {
   font-size: 1.1rem;
@@ -23,6 +23,7 @@ img.pull-right {
 }
 .navbar .navbar-brand {
   color: #eee;
+  padding-left: 1em;
 }
 .show > .nav-pills .nav-link:not(.active) {
   background-color: transparent;
@@ -288,8 +289,7 @@ a img:focus {
   border-color: #003772;
 }
 .navbar {
-    font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 100;
+    font-family: 'Segoe UI Light', 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 100;
 }
 .navbar .navbar-toggler {
   color: #fff;
@@ -300,8 +300,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 400;
-  font-family:'Isonorm Pro';
+    font-weight: 400;
+    font-family: 'Segoe UI Light', 'Isonorm Pro';
 }
 hr.tiny-hr {
   padding: 0;

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "outputFileName": "wwwroot/css/buymeacoffee.min.css",
     "inputFiles": [
@@ -48,9 +48,9 @@
     ]
   },
   {
-    "outputFileName": "wwwrun/js/contact.min.js",
+    "outputFileName": "wwwroot/js/contact.min.js",
     "inputFiles": [
-      "wwwrun/js/contact.js"
+      "wwwroot/js/contact.js"
     ]
   },
   {
@@ -117,6 +117,12 @@
     "outputFileName": "wwwroot/js/talk-de.min.js",
     "inputFiles": [
       "wwwroot/js/talk-de.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/app/js/contact.min.js",
+    "inputFiles": [
+      "wwwroot/app/js/contact.js"
     ]
   }
 ]

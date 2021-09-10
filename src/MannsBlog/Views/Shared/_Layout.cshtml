@@ -1,4 +1,20 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@*
+    Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@using Microsoft.AspNetCore.Mvc.Localization
 @using System.Globalization
 @inject IViewLocalizer _localizer
 @inject Microsoft.Extensions.Configuration.IConfiguration _config
@@ -8,27 +24,23 @@
 
     var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF";
     var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
-    bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-    var host = String.Empty;
-    if (isDevelopment)
-    {
-        host = "localhost:8099";
-    }
-    else
-    {
-        host = "https://saschamanns.de";
-    }
 
     var culture = CultureInfo.CurrentCulture.Name;
     var typittarget = String.Empty;
+
     if (culture == "de-DE")
     {
-        typittarget = "typeit-de.js";
+        typittarget = "typeit-de";
     }
     else
     {
-        typittarget = "typeit.js";
+        typittarget = "typeit";
     }
+
+    var typeittargetdev = typittarget + ".js";
+    var typeittargetprod = typittarget + ".min.js";
+
+
 }
 <!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
@@ -39,8 +51,8 @@
 <!--<![endif]-->
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" @("content")="IE=edge">
-    <meta name="viewport" @("content")="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta itemprop="publisher" name='article:publisher' content='https://facebook.com/sascha.manns' />
     <meta itemprop="description" name='description' content='@description' />
     <meta itemprop="keywords" name='keywords' content='@keywords' />
@@ -57,8 +69,8 @@
     <meta name="revisit-after" content="1 days" />
     <meta name="MSSmartTagsPreventParsing" content="True" />
 
-    <meta @("content")="@keywords" name="KEYWORDS" />
-    <meta id="DescriptionMetaTag" @("content")="@description" name="DESCRIPTION" />
+    <meta content="@keywords" name="KEYWORDS" />
+    <meta id="DescriptionMetaTag" content="@description" name="DESCRIPTION" />
 
     <!-- Site Verification Services (Google, Yandex, Bing-->
     <meta name='yandex-verification' content='dd2b44d7943d61b8' />
@@ -74,31 +86,31 @@
     <meta name="DC.Format" scheme="IMT" content="text/html" />
     <meta name="DC.Format.MIME" content="text/html" />
     <meta name="DC.Format.SysReq" content="Internet browser" />
-    <meta name="DC.Source" content="@host">
+    <meta name="DC.Source" content="https://saschamanns.de">
     <meta name="DC.Coverage" content="World">
-    <meta name="DC.Identifier" content="@host" />
+    <meta name="DC.Identifier" content="https://saschamanns.de" />
     <meta name="DC.Subject" content="Allgemein" />
     <meta name="DC.Subject.Keyword" content="@keywords" />
 
     <!-- for Facebook -->
-    <meta property="og:title" @("content")="Sascha Manns's Twilight Zone" />
-    <meta property="og:type" @("content")="article" />
-    <meta property="og:image" content="@host/img/me/Sascha.jpg" />
-    <meta property="og:description" @("content")="@description" />
+    <meta property="og:title" content="Sascha Manns's Twilight Zone" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
+    <meta property="og:description" content="@description" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="og:determiner" content="auto" />
     <meta property="og:locale" content="de-DE" />
-    <meta property="og:url" content="@host" />
+    <meta property="og:url" content="https://saschamanns.de" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="fb:app_id" content="225909907991067" />
-    <meta property="og:website" content="@host" />
+    <meta property="og:website" content="https://saschamanns.de" />
 
     <!-- for Twitter -->
-    <meta name="twitter:card" @("content")="summary" />
-    <meta name="twitter:title" @("content")="@ViewBag.Title" />
-    <meta name="twitter:description" @("content")="@description" />
-    <meta name="twitter:image" @("content")="@host/img/me/Sascha.jpg" />
-    <meta name="twitter:creator" @("content")="@("@saigkill") " />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    <meta name="twitter:description" content="@description" />
+    <meta name="twitter:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
+    <meta name="twitter:creator" content="@("@saigkill") " />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/favicon.ico">
@@ -111,7 +123,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -119,7 +131,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://feeds.feedburner.com/saigkills-backtrace" />
+    <link rel="alternate" type="application/rss+xml" title="RSS All (en)" href="https://feeds.feedburner.com/saigkills-backtrace" />
+    <link rel="alternate" type="application/rss+xml" title="RSS All (de)" href="http://feeds.feedburner.com/SaschaMannssTwilightZoneDE" />
 
     <title>@ViewBag.Title</title>
 
@@ -134,8 +147,8 @@
         <link href="~/lib/cookieconsent/build/cookieconsent.min.css" rel="stylesheet" />
         <link href="~/lib/highlight.js/styles/default.css" rel="stylesheet" />
         @RenderSection("Styles", required: false)
-        <link href="~/css/fonts.css"/>
-        <link href="~/css/site.css" rel="stylesheet"  />
+        <link href="~/css/fonts.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -149,7 +162,7 @@
         <link href="~/lib/highlight.js/styles/default.css" rel="stylesheet" />
         @RenderSection("Styles", required: false)
         <link href="~/css/fonts.min.css" rel="stylesheet" />
-        <link href="~/css/site.min.css" rel="stylesheet"  />
+        <link href="~/css/site.min.css" rel="stylesheet" />
     </environment>
 
 
@@ -220,124 +233,125 @@
     </div>
     <hr>
     <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-xs-12 text-center">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a rel="me" href="https://mastodon.social/@@saigkill" title="Mastodon">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-mastodon fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/sascha.manns" title="Facebook">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/saigkill" title="Twitter">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://instagram.com/sascha.manns" title="Instagram">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.linkedin.com/in/saigkill/" title="LinkedIn">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv" title="XING">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://github.com/saigkill" title="GitHub">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://stackoverflow.com/users/7404985/sascha-manns" title="Stack Overflow">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://dev.to/saigkill" title="Dev.to Community">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-dev fa-stack-1x fa-inverse" title="saigkill's DEV Profile"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.amazon.de/-/e/B07J3CPKR1" title="Amazon Author Page">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-amazon fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://steamcommunity.com/id/saigkill/" title="Steam">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-steam fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.last.fm/user/illuminatus1979" title="Last.fm">
-                            <span class="fa-stack fa-lg fa-hover-spin">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-lastfm-square fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-                <p itemprop="copyrightHolder" class="copyright text-muted">Copyright &copy; Sascha Manns 2017-@DateTime.UtcNow.Year</p>
-                <div>
-                    @await Html.PartialAsync("_SelectedLanguagePartial")
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-xs-12 text-center">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a rel="me" href="https://mastodon.social/@@saigkill" title="Mastodon">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-mastodon fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/sascha.manns" title="Facebook">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/saigkill" title="Twitter">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://instagram.com/sascha.manns" title="Instagram">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/saigkill/" title="LinkedIn">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv" title="XING">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com/saigkill" title="GitHub">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://stackoverflow.com/users/7404985/sascha-manns" title="Stack Overflow">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://dev.to/saigkill" title="Dev.to Community">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-dev fa-stack-1x fa-inverse" title="saigkill's DEV Profile"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.amazon.de/-/e/B07J3CPKR1" title="Amazon Author Page">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-amazon fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://steamcommunity.com/id/saigkill/" title="Steam">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-steam fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.last.fm/user/illuminatus1979" title="Last.fm">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-lastfm-square fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p itemprop="copyrightHolder" class="copyright text-muted">Copyright &copy; Sascha Manns 2017-@DateTime.UtcNow.Year</p>
+                    <div>
+                        @await Html.PartialAsync("_SelectedLanguagePartial")
+                    </div>
+                    <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
+                    <p class="copyright text-primary">
+                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 5</a>, <a href="https://vuejs.org" target="_blank">Vue 3</a>, <a href="https://github.com/aspnet/EntityFramework/wiki/Roadmap" target="_blank">Entity Framework Core 5</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://v4-alpha.getbootstrap.com/" target="_blank">Bootstrap 4</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.<br /> <a class="btn" href="https://dev.azure.com/saigkill/saschamannsde" target="_blank">@_localizer["sourcecode"]</a> <br />
+                    </p>
                 </div>
-                <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
-                <p class="copyright text-primary">
-                    @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 5</a>, <a href="https://vuejs.org" target="_blank">Vue 3</a>, <a href="https://github.com/aspnet/EntityFramework/wiki/Roadmap" target="_blank">Entity Framework Core 5</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://v4-alpha.getbootstrap.com/" target="_blank">Bootstrap 4</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.<br /> <a class="btn" href="https://dev.azure.com/saigkill/saschamannsde" target="_blank">@_localizer["sourcecode"]</a> <br />
-                </p>
-
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+    <partial name="_Info" />
 
 
-    <environment names="Development">
+    <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/tether/dist/js/tether.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
@@ -347,21 +361,21 @@
         <script src="~/js/clean-blog.js"></script>
         <script src="~/js/about.js"></script>
         <script src="~/js/audio.js"></script>
-        <script src="~/js/@typittarget"></script>
+        <script src="~/js/@typeittargetdev"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-    <environment names="Production,Staging">
+    <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/tether/dist/js/tether.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/lib/typeit/typeit.min.js"></script>
         <script src="~/lib/vanilla-lazyload/dist/lazyload.min.js"></script>
         <script src="~/lib/highlightjs/cdn-assets/highlight.min.js"></script>
-        <script src="~/js/clean-blog.js"></script>
-        <script src="~/js/about.js"></script>
-        <script src="~/js/audio.js"></script>
-        <script src="~/js/@typittarget"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/clean-blog.min.js"></script>
+        <script src="~/js/about.min.js"></script>
+        <script src="~/js/audio.min.js"></script>
+        <script src="~/js/@typeittargetprod"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
 
         <!-- Clarity -->
         <script type="text/javascript">
@@ -382,9 +396,9 @@
             pageTracker._initData();
             pageTracker._trackPageview();
         </script>
+        <script id="dsq-count-scr" src="//@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>
+        <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
     </environment>
-    <script id="dsq-count-scr" src="//@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>
-    <script src="~/lib/cookieconsent/cookieconsent.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

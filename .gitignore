@@ -223,6 +223,7 @@ bower_components/
 node_modules/
 **/wwwroot/img/media/
 **/wwwroot/vendor/
+**/wwwroot/bundles/
 **/wwwroot/fonts/TTF/seg*
 **/wwwroot/fonts/TTF/Isonorm-Pro.ttf
 **/wwwroot/fonts/WOFF/arezzo-pro-cd-light-webfont.woff
@@ -240,6 +241,5 @@ typings
 /src/.idea/.idea.MannsBlog
 /src/test.json
 *.booboo
-**/wwwroot/css/MannsBlog.min.css
 **/wwwroot/lib/
 /src/MannsBlog/config.Production.json
