@@ -38,6 +38,8 @@ using MannsBlog.Services;
 using MannsBlog.Services.DataProviders;
 using WilderMinds.AzureImageStorageService;
 using WilderMinds.MetaWeblog;
+using MannsBlog.Models;
+
 
 namespace MannsBlog
 {
@@ -55,6 +57,22 @@ namespace MannsBlog
         public void ConfigureServices(IServiceCollection svcs)
         {
             svcs.Configure<AppSettings>(_config);
+
+            EmailServerConfiguration config = new EmailServerConfiguration
+            {
+                SmtpPassword = _config.GetValue<string>("MailService:Password"),
+                SmtpServer = _config.GetValue<string>("MailService:Server"),
+                SmtpUsername = _config.GetValue<string>("MailService:User")
+            };
+
+            EmailAddress FromEmailAddress = new EmailAddress
+            {
+                Address = _config.GetValue<string>("MailService:User"),
+                Name = _config.GetValue<string>("MailService:ToName")
+            };
+
+            svcs.AddSingleton<EmailServerConfiguration>(config);            
+            svcs.AddSingleton<EmailAddress>(FromEmailAddress);            
 
             if (_env.IsDevelopment() && _config.GetValue<bool>("MailService:TestInDev") == false)
             {

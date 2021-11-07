@@ -1,18 +1,4 @@
-﻿// Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -21,19 +7,19 @@ using Microsoft.Extensions.Logging;
 
 namespace MannsBlog.Services
 {
-  public class LoggingMailService : IMailService
-  {
-    private readonly ILogger<LoggingMailService> _logger;
-
-    public LoggingMailService(ILogger<LoggingMailService> logger)
+    public class LoggingMailService : IMailService
     {
-      _logger = logger;
-    }
+        private readonly ILogger<LoggingMailService> _logger;
 
-    public Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg)
-    {
-      _logger.LogDebug($"Email Requested from {name} subject of {subject}");
-      return Task.FromResult(true);
+        public LoggingMailService(ILogger<LoggingMailService> logger)
+        {
+            _logger = logger;
+        }
+
+        public Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg)
+        {
+            _logger.LogDebug($"Email Requested from {name} subject of {subject}");
+            return Task.FromResult(true);
+        }
     }
-  }
 }

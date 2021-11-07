@@ -118,11 +118,5 @@
     "inputFiles": [
       "wwwroot/js/talk-de.js"
     ]
-  },
-  {
-    "outputFileName": "wwwroot/app/js/contact.min.js",
-    "inputFiles": [
-      "wwwroot/app/js/contact.js"
-    ]
   }
 ]

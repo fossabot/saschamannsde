@@ -13,9 +13,11 @@
     "BlogName": "saigkillsbacktrace"
   },
   "MailService": {
-    "ApiKey": "FOOBAR",
-    "ApiUser": "FOOBAR",
-    "Receiver": "EMAILADDRESS",
+    "User": "Sascha.Manns@outlook.de",
+    "Password": "s4ckenhe1M!",
+    "Server": "smtp.office365.com",
+    "Port": "587",
+    "ToName": "Sascha Manns",
     "TestInDev": false
   },
   "MetaWeblog": {

@@ -1,18 +1,18 @@
 ﻿@*
-Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+    Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
 @{
     ViewBag.Title = _localizer["viewbag-title"];
@@ -21,25 +21,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ViewBag.PageImage = "/img/headers/code2.jpg";
 }
 @using Microsoft.AspNetCore.Mvc.Localization
+@using MannsBlog.Models
+
 @inject IConfiguration _config
 @inject IViewLocalizer _localizer
+
+@model ContactFormModel
 @section styles {
 }
 @section Scripts {
-    <script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
-    <script>
-        window.captchaId = '@_config["Google:CaptchaSiteId"]';
-    </script>
-    <environment include="Development">
-        <script src="~/js/recaptcha.js"></script>
-        <script src="~/app/js/chunk-vendors.js"></script>
-        <script src="~/app/js/contact.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/recaptcha.min.js"></script>
-        <script src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>
-        <script src="~/app/js/contact.min.js" asp-append-version="true"></script>
-    </environment>
+<script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
+<script>
+    window.captchaId = '@_config["Google:CaptchaSiteId"]';
+</script>
+<script>
+   function onSubmit(token) {
+     document.getElementById("contact").submit();
+   }
+ </script>
+<environment include="Development">
+    <script src="~/js/recaptcha.js"></script>
+    <script src="~/app/js/chunk-vendors.js"></script>    
+</environment>
+<environment exclude="Development">
+    <script src="~/js/recaptcha.min.js"></script>
+    <script src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>    
+</environment>
 }
-<div id="contact"></div>
+<div id="contact">
+    <h3>Contact Form</h3>
+    <form asp-action="Contact" asp-controller="Root" method="post">
+        <div>
+            <label asp-for="Name">Please enter your name:</label>
+            <input type="text" asp-for="Name" />
+        </div>
+        <div>
+            <label asp-for="Email">Please enter your email:</label>
+            <input type="text" asp-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Subject">Please enter a subject:</label>
+            <textarea asp-for="Subject"></textarea>
+        </div>
+        <div>
+            <label asp-for="Message">Please enter your message:</label>
+            <textarea asp-for="Message"></textarea>
+        </div>
+        <input type="submit" value="Send Message!" />
+        @*<button class="g-recaptcha" 
+        data-sitekey=@_config["Google:CaptchaSiteId"]
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>*@
+    </form>
+</div>
 <hr />

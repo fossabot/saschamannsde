@@ -144,6 +144,11 @@
       "provider": "unpkg",
       "library": "@highlightjs/cdn-assets@11.1.0",
       "destination": "wwwroot/lib/highlightjs/cdn-assets/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "autoprefixer@10.4.0",
+      "destination": "wwwroot/lib/autoprefixer/"
     }
   ]
 }

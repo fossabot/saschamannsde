@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </form>
     </div>
 </div>
-@if (Model.Stories != null)
+@if (Model.Stories != null && Model.Stories.Count() > 0)
 {
     <div class="row">
         <div class="col-lg-12">
@@ -53,4 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <partial name="_Pager" />
         </div>
     </div>
+}
+else
+{
+    <div>No Sories found ...</div>
 }

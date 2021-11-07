@@ -12,16 +12,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
+using MannsBlog.Data;
+using MannsBlog.Models;
+using MannsBlog.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -30,11 +24,12 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using MannsBlog.Data;
-using MannsBlog.Models;
-using MannsBlog.Services;
+using System;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using WilderMinds.RssSyndication;
 
 namespace MannsBlog.Controllers.Web
@@ -135,7 +130,7 @@ namespace MannsBlog.Controllers.Web
 
         [HttpPost("contact")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact([FromBody] ContactModel model)
+        public async Task<IActionResult> Contact([FromBody] ContactFormModel model)
         {
             try
             {
@@ -149,7 +144,7 @@ namespace MannsBlog.Controllers.Web
 
                     // Captcha
                     if (!(await _captcha.Verify(model.Recaptcha))) return BadRequest("Failed to send email: You might be a bot...try again later.");
-                    if (await _mailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Msg))
+                    if (await _mailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Message))
                     {
                         return Ok(new { Success = true, Message = "Message Sent" });
                     }
@@ -166,7 +161,7 @@ namespace MannsBlog.Controllers.Web
         }
 
         // Brute Force getting rid of my worst emails
-        private SpamState VerifyNoSpam(ContactModel model)
+        private SpamState VerifyNoSpam(ContactFormModel model)
         {
             var tests = new string[]
             {
@@ -183,7 +178,7 @@ namespace MannsBlog.Controllers.Web
 
             if (tests.Any(t =>
             {
-                return new Regex(t, RegexOptions.IgnoreCase).Match(model.Msg).Success;
+                return new Regex(t, RegexOptions.IgnoreCase).Match(model.Message).Success;
             }))
             {
                 return new SpamState() { Reason = "Spam Email Detected. Sorry." };
@@ -196,6 +191,12 @@ namespace MannsBlog.Controllers.Web
         {
             return Redirect("http://feeds.feedburner.com/saigkills-backtrace");
         }
+
+        //[HttpGet("download")]
+        //public IActionResult Download()
+        //{
+        //    return Redirect("")
+        //}
 
         [HttpGet("Error/{code:int}")]
         public IActionResult Error(int errorCode)
@@ -241,7 +242,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - English Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/feed"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -291,7 +292,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - German Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/feed-de"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -340,7 +341,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - German Opensource Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/opensource-de"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -391,7 +392,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - English Opensource Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/opensource"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -442,7 +443,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - Linux Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/linux"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -493,7 +494,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - Windows Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/windows"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>
@@ -544,7 +545,7 @@ namespace MannsBlog.Controllers.Web
                 Title = "Sascha Manns's Twilight Zone - Dotnetcore Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
                 Link = new Uri("https://saschamanns.de/dotnetcore"),
-                Copyright = "©"+ " " + MyYear + " " + " Sascha Manns"
+                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
             };
 
             var license = @"<div>

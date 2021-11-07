@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @{
     ViewBag.Title = $"{Model.Title} - Sascha Manns";
     ViewBag.PageImage = "/img/headers/code2.jpg";
+    if (!string.IsNullOrWhiteSpace(Model.FeatureImageUrl))
+    {
+        ViewBag.HeaderImage = $"{Model.FeatureImageUrl}";
+    }
     var pubDate = Model.DatePublished.AddHours(-4).ToString("MMM dd, yyyy");
     var wordCount = @Model.Body; // Get all content of the story
     var counts = wordCount.Count(ch => ch == ' ') + 1;

@@ -16,36 +16,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using MannsBlog.Models;
 
 namespace MannsBlog.Services
 {
-  public class EmailExceptionMiddleware
-  {
-    private readonly RequestDelegate _next;
-    private readonly IMailService _mailService;
-
-    public EmailExceptionMiddleware(RequestDelegate next, IMailService mailService)
+    public class EmailExceptionMiddleware
     {
-      _next = next;
-      _mailService = mailService;
+        private readonly RequestDelegate _next;
+        private readonly IMailService _mailService;
+        private readonly IHostEnvironment _env;
+        private ILogger<EmailExceptionMiddleware> _logger;        
+
+        public EmailExceptionMiddleware(RequestDelegate next, IMailService mailService, IHostEnvironment env, ILogger<EmailExceptionMiddleware> logger)
+        {
+            _next = next;
+            _mailService = mailService;
+            _env = env;
+            _logger = logger;            
+        }
+
+        public async Task Invoke(HttpContext context)
+        {
+            try
+            {
+                await _next.Invoke(context);
+            }
+            catch (Exception ex)
+            {
+                await _mailService.SendMailAsync("exceptionMessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Exception]", ex.ToString());
+
+                // Don't swallow the exception
+                throw;
+            }
+
+        }
     }
-
-    public async Task Invoke(HttpContext context)
-    {
-      try
-      {
-        await _next.Invoke(context);
-      }
-      catch (Exception ex)
-      {
-        await _mailService.SendMailAsync("exceptionmessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Exception]", ex.ToString());
-
-        // Don't swallow the exception
-        throw;
-      }
-
-    }
-  }
 }
