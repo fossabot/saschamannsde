@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -46,18 +47,21 @@ namespace MannsBlog.Controllers.Web
         private IMemoryCache _memoryCache;
         private ILogger<RootController> _logger;
         private readonly GoogleCaptchaService _captcha;
+        private IConfiguration _config;
 
         public RootController(IMailService mailService,
                               IMannsRepository repo,
                               IMemoryCache memoryCache,
                               ILogger<RootController> logger,
-                              GoogleCaptchaService captcha)
+                              GoogleCaptchaService captcha,
+                              IConfiguration config)
         {
             _mailService = mailService;
             _repo = repo;
             _memoryCache = memoryCache;
             _logger = logger;
             _captcha = captcha;
+            _config = config;
         }
 
         [HttpGet("")]
@@ -129,35 +133,41 @@ namespace MannsBlog.Controllers.Web
         }
 
         [HttpPost("contact")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact([FromBody] ContactFormModel model)
+        public async Task<IActionResult> SendMessage([FromBody] ContactFormModel form)
         {
-            try
+            if (form == null) return BadRequest("Form wasn't filled.");
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    var spamState = VerifyNoSpam(model);
+                    var spamState = VerifyNoSpam(form);
                     if (!spamState.Success)
                     {
                         return BadRequest(new { Reason = spamState.Reason });
                     }
 
-                    // Captcha
-                    if (!(await _captcha.Verify(model.Recaptcha))) return BadRequest("Failed to send email: You might be a bot...try again later.");
-                    if (await _mailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Message))
+                    if (!(await _captcha.Verify(form.Recaptcha)))
                     {
-                        return Ok(new { Success = true, Message = "Message Sent" });
+                        throw new Exception(
+                            "The submission failed the spam bot verification. If you have JavaScript disabled in your browser, please enable it and try again.");
+                    }
+                    else
+                    {
+                        await _mailService.SendMailAsync("ContactTemplate.txt", form.Name, form.Email, form.Subject,
+                            form.Message);
                     }
 
+                    return Json(new { success = true, message = "Your message was successfully sent" });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message });
                 }
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError("Failed to send email from contact page", ex);
-                return BadRequest(new { Reason = "Error Occurred" });
+                return BadRequest("The form contains corrupted data... Please retry.");
             }
-
-            return BadRequest(new { Reason = "Failed to send email..." });
         }
 
         // Brute Force getting rid of my worst emails
@@ -612,11 +622,11 @@ namespace MannsBlog.Controllers.Web
             return View();
         }
 
-        [HttpGet("calendar")]
-        public IActionResult Calendar()
-        {
-            return View();
-        }
+        //[HttpGet("calendar")]
+        //public IActionResult Calendar()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)

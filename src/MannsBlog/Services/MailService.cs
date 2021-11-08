@@ -12,49 +12,38 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Linq;
-using MimeKit;
-using MailKit.Net.Smtp;
-using MailKit;
-using MailKit.Security;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using MannsBlog.Config;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MannsBlog.Config;
-using MannsBlog.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace MannsBlog.Services
 {
     public class MailService : IMailService
-    {        
+    {
+        private readonly IHostEnvironment _env;
+        private readonly IOptions<AppSettings> _settings;
         private readonly ILogger<MailService> _logger;
-        private readonly EmailServerConfiguration _eConfig;
-        private readonly IHostEnvironment _env;        
 
-        public MailService(ILogger<MailService> logger,
-          EmailServerConfiguration config,
-          IHostEnvironment env)
+        public MailService(IHostEnvironment env,
+          IOptions<AppSettings> settings,
+          ILogger<MailService> logger)
         {
+            _env = env;
+            _settings = settings;
             _logger = logger;
-            _eConfig = config;
-            _env = env;            
         }
 
         public async Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg)
         {
             try
-            {                                
-                _logger.LogInformation("Use SMTP");
-
+            {
                 var path = Path.Combine(_env.ContentRootPath, "EmailTemplates", template);
-
                 if (!File.Exists(path))
                 {
                     _logger.LogError($"Cannot find email templates: {path}");
@@ -62,59 +51,38 @@ namespace MannsBlog.Services
                     {
                         _logger.LogError($"File doesn't exist but directory for templates does");
                     }
+
+                    return false;
                 }
 
-                var templatebody = await File.ReadAllTextAsync(path);
-                var templateout = String.Empty;
-                var contentpart = String.Empty;
-                
-                if (template == "ContactTemplate.txt")
+                var body = await File.ReadAllTextAsync(path);
+                _logger.LogInformation($"Read Email Body");
+
+                var key = _settings.Value.MailService.ApiKey;
+
+                var client = new SendGridClient(key);
+                var formattedMessage = string.Format(body, email, name, subject, msg);
+
+                var mailMsg = MailHelper.CreateSingleEmail(
+                  new EmailAddress(_settings.Value.MailService.Receiver),
+                  new EmailAddress(_settings.Value.MailService.Receiver),
+                  $"saschamanns.com Site Mail",
+                  formattedMessage,
+                  formattedMessage);
+
+                _logger.LogInformation("Attempting to send mail via SendGrid");
+                var response = await client.SendEmailAsync(mailMsg);
+                _logger.LogInformation("Received response from SendGrid");
+
+                if (response.StatusCode >= System.Net.HttpStatusCode.PartialContent) // Not 200 or 202
                 {
-                    templateout = string.Format(templatebody, email, name, subject, msg);
-                    contentpart = "html";
-                } 
-                else if (template == "exceptionMessage.txt" || template == "logmessage.txt")
-                { 
-                    templateout = string.Format(templatebody, name, email, subject, msg);
-                    contentpart = "text";
+                    var result = await response.Body.ReadAsStringAsync();
+                    _logger.LogError($"Failed to send message via SendGrid: Status Code: {response.StatusCode}");
                 }
                 else
                 {
-                    templateout = string.Format(templatebody, name, email, subject, msg);
-                    contentpart = "text";
+                    return true;
                 }
-
-                // "logmessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Exception]", message
-
-                _logger.LogInformation($"Read Email Body");                
-
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Sascha Manns", "Sascha.Manns@outlook.de"));
-                message.To.Add(new MailboxAddress("Sascha Manns", "Sascha.Manns@outlook.de"));                
-
-                message.Subject = "[MannsBlog Message]" + subject;
-
-                message.Body = new TextPart(contentpart)
-                {
-                    Text = templateout
-                };
-
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
-                {
-                    client.Connect(_eConfig.SmtpServer, _eConfig.SmtpPort);
-
-                    client.AuthenticationMechanisms.Remove("XOAUTH2");
-
-                    client.Authenticate(_eConfig.SmtpUsername, _eConfig.SmtpPassword);
-
-                    _logger.LogInformation("Attempting to send mail via SMTP");
-
-                    client.Send(message);
-
-                    _logger.LogInformation("Received response from SMTP");
-
-                    client.Disconnect(true);
-                }              
             }
             catch (Exception ex)
             {

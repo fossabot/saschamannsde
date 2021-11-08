@@ -12,16 +12,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MannsBlog.Models
 {
-    public class EmailAddress
+    public class Recaptcha
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
+        public string Success { get; set; }
+        public string Score { get; set; }
+        public string ChallengeTs { get; set; }
+        public string HostName { get; set; }
     }
 }

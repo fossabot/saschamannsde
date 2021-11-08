@@ -12,23 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Localization.Routing;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MannsBlog.Config;
 using MannsBlog.Data;
 using MannsBlog.Helpers;
@@ -36,9 +20,26 @@ using MannsBlog.Logger;
 using MannsBlog.MetaWeblog;
 using MannsBlog.Services;
 using MannsBlog.Services.DataProviders;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http;
 using WilderMinds.AzureImageStorageService;
 using WilderMinds.MetaWeblog;
-using MannsBlog.Models;
 
 
 namespace MannsBlog
@@ -57,22 +58,6 @@ namespace MannsBlog
         public void ConfigureServices(IServiceCollection svcs)
         {
             svcs.Configure<AppSettings>(_config);
-
-            EmailServerConfiguration config = new EmailServerConfiguration
-            {
-                SmtpPassword = _config.GetValue<string>("MailService:Password"),
-                SmtpServer = _config.GetValue<string>("MailService:Server"),
-                SmtpUsername = _config.GetValue<string>("MailService:User")
-            };
-
-            EmailAddress FromEmailAddress = new EmailAddress
-            {
-                Address = _config.GetValue<string>("MailService:User"),
-                Name = _config.GetValue<string>("MailService:ToName")
-            };
-
-            svcs.AddSingleton<EmailServerConfiguration>(config);            
-            svcs.AddSingleton<EmailAddress>(FromEmailAddress);            
 
             if (_env.IsDevelopment() && _config.GetValue<bool>("MailService:TestInDev") == false)
             {
@@ -115,7 +100,7 @@ namespace MannsBlog
             svcs.AddScoped<VideosProvider>();
             svcs.AddScoped<CertsProvider>();
             svcs.AddScoped<ProjectsProvider>();
-            if (_env.IsDevelopment() && _config.GetValue<bool>("BlobStorage:TestInDev") == false || 
+            if (_env.IsDevelopment() && _config.GetValue<bool>("BlobStorage:TestInDev") == false ||
                 _config["BlobStorage:Account"] == "FOO")
             {
                 svcs.AddTransient<IAzureImageStorageService, FakeAzureImageService>();
@@ -164,9 +149,23 @@ namespace MannsBlog
             svcs.AddMvc()
                 .AddMvcLocalization()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-            
+
             svcs.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+
+            if (!svcs.Any(x => x.ServiceType == typeof(HttpClient)))
+            {
+                svcs.AddScoped<HttpClient>(s =>
+                {
+                    var uriHelper = s.GetRequiredService<NavigationManager>();
+                    return new HttpClient()
+                    {
+                        BaseAddress = new Uri(uriHelper.BaseUri)
+                    };
+                });
+            }
+
+            svcs.AddServerSideBlazor();
 
             svcs.AddApplicationInsightsTelemetry(_config["ApplicationInsights:InstrumentationKey"]);
 
@@ -231,6 +230,7 @@ namespace MannsBlog
                     Predicate = _ => true,
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
+                cfg.MapBlazorHub();
             });
         }
     }

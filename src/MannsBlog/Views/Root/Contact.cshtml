@@ -20,6 +20,10 @@
     ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
     ViewBag.PageImage = "/img/headers/code2.jpg";
 }
+@using System.Net.Http
+@using Newtonsoft.Json.Linq
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
 @using Microsoft.AspNetCore.Mvc.Localization
 @using MannsBlog.Models
 
@@ -29,49 +33,23 @@
 @model ContactFormModel
 @section styles {
 }
-@section Scripts {
+
 <script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
-<script>
-    window.captchaId = '@_config["Google:CaptchaSiteId"]';
-</script>
-<script>
-   function onSubmit(token) {
-     document.getElementById("contact").submit();
-   }
- </script>
-<environment include="Development">
-    <script src="~/js/recaptcha.js"></script>
-    <script src="~/app/js/chunk-vendors.js"></script>    
-</environment>
-<environment exclude="Development">
-    <script src="~/js/recaptcha.min.js"></script>
-    <script src="~/app/js/chunk-vendors.js" asp-append-version="true"></script>    
-</environment>
+<link src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<component type="typeof(MannsBlog.Views.Root.ContactComponent)" render-mode="ServerPrerendered"/>
+
+@section Scripts{
+    <script src="~/_framework/blazor.server.js"></script>
+    <script>
+        runCaptcha = function (actionName) {
+            return new Promise((resolve, reject) => {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute(_config["Google:CaptchaSiteId"], { action: 'BlazorContactForm' }).then(function (token) {
+                        resolve(token);
+                    });
+                });
+            });
+        };
+    </script>
 }
-<div id="contact">
-    <h3>Contact Form</h3>
-    <form asp-action="Contact" asp-controller="Root" method="post">
-        <div>
-            <label asp-for="Name">Please enter your name:</label>
-            <input type="text" asp-for="Name" />
-        </div>
-        <div>
-            <label asp-for="Email">Please enter your email:</label>
-            <input type="text" asp-for="Email" />
-        </div>
-        <div>
-            <label asp-for="Subject">Please enter a subject:</label>
-            <textarea asp-for="Subject"></textarea>
-        </div>
-        <div>
-            <label asp-for="Message">Please enter your message:</label>
-            <textarea asp-for="Message"></textarea>
-        </div>
-        <input type="submit" value="Send Message!" />
-        @*<button class="g-recaptcha" 
-        data-sitekey=@_config["Google:CaptchaSiteId"]
-        data-callback='onSubmit' 
-        data-action='submit'>Submit</button>*@
-    </form>
-</div>
-<hr />

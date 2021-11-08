@@ -1,0 +1,147 @@
+﻿@*
+    Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@using System.Net.Http
+@using Newtonsoft.Json.Linq
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
+@using MannsBlog.Models;
+
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+
+<h3>Contact</h3>
+
+@code {
+    private ContactFormModel _ContactFormModel = new ContactFormModel();
+    private bool displaySendAlert { get; set; } = false;
+    private string alertinfo { get; set; }
+    private string alerttextclass { get; set; }
+    private string alerttext { get; set; }
+    private string btnVisibility = "d-block";
+    private string sendVisibility = "d-none";
+    string google { get; set; }
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            google = await JSRuntime.InvokeAsync<string>("runCaptcha");
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnSubmit()
+    {
+        _ContactFormModel.Recaptcha = google;
+        btnVisibility = "d-none";
+        sendVisibility = "d-inline-block";
+        var results = await SubmitForm();
+
+        if (results != "failed")
+        {
+            var result = JObject.Parse(results);
+            if(result.ContainsKey("success") && (bool)result["success"] == true)
+            {
+                await ShowSuccessAlert();
+                _ContactFormModel.Name = string.Empty;
+                _ContactFormModel.Email = string.Empty;
+                _ContactFormModel.Message = string.Empty;
+                btnVisibility = "d-block";
+                sendVisibility = "d-none";
+            }
+            else if(result.ContainsKey("message"))
+            {
+                btnVisibility = "d-block";
+                sendVisibility = "d-none";
+                ShowErrorAlert((string)result["message"]);
+            }
+        }
+        else
+        {
+            btnVisibility = "d-block";
+            sendVisibility = "d-none";
+            ShowErrorAlert("There was a problem submitting the form.");
+        }
+    }
+
+    private async Task<string> SubmitForm()
+    {
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(_ContactFormModel);
+        var stringContent = new StringContent(json, System.Text.Encoding.UTF8,"application/json");
+        var response = await Http.PostAsync("/Mailer/SendMessage", stringContent);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var resultContent = response.Content.ReadAsStringAsync().Result;
+            return resultContent;
+        }
+        else
+            return "failed";
+    }
+
+    private async Task ShowSuccessAlert()
+    {
+        displaySendAlert = true;
+        alertinfo = "alert-success";
+        alerttextclass = "text-success";
+        alerttext = "Sent Successfully";
+    }
+
+    private async void ShowErrorAlert(string message)
+    {
+        displaySendAlert = true;
+        alertinfo = "alert-danger";
+        alerttextclass = "text-danger";
+        alerttext = message;
+    }
+}
+
+<EditForm Model="@_ContactFormModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+
+    <p>
+        <label for="Name">Name</label><br />
+        <InputText id="Name" @bind-Value="_ContactFormModel.Name" />
+        <ValidationMessage For="@(() => _ContactFormModel.Name)" />
+    </p>
+    <p>
+        <label for="Email">Email</label><br />
+        <InputText id="Email" @bind-Value="_ContactFormModel.Email" />
+        <ValidationMessage For="@(() => _ContactFormModel.Email)" />
+    </p>
+    <p>
+        <label for="Message">Message</label><br />
+        <InputTextArea id="Message" @bind-Value="_ContactFormModel.Message" rows="3" />
+        <ValidationMessage For="@(() => _ContactFormModel.Message)" />
+    </p>
+    
+    <div class="mt-2">
+        <button id="submitBtn" class="btn btn-primary @btnVisibility" 
+                type="submit">Submit</button>
+        <div class="bg-primary text-light rounded p-2 @sendVisibility">
+            <i class="fa fa-cog fa-spin"></i> Sending
+        </div>
+    </div>
+</EditForm>
+
+@if (displaySendAlert == true)
+{
+    <div id="sendalert" class="alert @alertinfo mt-2">
+        <span class="@alerttextclass">@alerttext</span>
+    </div>
+}
