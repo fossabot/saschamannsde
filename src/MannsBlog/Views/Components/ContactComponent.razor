@@ -18,13 +18,14 @@
 @using System.Net.Http
 @using Newtonsoft.Json.Linq
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.Extensions.Logging;
 @using Microsoft.JSInterop
 @using MannsBlog.Models;
+@using System.Diagnostics
 
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
-
-<h3>Contact</h3>
+@inject ILogger<ContactComponent> Logger
 
 @code {
     private ContactFormModel _ContactFormModel = new ContactFormModel();
@@ -47,6 +48,8 @@
 
     private async Task OnSubmit()
     {
+        Logger.LogInformation("Joined OnSubmit");
+        Debug.Write("Joined OnSubmit");
         _ContactFormModel.Recaptcha = google;
         btnVisibility = "d-none";
         sendVisibility = "d-inline-block";
@@ -54,6 +57,7 @@
 
         if (results != "failed")
         {
+            Logger.LogInformation("SubmitForm succeeded.");
             var result = JObject.Parse(results);
             if(result.ContainsKey("success") && (bool)result["success"] == true)
             {
@@ -61,6 +65,7 @@
                 _ContactFormModel.Name = string.Empty;
                 _ContactFormModel.Email = string.Empty;
                 _ContactFormModel.Message = string.Empty;
+                _ContactFormModel.Subject = string.Empty;
                 btnVisibility = "d-block";
                 sendVisibility = "d-none";
             }
@@ -84,6 +89,8 @@
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(_ContactFormModel);
         var stringContent = new StringContent(json, System.Text.Encoding.UTF8,"application/json");
         var response = await Http.PostAsync("/Mailer/SendMessage", stringContent);
+        Logger.LogInformation("Executed PostAsync.");
+        Debug.Write("Executed PostAsync");
 
         if (response.IsSuccessStatusCode)
         {
@@ -100,6 +107,7 @@
         alertinfo = "alert-success";
         alerttextclass = "text-success";
         alerttext = "Sent Successfully";
+        Logger.LogInformation("Executed ShowSuccessAlert.");
     }
 
     private async void ShowErrorAlert(string message)
@@ -108,36 +116,67 @@
         alertinfo = "alert-danger";
         alerttextclass = "text-danger";
         alerttext = message;
+        Logger.LogInformation("Executed ShowErrorAlert.");
     }
 }
 
-<EditForm Model="@_ContactFormModel" OnValidSubmit="OnSubmit">
-    <DataAnnotationsValidator />
+<h3>Contact</h3>
 
-    <p>
-        <label for="Name">Name</label><br />
-        <InputText id="Name" @bind-Value="_ContactFormModel.Name" />
-        <ValidationMessage For="@(() => _ContactFormModel.Name)" />
-    </p>
-    <p>
-        <label for="Email">Email</label><br />
-        <InputText id="Email" @bind-Value="_ContactFormModel.Email" />
-        <ValidationMessage For="@(() => _ContactFormModel.Email)" />
-    </p>
-    <p>
-        <label for="Message">Message</label><br />
-        <InputTextArea id="Message" @bind-Value="_ContactFormModel.Message" rows="3" />
-        <ValidationMessage For="@(() => _ContactFormModel.Message)" />
-    </p>
-    
-    <div class="mt-2">
-        <button id="submitBtn" class="btn btn-primary @btnVisibility" 
-                type="submit">Submit</button>
-        <div class="bg-primary text-light rounded p-2 @sendVisibility">
-            <i class="fa fa-cog fa-spin"></i> Sending
+<EditForm Model="@_ContactFormModel" OnValidSubmit="@OnSubmit">
+        <DataAnnotationsValidator />
+        <div class="tg-wrap">
+            <table class="tg">
+                <tbody>
+                <tr>
+                    <td class="tg-0lax">
+                        <label for="Name">Name</label>
+                    </td>
+                    <td class="tg-0lax">
+                        <InputText id="Name" placeholder="Full Name" @bind-Value="_ContactFormModel.Name"/>
+                        <ValidationMessage For="@(() => _ContactFormModel.Name)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0lax">
+                        <label for="Email">Email</label>
+                    </td>
+                    <td class="tg-0lax">
+                        <InputText placeholder="Email" id="Email" @bind-Value="_ContactFormModel.Email"/>
+                        <ValidationMessage For="@(() => _ContactFormModel.Email)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0lax">
+                        <label for="Subject">Subject</label>
+                    </td>
+                    <td class="tg-0lax">
+                        <InputText placeholder="Subject" id="Subject" @bind-Value="_ContactFormModel.Subject"/>
+                        <ValidationMessage For="@(() => _ContactFormModel.Subject)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0lax">
+                        <label for="Message">Message</label>
+                    </td>
+                    <td class="tg-0lax">
+                        <InputTextArea placeholder="Message" id="Message" @bind-Value="_ContactFormModel.Message" rows="3"/>
+                        <ValidationMessage For="@(() => _ContactFormModel.Message)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0lax" colspan="2">
+                        <button id="submitBtn" class="btn btn-primary @btnVisibility"
+                                type="submit">Submit</button>
+                        <div class="bg-primary text-light rounded p-2 @sendVisibility">
+                            <i class="fa fa-cog fa-spin"></i> Sending
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
 </EditForm>
+
 
 @if (displaySendAlert == true)
 {

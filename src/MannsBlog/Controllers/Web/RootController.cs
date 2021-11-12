@@ -14,7 +14,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using HtmlAgilityPack;
 using MannsBlog.Data;
-using MannsBlog.Models;
 using MannsBlog.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +25,6 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -42,26 +40,21 @@ namespace MannsBlog.Controllers.Web
         private readonly int MyYear = DateTime.Now.Year;
         readonly int _pageSize = 15;
 
-        private readonly IMailService _mailService;
         private IMannsRepository _repo;
         private IMemoryCache _memoryCache;
         private ILogger<RootController> _logger;
-        private readonly GoogleCaptchaService _captcha;
         private IConfiguration _config;
+        private readonly IMailService _mailService;
 
-        public RootController(IMailService mailService,
-                              IMannsRepository repo,
+        public RootController(IMannsRepository repo,
+                              IMailService mailService,
                               IMemoryCache memoryCache,
-                              ILogger<RootController> logger,
-                              GoogleCaptchaService captcha,
                               IConfiguration config)
         {
-            _mailService = mailService;
             _repo = repo;
             _memoryCache = memoryCache;
-            _logger = logger;
-            _captcha = captcha;
             _config = config;
+            _mailService = mailService;
         }
 
         [HttpGet("")]
@@ -126,75 +119,6 @@ namespace MannsBlog.Controllers.Web
             return View();
         }
 
-        [HttpGet("contact")]
-        public IActionResult Contact()
-        {
-            return View();
-        }
-
-        [HttpPost("contact")]
-        public async Task<IActionResult> SendMessage([FromBody] ContactFormModel form)
-        {
-            if (form == null) return BadRequest("Form wasn't filled.");
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var spamState = VerifyNoSpam(form);
-                    if (!spamState.Success)
-                    {
-                        return BadRequest(new { Reason = spamState.Reason });
-                    }
-
-                    if (!(await _captcha.Verify(form.Recaptcha)))
-                    {
-                        throw new Exception(
-                            "The submission failed the spam bot verification. If you have JavaScript disabled in your browser, please enable it and try again.");
-                    }
-                    else
-                    {
-                        await _mailService.SendMailAsync("ContactTemplate.txt", form.Name, form.Email, form.Subject,
-                            form.Message);
-                    }
-
-                    return Json(new { success = true, message = "Your message was successfully sent" });
-                }
-                catch (Exception ex)
-                {
-                    return Json(new { success = false, message = ex.Message });
-                }
-            }
-            else
-            {
-                return BadRequest("The form contains corrupted data... Please retry.");
-            }
-        }
-
-        // Brute Force getting rid of my worst emails
-        private SpamState VerifyNoSpam(ContactFormModel model)
-        {
-            var tests = new string[]
-            {
-        "improve your seo",
-        "improved seo",
-        "generate leads",
-        "viagra",
-        "your team",
-        "PHP Developers",
-        "working remotely",
-        "google search results",
-        "link building software"
-            };
-
-            if (tests.Any(t =>
-            {
-                return new Regex(t, RegexOptions.IgnoreCase).Match(model.Message).Success;
-            }))
-            {
-                return new SpamState() { Reason = "Spam Email Detected. Sorry." };
-            }
-            return new SpamState() { Success = true };
-        }
 
         [HttpGet("rss")]
         public IActionResult Rss()

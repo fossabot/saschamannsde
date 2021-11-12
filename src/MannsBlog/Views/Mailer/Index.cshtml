@@ -19,6 +19,7 @@
     ViewBag.PageName = _localizer["viewbag-pagename"];
     ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
     ViewBag.PageImage = "/img/headers/code2.jpg";
+    //BlazorContactForm
 }
 @using System.Net.Http
 @using Newtonsoft.Json.Linq
@@ -26,18 +27,17 @@
 @using Microsoft.JSInterop
 @using Microsoft.AspNetCore.Mvc.Localization
 @using MannsBlog.Models
+@using MannsBlog.Views.Components;
 
 @inject IConfiguration _config
 @inject IViewLocalizer _localizer
 
 @model ContactFormModel
 @section styles {
+    <link src="/css/contact.css" type="text/css"/>
 }
-
 <script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
-<link src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" type="text/css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
-<component type="typeof(MannsBlog.Views.Root.ContactComponent)" render-mode="ServerPrerendered"/>
+<component type="typeof(MannsBlog.Views.Components.ContactComponent)" render-mode="ServerPrerendered"/>
 
 @section Scripts{
     <script src="~/_framework/blazor.server.js"></script>
@@ -45,7 +45,7 @@
         runCaptcha = function (actionName) {
             return new Promise((resolve, reject) => {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute(_config["Google:CaptchaSiteId"], { action: 'BlazorContactForm' }).then(function (token) {
+                    grecaptcha.execute(_config["Google:CaptchaSiteId"], { action: 'submit' }).then(function (token) {
                         resolve(token);
                     });
                 });

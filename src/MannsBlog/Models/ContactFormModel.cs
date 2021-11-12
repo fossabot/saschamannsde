@@ -22,13 +22,13 @@ namespace MannsBlog.Models
         [EmailAddress]
         public string Email { get; set; } = "";
 
-        [MaxLength(4096)]
+        [StringLength(4096, ErrorMessage = "Your message is too long. Please shorten it to max. 4096 chars.")]
         [MinLength(5)]
         [Required]
         public string Message { get; set; } = "";
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(100, ErrorMessage = "Name is too long.")]
         public string Name { get; set; } = "";
 
         [Required]
