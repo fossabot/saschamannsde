@@ -34,7 +34,6 @@ namespace MannsBlog.Models
         [Required]
         public string Subject { get; set; } = "";
 
-        [Required]
         public string Recaptcha { get; set; } = "";
     }
 }

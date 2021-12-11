@@ -18,8 +18,7 @@
     ViewBag.Title = _localizer["viewbag-title"];
     ViewBag.PageName = _localizer["viewbag-pagename"];
     ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
-    ViewBag.PageImage = "/img/headers/code2.jpg";
-    //BlazorContactForm
+    ViewBag.PageImage = "/img/headers/code2.jpg";    
 }
 @using System.Net.Http
 @using Newtonsoft.Json.Linq
@@ -34,22 +33,70 @@
 
 @model ContactFormModel
 @section styles {
-    <link src="/css/contact.css" type="text/css"/>
+    <link href="/css/contact.css" rel="stylesheet"/>            
+    <style>
+     .multiline{
+        margin-top: 60px;
+        width: 100%;
+               }
+    </style>
 }
-<script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
-<component type="typeof(MannsBlog.Views.Components.ContactComponent)" render-mode="ServerPrerendered"/>
 
 @section Scripts{
-    <script src="~/_framework/blazor.server.js"></script>
-    <script>
-        runCaptcha = function (actionName) {
-            return new Promise((resolve, reject) => {
-                grecaptcha.ready(function () {
-                    grecaptcha.execute(_config["Google:CaptchaSiteId"], { action: 'submit' }).then(function (token) {
-                        resolve(token);
-                    });
+<script src="https://www.google.com/recaptcha/api.js?render=@_config["Google:CaptchaSiteId"]"></script>
+<script>
+    window.captchaId = '@_config["Google:CaptchaSiteId"]';
+    window.addPrependResize = () => { var n = 0; $("label.equal-widths").each(function () { $(this).width() > n && (n = $(this).width()) }); $("label.equal-widths").width(n) }; window.addFadeOutSuccessAlert = () => { $(".alert-success").delay(3e3).fadeOut("slow") };
+    $('#contactDiv').removeClass();
+
+    runCaptcha = function (actionName) {
+        return new Promise((resolve, reject) => {
+            grecaptcha.ready(function () {
+                grecaptcha.execute('@_config["Google:CaptchaSiteId"]', { action: 'submit' }).then(function (token) {
+                    resolve(token);
                 });
+                console.log("google recaptcha loaded");
             });
-        };
-    </script>
+        });
+    };
+</script>
+<script src="_framework/blazor.server.js"></script>
+@*<script src="~/js/recaptcha.js" asp-append-version="true"></script>*@
 }
+
+<div id="components-reconnect-modal" class="blazor-reconnect-modal components-reconnect-hide">
+    <div class="show">
+        <h5>Connection lost. Attempting to reconnect to server.</h5>
+    </div>
+    <div class="failed">
+        <h5>Reconnect Failed</h5>
+    </div>
+    <div class="refused">
+        <h5>
+            Could not reconnect to the server.
+            <a href="">Reload</a>
+            the page to restore functionality.
+        </h5>
+    </div>
+    <div class="rejected">
+        <h5>
+            Could not reconnect to the server.
+            <a href="">Reload</a>
+            the page to restore functionality.
+        </h5>
+    </div>
+</div>
+<section class="pt-2">
+    <header class="mb-1 container pl-sm-0">
+        <h2>Contact</h2>
+    </header>
+   @* <section class="container">
+        It's best to reach me by sending an email through the form below.
+    </section>*@
+    <section class="container p-sm-0 mt-3">
+        <noscript>You must enable JavaScript to use the contact form.</noscript>
+        <div id="contactDiv" class="d-none">
+            <component type="typeof(ContactComponent)" render-mode="ServerPrerendered" />
+        </div>
+    </section>
+</section>

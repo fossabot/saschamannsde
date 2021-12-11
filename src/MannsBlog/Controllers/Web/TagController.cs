@@ -12,62 +12,49 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using MannsBlog.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using MannsBlog.Data;
 
 namespace MannsBlog.Controllers.Web
 {
-  [Route("[controller]")]
-  public class TagController : Controller
-  {
-    private readonly IMannsRepository _repo;
-    private readonly ILogger<TagController> _logger;
-    readonly int _pageSize = 25;
-
-    public TagController(IMannsRepository repo, ILogger<TagController> logger)
+    [Route("[controller]")]
+    public class TagController : Controller
     {
-      _repo = repo;
-      _logger = logger;
-    }
+        private readonly IMannsRepository _repo;
+        private readonly ILogger<TagController> _logger;
+        readonly int _pageSize = 25;
 
-    [HttpGet("{tag}")]
-    public Task<IActionResult> Index(string tag)
-    {
-      return Pager(tag, 1);
-    }
+        public TagController(IMannsRepository repo, ILogger<TagController> logger)
+        {
+            _repo = repo;
+            _logger = logger;
+        }
 
-    [HttpGet("{tag}/{page}")]
-    public async Task<IActionResult> Pager(string tag, int page)
-    {
-      BlogResult result = new();
+        [HttpGet("{tag}")]
+        public Task<IActionResult> Index(string tag)
+        {
+            return Pager(tag, 1);
+        }
 
-      try
-      {
-        result = await _repo.GetStoriesByTag(tag, _pageSize, page);
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError($"Failed to load Tags: {tag} - {ex}");
-        
-      }
+        [HttpGet("{tag}/{page}")]
+        public async Task<IActionResult> Pager(string tag, int page)
+        {
+            BlogResult result = new();
 
-      return View("Index", result);
-    }
+            try
+            {
+                result = await _repo.GetStoriesByTag(tag, _pageSize, page);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to load Tags: {tag} - {ex}");
 
-    [HttpPost]
-    public IActionResult SetLanguage(string culture, string returnUrl)
-    {
-        Response.Cookies.Append(
-            CookieRequestCultureProvider.DefaultCookieName,
-            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-            new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
-        );
-        return LocalRedirect(returnUrl);
-    }
+            }
+
+            return View("Index", result);
+        }
     }
 }

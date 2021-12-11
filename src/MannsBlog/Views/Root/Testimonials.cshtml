@@ -25,23 +25,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @inject IConfiguration _config
 @inject MannsBlog.Services.DataProviders.TestimonialsProvider _tests
 @section styles {
-    <environment include="Development">
+    <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.default.css" />
         <link rel="stylesheet" href="~/css/Testimonials.css" />
     </environment>
-    <environment exclude="Development">
+    <environment include="Development">
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.css" />
         <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.css" />
         <link rel="stylesheet" href="~/css/Testimonials.min.css" />
     </environment>
 }
 @section scripts {
-    <environment include="Development">
+    <environment exclude="Development">
         <script src="~/lib/owl.carousel/dist/owl.carousel.js"></script>
         <script src="~/js/Testimonials.js"></script>
     </environment>
-    <environment exclude="Production,Staging">
+    <environment include="Production,Staging">
         <script src="~/lib/owl.carousel/dist/owl.carousel.min.js"></script>
         <script src="~/js/Testimonials.min.js"></script>
     </environment>

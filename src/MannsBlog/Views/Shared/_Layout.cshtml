@@ -22,7 +22,7 @@
 @*@inject CoursesProvider courses*@
 @{
 
-    var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF";
+    var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF, WinUI3";
     var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
 
     var culture = CultureInfo.CurrentCulture.Name;
@@ -66,7 +66,7 @@
     <meta name="rating" content="General" />
     <meta name="Robots" content="index, all" />
     <meta name="Robots" content="index, follow" />
-    <meta name="revisit-after" content="1 days" />
+    <meta name="revisit-after" content="14 days" />
     <meta name="MSSmartTagsPreventParsing" content="True" />
 
     <meta content="@keywords" name="KEYWORDS" />
@@ -165,7 +165,8 @@
         @RenderSection("Styles", required: false)
     </environment>
 
-
+    @*<link href="_content/Syncfusion.Blazor/styles/bootstrap5.css" rel="stylesheet" />*@
+    <link href="https://cdn.syncfusion.com/blazor/19.3.43/styles/bootstrap5.css" rel="stylesheet" />
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -175,7 +176,7 @@
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Navigation -->    
     <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-inverse" style="background-color: rgba(1,71,130,1)">
         <a class="navbar-brand" asp-controller="Root" asp-action="Index">Sascha Manns Twilight Zone</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#theMenu">
@@ -311,6 +312,22 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
+                            <a href="https://www.reddit.com/user/saigkill" title="Reddit">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-reddit fa-stack-1x fa-inverse" title="Reddit Profile"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://profile.codersrank.io/user/saigkill" title="Codersrank">
+                                <span class="fa-stack fa-lg fa-hover-spin">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-code fa-stack-1x fa-inverse" title="Codersrank Profile"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
                             <a href="https://www.amazon.de/-/e/B07J3CPKR1" title="Amazon Author Page">
                                 <span class="fa-stack fa-lg fa-hover-spin">
                                     <i class="fas fa-circle fa-stack-2x"></i>
@@ -341,7 +358,7 @@
                     </div>
                     <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
                     <p class="copyright text-primary">
-                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 5</a>, <a href="https://vuejs.org" target="_blank">Vue 3</a>, <a href="https://github.com/aspnet/EntityFramework/wiki/Roadmap" target="_blank">Entity Framework Core 5</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://v4-alpha.getbootstrap.com/" target="_blank">Bootstrap 4</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.<br /> <a class="btn" href="https://dev.azure.com/saigkill/saschamannsde" target="_blank">@_localizer["sourcecode"]</a> <br />
+                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 5</a>, <a href="https://blazor.net/" target="_blank">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank">Entity Framework Core 5</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.
                     </p>
                 </div>
             </div>
@@ -375,7 +392,7 @@
         <script src="~/js/about.min.js"></script>
         <script src="~/js/audio.min.js"></script>
         <script src="~/js/@typeittargetprod"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>        
 
         <!-- Clarity -->
         <script type="text/javascript">
@@ -396,9 +413,12 @@
             pageTracker._initData();
             pageTracker._trackPageview();
         </script>
-        <script id="dsq-count-scr" src="//@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>
-        <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
+        <script id="dsq-count-scr" src="https://@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>        
     </environment>
+    <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="~/lib/codersrank/summary/codersrank-summary.min.js"></script>
+    <script src="https://cdn.syncfusion.com/blazor/19.3.43/syncfusion-blazor.min.js"></script>
+    @*<script src="_content/Syncfusion.Blazor/scripts/syncfusion-blazor.min.js"></script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>

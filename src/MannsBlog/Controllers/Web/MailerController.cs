@@ -1,7 +1,5 @@
 ﻿using MannsBlog.Models;
 using MannsBlog.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,7 +13,7 @@ namespace MannsBlog.Controllers.Web
     public class MailerController : Controller
     {
         private readonly IMailService _mailService;
-        private ILogger<MailerController> _logger;
+        private readonly ILogger<MailerController> _logger;
         private readonly GoogleCaptchaService _captcha;
 
         public MailerController(IMailService mailService,
@@ -36,43 +34,31 @@ namespace MannsBlog.Controllers.Web
         [HttpPost]
         public async Task<IActionResult> SendMessage([FromBody] ContactFormModel form)
         {
-            if (form == null) return BadRequest("Form wasn't filled.");
-            _logger.LogInformation("Form was filled.");
-            if (ModelState.IsValid)
+            try
             {
-                _logger.LogInformation("Model was valid.");
-                try
+                if (ModelState.IsValid)
                 {
                     var spamState = VerifyNoSpam(form);
                     if (!spamState.Success)
                     {
+                        _logger.LogError("Spamstate wasn't succeeded");
                         return BadRequest(new { Reason = spamState.Reason });
                     }
-                    _logger.LogInformation("SpamState passed.");
 
-                    if (!(await _captcha.Verify(form.Recaptcha)))
+                    // Captcha
+                    if (!(await _captcha.Verify(form.Recaptcha))) return BadRequest("Failed to send email: You might be a bot...try again later.");
+                    if (await _mailService.SendMailAsync("ContactTemplate.txt", form.Name, form.Email, form.Subject, form.Message))
                     {
-                        _logger.LogInformation("Submission failed.");
-                        throw new Exception(
-                            "The submission failed the spam bot verification. If you have JavaScript disabled in your browser, please enable it and try again.");
+                        return Json(new { success = true, message = "Your message was successfully sent." });
                     }
-                    else
-                    {
-                        _logger.LogInformation("Normal execution. Launching SendGrid.");
-                        await _mailService.SendMailAsync("ContactTemplate.txt", form.Name, form.Email, form.Subject,
-                            form.Message);
-                    }
-
-                    return Json(new { success = true, message = "Your message was successfully sent" });
                 }
-                catch (Exception ex)
-                {
-                    return Json(new { success = false, message = ex.Message });
-                }
+                _logger.LogError("Modelstate wasnt valid");
+                return Json(new { success = false, message = "ModelState wasnt valid..." });
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("The form contains corrupted data... Please retry.");
+                _logger.LogError("Failed to send email from contact page", ex.Message);
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
@@ -100,17 +86,6 @@ namespace MannsBlog.Controllers.Web
                 return new SpamState() { Reason = "Spam Email Detected. Sorry." };
             }
             return new SpamState() { Success = true };
-        }
-
-        [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
-        {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
-            );
-            return LocalRedirect(returnUrl);
         }
     }
 }

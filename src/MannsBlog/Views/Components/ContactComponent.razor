@@ -18,39 +18,47 @@
 @using System.Net.Http
 @using Newtonsoft.Json.Linq
 @using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.Extensions.Logging;
+@using Microsoft.Extensions.Logging
 @using Microsoft.JSInterop
-@using MannsBlog.Models;
+@using MannsBlog.Models
 @using System.Diagnostics
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
 
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
 @inject ILogger<ContactComponent> Logger
 
 @code {
-    private ContactFormModel _ContactFormModel = new ContactFormModel();
+    private ContactFormModel ContactFormModel = new ContactFormModel();
     private bool displaySendAlert { get; set; } = false;
     private string alertinfo { get; set; }
     private string alerttextclass { get; set; }
     private string alerttext { get; set; }
     private string btnVisibility = "d-block";
     private string sendVisibility = "d-none";
-    string google { get; set; }
+    string google { get; set; }    
 
-    protected override async void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            google = await JSRuntime.InvokeAsync<string>("runCaptcha");
+            google = await JSRuntime.InvokeAsync<string>("runCaptcha");            
             StateHasChanged();
         }
-    }
+    }    
 
     private async Task OnSubmit()
     {
+        if (google == "")
+        {
+            google = await JSRuntime.InvokeAsync<string>("runCaptcha");
+        }
+
         Logger.LogInformation("Joined OnSubmit");
         Debug.Write("Joined OnSubmit");
-        _ContactFormModel.Recaptcha = google;
+        ContactFormModel.Recaptcha = google;
         btnVisibility = "d-none";
         sendVisibility = "d-inline-block";
         var results = await SubmitForm();
@@ -59,17 +67,17 @@
         {
             Logger.LogInformation("SubmitForm succeeded.");
             var result = JObject.Parse(results);
-            if(result.ContainsKey("success") && (bool)result["success"] == true)
+            if (result.ContainsKey("success") && (bool)result["success"] == true)
             {
                 await ShowSuccessAlert();
-                _ContactFormModel.Name = string.Empty;
-                _ContactFormModel.Email = string.Empty;
-                _ContactFormModel.Message = string.Empty;
-                _ContactFormModel.Subject = string.Empty;
+                ContactFormModel.Name = string.Empty;
+                ContactFormModel.Email = string.Empty;
+                ContactFormModel.Message = string.Empty;
+                ContactFormModel.Subject = string.Empty;
                 btnVisibility = "d-block";
                 sendVisibility = "d-none";
             }
-            else if(result.ContainsKey("message"))
+            else if (result.ContainsKey("message"))
             {
                 btnVisibility = "d-block";
                 sendVisibility = "d-none";
@@ -86,8 +94,8 @@
 
     private async Task<string> SubmitForm()
     {
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(_ContactFormModel);
-        var stringContent = new StringContent(json, System.Text.Encoding.UTF8,"application/json");
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(ContactFormModel);
+        var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
         var response = await Http.PostAsync("/Mailer/SendMessage", stringContent);
         Logger.LogInformation("Executed PostAsync.");
         Debug.Write("Executed PostAsync");
@@ -117,66 +125,52 @@
         alerttextclass = "text-danger";
         alerttext = message;
         Logger.LogInformation("Executed ShowErrorAlert.");
-    }
+    }        
 }
 
-<h3>Contact</h3>
-
-<EditForm Model="@_ContactFormModel" OnValidSubmit="@OnSubmit">
-        <DataAnnotationsValidator />
-        <div class="tg-wrap">
-            <table class="tg">
-                <tbody>
-                <tr>
-                    <td class="tg-0lax">
-                        <label for="Name">Name</label>
-                    </td>
-                    <td class="tg-0lax">
-                        <InputText id="Name" placeholder="Full Name" @bind-Value="_ContactFormModel.Name"/>
-                        <ValidationMessage For="@(() => _ContactFormModel.Name)"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tg-0lax">
-                        <label for="Email">Email</label>
-                    </td>
-                    <td class="tg-0lax">
-                        <InputText placeholder="Email" id="Email" @bind-Value="_ContactFormModel.Email"/>
-                        <ValidationMessage For="@(() => _ContactFormModel.Email)"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tg-0lax">
-                        <label for="Subject">Subject</label>
-                    </td>
-                    <td class="tg-0lax">
-                        <InputText placeholder="Subject" id="Subject" @bind-Value="_ContactFormModel.Subject"/>
-                        <ValidationMessage For="@(() => _ContactFormModel.Subject)"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tg-0lax">
-                        <label for="Message">Message</label>
-                    </td>
-                    <td class="tg-0lax">
-                        <InputTextArea placeholder="Message" id="Message" @bind-Value="_ContactFormModel.Message" rows="3"/>
-                        <ValidationMessage For="@(() => _ContactFormModel.Message)"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tg-0lax" colspan="2">
-                        <button id="submitBtn" class="btn btn-primary @btnVisibility"
-                                type="submit">Submit</button>
-                        <div class="bg-primary text-light rounded p-2 @sendVisibility">
-                            <i class="fa fa-cog fa-spin"></i> Sending
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-</EditForm>
-
+<div class="control-section col-lg-12">
+    <div class="content-wrapper form-group e-input-group">
+        <EditForm Model="@ContactFormModel" OnValidSubmit="@OnSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="input-group mt-3">
+                <div class="input-group-prepend">
+                    <label for="Name" class="bg-black text-light border-black equal-widths">Your Name</label>
+                </div>                
+                <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Name" Placeholder="Full Name" ID="Name"/>
+                <ValidationMessage For="@(() => ContactFormModel.Name)" />
+            </div>
+            <div class="input-group mt-3">
+                <div class="input-group-prepend">
+                    <label for="Email" class="bg-black text-light border-black equal-widths">Your Email</label>
+                </div>                
+                <SfTextBox Type="InputType.Email" @bind-Value="@ContactFormModel.Email" Placeholder="Email" ID="Email"/>
+                <ValidationMessage For="@(() => ContactFormModel.Email)" />
+            </div>
+            <div class="input-group mt-3">
+                <div class="input-group-prepend">
+                    <label for="Subject" class="bg-black text-light border-black equal-widths">Your Subject</label>
+                </div>                
+                <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Subject" Placeholder="Subject" ID="Subject"/>
+                <ValidationMessage For="@(() => ContactFormModel.Subject)" />
+            </div>
+            <div class="input-group multiline">
+                <div class="input-group-prepend">
+                    <label for="Message" class="bg-black text-light border-black equal-widths h-100">Your Message</label>
+                </div>                
+                <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Message" Placeholder="Message" ID="Message" Multiline=true  Width="100" />
+                <ValidationMessage For="@(() => ContactFormModel.Message)" />
+            </div>
+            <div class="sfButton mt-3">
+                <SfButton id="submitBtn" CssClass="e-success" type="submit">Submit</SfButton>
+            </div>            
+            <div class="bg-primary text-light rounded p-2 @sendVisibility">
+                <i class="fas fa-cog fa-spinner"></i> Sending
+            </div>
+        </EditForm>        
+    </div>
+</div>
+<h4>Currently this form is out of order for styling and debugging purposes. For important things or if you know how to get razor forms working, just drop a note to: Sascha[dot]Manns [et] outlook.de</h4>
 
 @if (displaySendAlert == true)
 {

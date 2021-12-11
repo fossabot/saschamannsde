@@ -14,7 +14,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 
@@ -30,7 +29,7 @@ namespace MannsBlog.Services.DataProviders
         public override IEnumerable<Testimonial> Get()
         {
             string culture = CultureInfo.CurrentCulture.Name;
-            return  base.Get().Where(t => t.Language == culture).OrderByDescending(p => p.Date).ToList();
+            return base.Get().Where(t => t.Language == culture).OrderByDescending(p => p.Date).ToList();
         }
     }
 

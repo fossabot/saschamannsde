@@ -466,6 +466,13 @@
   <data name="plugins-changes-rights8" xml:space="preserve">
     <value>&lt;strong&gt;Beschwerde bei Aufsichtsbehörde:&lt;/strong&gt; Sie haben ferner nach Maßgabe der gesetzlichen Vorgaben das Recht, bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat Ihres gewöhnlichen Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes Beschwerde einzulegen, wenn Sie der Ansicht sind, dass die Verarbeitung der Sie betreffenden personenbezogenen Daten gegen die DSGVO verstößt.</value>
   </data>
+  <data name="plugins-changes-rights9" xml:space="preserve">
+    <value>&lt;p&gt;Diese Webseite verwendet einen externen Zähler, um die Anzahl der Webseitenaufrufe zu erfassen. Dafür wird ein Java-Script von einer externe Webseite geladen. Der Server von &lt;a href="https://www.besucherzaehler-kostenlos.de"&gt;besucherzaehler-kostenlos.de&lt;/a&gt; speichert die IP-Adresse des Zugriffs anonymisiert und zeitlich begrenzt in einer LOG-Datei ab. Diese wird regelmäßig unwiderruflich gelöscht.&lt;/p&gt;
+
+&lt;p&gt;Um die korrekte Funktionsweise des Zählers zu gewährleisten, speichert der Besucherzähler zudem einen sogenannten Session-Cookie auf dem Computer des Besuchers ab. Dieser wird in der Regel vom Browser gelöscht, sobald er geschlossen wird. In diesem Cookie werden keine persönlichen Informationen gespeichert. Er enthält lediglich die Information der aufgerufenen Domain, sowie einen boolschen Tag (true/false), um den Besucher als bereits gezählt zu markieren.&lt;/p&gt;
+
+&lt;p&gt;Es werden auch darüberhinaus keine persönlichen oder personenbezogenen Daten vom Besucherzähler erhoben. Eine Nachverfolgung oder Zuordnung der Zugriffe ist zu keiner Zeit möglich. Ein besonderer Dank geht an &lt;a href="https://www.putzfrau-agentur.de"&gt;www.putzfrau-agentur.de&lt;/a&gt;, durch dessen Unterstützung dieser kostenlose Service erst möglich gemacht wird.&lt;/p&gt;</value>
+  </data>
   <data name="plugins-deletion-blurp" xml:space="preserve">
     <value>Die von uns verarbeiteten Daten werden nach Maßgabe der gesetzlichen Vorgaben gelöscht, sobald deren zur Verarbeitung erlaubten Einwilligungen widerrufen werden oder sonstige Erlaubnisse entfallen (z.B., wenn der Zweck der Verarbeitung dieser Daten entfallen ist oder sie für den Zweck nicht erforderlich sind).</value>
   </data>

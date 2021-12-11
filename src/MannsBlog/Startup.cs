@@ -33,6 +33,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Syncfusion.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,7 +41,6 @@ using System.Linq;
 using System.Net.Http;
 using WilderMinds.AzureImageStorageService;
 using WilderMinds.MetaWeblog;
-
 
 namespace MannsBlog
 {
@@ -97,7 +97,6 @@ namespace MannsBlog
             svcs.AddScoped<VideosProvider>();
             svcs.AddScoped<JobsProvider>();
             svcs.AddScoped<TestimonialsProvider>();
-            svcs.AddScoped<VideosProvider>();
             svcs.AddScoped<CertsProvider>();
             svcs.AddScoped<ProjectsProvider>();
             if (_env.IsDevelopment() && _config.GetValue<bool>("BlobStorage:TestInDev") == false ||
@@ -123,6 +122,7 @@ namespace MannsBlog
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
+
             // Add Caching Support
             svcs.AddMemoryCache(opt => opt.ExpirationScanFrequency = TimeSpan.FromMinutes(5));
 
@@ -150,6 +150,7 @@ namespace MannsBlog
                 .AddMvcLocalization()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
+
             svcs.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 
@@ -166,6 +167,7 @@ namespace MannsBlog
             }
 
             svcs.AddServerSideBlazor();
+            svcs.AddSyncfusionBlazor();
 
             svcs.AddApplicationInsightsTelemetry(_config["ApplicationInsights:InstrumentationKey"]);
 
@@ -196,6 +198,9 @@ namespace MannsBlog
 
                 app.UseHttpsRedirection();
             }
+
+            // Syncfusion License Key
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(settings.Value.Syncfusion.BlazorKey);
 
             // Support MetaWeblog API
             app.UseMetaWeblog("/livewriter");

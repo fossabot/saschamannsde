@@ -25,6 +25,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -44,19 +45,25 @@ namespace MannsBlog.Controllers.Web
         private IMemoryCache _memoryCache;
         private ILogger<RootController> _logger;
         private IConfiguration _config;
+        private AdService _adService;
         private readonly IMailService _mailService;
 
         public RootController(IMannsRepository repo,
                               IMailService mailService,
                               IMemoryCache memoryCache,
+                              ILogger<RootController> logger,
+                              AdService adService,
                               IConfiguration config)
         {
             _repo = repo;
             _memoryCache = memoryCache;
             _config = config;
             _mailService = mailService;
+            _logger = logger;
+            _adService = adService;
         }
 
+        #region Main
         [HttpGet("")]
         public Task<IActionResult> Index()
         {
@@ -112,26 +119,17 @@ namespace MannsBlog.Controllers.Web
                 story.Body = doc.DocumentNode.OuterHtml;
             };
         }
+        #endregion
 
-        [HttpGet("about")]
-        public IActionResult About()
-        {
-            return View();
-        }
-
-
-        [HttpGet("rss")]
-        public IActionResult Rss()
-        {
-            return Redirect("http://feeds.feedburner.com/saigkills-backtrace");
-        }
-
+        #region Redirect
         //[HttpGet("download")]
         //public IActionResult Download()
         //{
         //    return Redirect("")
         //}
+        #endregion
 
+        #region Errors & Exceptions
         [HttpGet("Error/{code:int}")]
         public IActionResult Error(int errorCode)
         {
@@ -151,7 +149,34 @@ namespace MannsBlog.Controllers.Web
             var exception = HttpContext.Features.Get<IExceptionHandlerFeature>();
             var request = HttpContext.Features.Get<IHttpRequestFeature>();
 
-            if (exception != null && request != null)
+            var botWhitelist = new string[]
+            {
+                "sellers.json",
+                "ads.txt",
+                "docs/youtube_dlhelper",
+                "docs/blog/ExpandAll.png",
+                ".env",
+                "wp-includes/wlwmanifest.xml",
+                "xmlrpc.php",
+                "bookmarks",
+                "wp-login.php",
+                "wp-admin.php",
+                "sitemap.xml",
+                "wordpress",
+                "lcv",
+                "docs/publican_creators",
+                "saschamanns@outlookde.crt",
+                "hoe-reek",
+                "DebugWarmUp"
+            };
+
+            bool matchWhitelist = false;
+            if (botWhitelist.Contains(request.RawTarget))
+            {
+                matchWhitelist = true;
+            }
+
+            if (exception != null && request != null && matchWhitelist == false)
             {
                 var message = $@"<p>RequestUrl: {request.RawTarget}</p>
 <p>Exception: ${exception.Error}</p>";
@@ -161,6 +186,20 @@ namespace MannsBlog.Controllers.Web
 
             return View();
         }
+        #endregion
+
+        #region Views
+        [HttpGet("about")]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet("rss")]
+        public IActionResult Rss()
+        {
+            return Redirect("http://feeds.feedburner.com/saigkills-backtrace");
+        }
 
         [HttpGet("testerror")]
         public IActionResult TestError()
@@ -168,6 +207,45 @@ namespace MannsBlog.Controllers.Web
             throw new InvalidOperationException("Failure");
         }
 
+        [HttpGet("imprint")]
+        public IActionResult Imprint()
+        {
+            return View();
+        }
+
+        [HttpGet("privacy")]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpGet("curriculum_vitae")]
+        public IActionResult CurriculumVitae()
+        {
+            return View();
+        }
+
+        [HttpGet("testimonials")]
+        public IActionResult Testimonials()
+        {
+            return View();
+        }
+        #endregion        
+
+        #region Set Language
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
+            );
+            return LocalRedirect(returnUrl);
+        }
+        #endregion
+
+        #region Feeds
         [HttpGet("feed")]
         public async Task<IActionResult> Feed()
         {
@@ -191,8 +269,8 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>Wenn dir dieser Artikel gefallen hat, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("en-US", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -241,8 +319,8 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>Wenn dir dieser Artikel gefallen hat, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
+            var ad = "Wenn Ihnen dieser Artikel gefallen hat: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("de-DE", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -290,10 +368,8 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>Wenn dir dieser Artikel gefallen hat, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
-            //var entries = _repo.GetStories(25);
-
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("OpensourceDE", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -341,10 +417,9 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
+            //var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
-            //var entries = _repo.GetStories(25);
-
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("Opensource", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -392,10 +467,8 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
-            //var entries = _repo.GetStories(25);
-
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("Linux", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -443,10 +516,8 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
-            //var entries = _repo.GetStories(25);
-
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("Windows", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -494,10 +565,9 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
+            //var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
-            //var entries = _repo.GetStories(25);
-
+            var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("DotNetCore", 25, 1);
 
             foreach (var entry in entries.Stories)
@@ -521,46 +591,6 @@ namespace MannsBlog.Controllers.Web
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
-
-        [HttpGet("imprint")]
-        public IActionResult Imprint()
-        {
-            return View();
-        }
-
-        [HttpGet("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [HttpGet("curriculum_vitae")]
-        public IActionResult CurriculumVitae()
-        {
-            return View();
-        }
-
-        [HttpGet("testimonials")]
-        public IActionResult Testimonials()
-        {
-            return View();
-        }
-
-        //[HttpGet("calendar")]
-        //public IActionResult Calendar()
-        //{
-        //    return View();
-        //}
-
-        [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
-        {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
-            );
-            return LocalRedirect(returnUrl);
-        }
+        #endregion
     }
 }

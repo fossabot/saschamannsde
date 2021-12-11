@@ -10,7 +10,7 @@
         "lodash.js",
         "lodash.min.js"
       ]
-    },
+    },    
     {
       "provider": "unpkg",
       "library": "magnific-popup@1.1.0",
@@ -149,6 +149,11 @@
       "provider": "unpkg",
       "library": "autoprefixer@10.4.0",
       "destination": "wwwroot/lib/autoprefixer/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@codersrank/summary@0.9.11",
+      "destination": "wwwroot/lib/codersrank/summary/"
     }
   ]
 }

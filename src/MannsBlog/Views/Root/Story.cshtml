@@ -15,10 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
 @model BlogStory
 @inject MannsBlog.Services.AdService _ads
 @inject Microsoft.Extensions.Configuration.IConfiguration _config
 @inject IViewLocalizer _localizer
+
 @{
     ViewBag.Title = $"{Model.Title} - Sascha Manns";
     ViewBag.PageImage = "/img/headers/code2.jpg";
@@ -102,7 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         @Html.Raw(Model.Body)
     </div>
     <div class="card">
-        <div class="pull-left" style="padding-right: 5px;">
+        <div class="pull-left" style="padding-right: 5px; width: 50%;">
             <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">
                 <img alt="Creative Commons License" class="" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
             </a>
@@ -115,7 +119,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </div>
     </div>
     <hr />
-    <div data-type="xing/share" data-counter="right" @_localizer["xing-lang"]></div>
+    
+    <table class="tg">
+        <tbody>
+        <tr>
+            <td class="tg-0lax"><div data-type="xing/share" data-counter="right" @_localizer["xing-lang"]></div></td>
+            @*<td class="tg-0lax"><script type="IN/Share" data-url="@Model.Slug"></script></td>*@
+        </tr>
+        @*<tr>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+        </tr>*@
+        </tbody>
+    </table>
+
     <div class="ad-container">
         @_ads.InlineAdd()
     </div>
@@ -123,10 +140,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div id="disqus_thread"></div>
 </div>
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-coy.min.css" />
-    @*<link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shCore.css" />
-        <link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shThemeDefault.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism.css"/>
+    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism-coy.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/contact.css"/>
 }
 @section Scripts {
     <script>
@@ -153,6 +169,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             s.parentNode.insertBefore(x, s);
         })(document, "script");
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="~/lib/prismjs/components/prism-core.min.js"></script>
+    <script src="~/lib/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
 }

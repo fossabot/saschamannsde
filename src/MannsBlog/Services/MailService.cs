@@ -51,7 +51,6 @@ namespace MannsBlog.Services
                     {
                         _logger.LogError($"File doesn't exist but directory for templates does");
                     }
-
                     return false;
                 }
 
@@ -66,7 +65,7 @@ namespace MannsBlog.Services
                 var mailMsg = MailHelper.CreateSingleEmail(
                   new EmailAddress(_settings.Value.MailService.Receiver),
                   new EmailAddress(_settings.Value.MailService.Receiver),
-                  $"saschamanns.com Site Mail",
+                  $"saschamanns.de Site Mail",
                   formattedMessage,
                   formattedMessage);
 

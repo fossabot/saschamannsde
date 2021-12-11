@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Syncfusion.Blazor.Navigations
 @inject IViewLocalizer _localizer
 @{
     var ctrl = ViewContext.RouteData.Values["controller"] as string;
@@ -27,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         return "";
     });
 }
+
 <li class="nav-item"><a class="nav-link @isCurrent("Root", "Index")" asp-controller="Root" asp-action="Index" style="color: #eee">@_localizer["Home"]</a></li>
 <li class="nav-item"><a class="nav-link @isCurrent("Root", "About")" asp-controller="Root" asp-action="About" style="color: #eee">@_localizer["About"]</a></li>
 <li class="nav-item"><a class="nav-link @isCurrent("Root", "CurriculumVitae")" asp-controller="Root" asp-action="CurriculumVitae" style="color: #eee">Curriculum vitae</a></li>

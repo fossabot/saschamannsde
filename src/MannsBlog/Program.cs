@@ -12,57 +12,53 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+using MannsBlog.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MannsBlog.Data;
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MannsBlog
 {
-  public class Program
-  {
-    public static void Main(string[] args)
+    public class Program
     {
-      var host = WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(ConfigureConfiguration)
-            .UseStartup<Startup>()
-            .Build();
+        public static void Main(string[] args)
+        {
+            var host = WebHost.CreateDefaultBuilder(args)
+                  .ConfigureAppConfiguration(ConfigureConfiguration)
+                  .UseStartup<Startup>()
+                  .Build();
 
-      if (args.Contains("/seed"))
-      {
-        Seed(host).Wait();
-      }
+            if (args.Contains("/seed"))
+            {
+                Seed(host).Wait();
+            }
 
-      host.Run();
+            host.Run();
+        }
+
+        private static async Task Seed(IWebHost host)
+        {
+            var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory?.CreateScope();
+            var initializer = scope?.ServiceProvider.GetService<MannsInitializer>();
+            await initializer!.SeedAsync();
+        }
+
+
+        private static void ConfigureConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
+        {
+            // Reset to remove the old configuration sources to give us complete control
+            builder.Sources.Clear();
+
+            builder.SetBasePath(ctx.HostingEnvironment.ContentRootPath)
+              .AddJsonFile("config.json", false, true)
+              .AddUserSecrets(Assembly.GetEntryAssembly())
+              .AddEnvironmentVariables();
+        }
     }
-
-    private static async Task Seed(IWebHost host)
-    {
-      var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
-      using var scope = scopeFactory?.CreateScope();
-      var initializer = scope?.ServiceProvider.GetService<MannsInitializer>();
-      await initializer!.SeedAsync();
-    }
-
-
-    private static void ConfigureConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
-    {
-      // Reset to remove the old configuration sources to give us complete control
-      builder.Sources.Clear();
-
-      builder.SetBasePath(ctx.HostingEnvironment.ContentRootPath)
-        .AddJsonFile("config.json", false, true)
-        .AddUserSecrets(Assembly.GetEntryAssembly())
-        .AddEnvironmentVariables();
-
-    }
-  }
 }

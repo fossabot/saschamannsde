@@ -12,16 +12,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MannsBlog.Models;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace MannsBlog.Services
 {
@@ -30,14 +25,14 @@ namespace MannsBlog.Services
         private readonly RequestDelegate _next;
         private readonly IMailService _mailService;
         private readonly IHostEnvironment _env;
-        private ILogger<EmailExceptionMiddleware> _logger;        
+        private ILogger<EmailExceptionMiddleware> _logger;
 
         public EmailExceptionMiddleware(RequestDelegate next, IMailService mailService, IHostEnvironment env, ILogger<EmailExceptionMiddleware> logger)
         {
             _next = next;
             _mailService = mailService;
             _env = env;
-            _logger = logger;            
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)

@@ -70,6 +70,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 		<PackageReference Include="RestSharp" Version="106.12.0" />
 		<PackageReference Include="Sendgrid" Version="9.22.0" />
+		<PackageReference Include="Syncfusion.Blazor" Version="19.3.0.57" />
 		<PackageReference Include="WilderMinds.AzureImageStorageService" Version="0.4.1" />
 		<PackageReference Include="WilderMinds.MetaWeblog" Version="5.0.0" />
 		<PackageReference Include="WilderMinds.RssSyndication" Version="1.7.0" />
@@ -81,11 +82,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="obj\**" />
+	  <Compile Remove="obj\**" />	  
 	  <Content Remove="obj\**" />
-	  <EmbeddedResource Remove="obj\**" />
-	  <None Remove="obj\**" />
+	  <EmbeddedResource Remove="obj\**" />	  
+	  <None Remove="obj\**" />	  
 	  <TypeScriptCompile Remove="obj\**" />
+	  <TypeScriptCompile Remove="wwwroot\lib\**" />
 	</ItemGroup>
 
 	<ItemGroup>

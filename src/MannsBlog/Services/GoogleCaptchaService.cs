@@ -15,10 +15,13 @@
 
 using MannsBlog.Config;
 using MannsBlog.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MannsBlog.Services
@@ -27,34 +30,55 @@ namespace MannsBlog.Services
     {
         private readonly ILogger<GoogleCaptchaService> _logger;
         private readonly IOptions<AppSettings> _settings;
+        private readonly IHttpContextAccessor _ctxAccessor;
 
         public GoogleCaptchaService(ILogger<GoogleCaptchaService> logger,
-          IOptions<AppSettings> settings)
+          IOptions<AppSettings> settings,
+          IHttpContextAccessor ctxAccessor)
         {
             _logger = logger;
             _settings = settings;
+            _ctxAccessor = ctxAccessor;
         }
 
         public async Task<bool> Verify(string recaptcha)
         {
-            using (var client = new System.Net.WebClient())
-            {
-                try
-                {
-                    // Enter your reCAPTCHA private key here
-                    string secretKey = _settings.Value.Google.CaptchaSecret;
-                    var gReply = client.DownloadString(string.Format(
-                        "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
-                        secretKey, recaptcha));
+            var uri = "https://www.google.com/recaptcha/api/siteverify";
+            var request = _ctxAccessor.HttpContext?.Request;
 
-                    var jsonReturned = JsonConvert.DeserializeObject<Recaptcha>(gReply);
-                    return (jsonReturned.Success.ToLower() == "true");
-                }
-                catch (Exception)
+            if (request is not null)
+            {
+
+                //make the api call and determine validity
+                using (var client = new HttpClient())
                 {
-                    throw;
+                    var content = new FormUrlEncodedContent(new[]
+                    {
+                         new KeyValuePair<string?, string?>("secret", _settings.Value.Google.CaptchaSecret),
+                         new KeyValuePair<string?, string?>("response", recaptcha),
+                         new KeyValuePair<string?, string?>("remoteip", request.Headers.ContainsKey("HTTP_X_FORWARDED_FOR") ?
+                             request.Headers["HTTP_X_FORWARDED_FOR"].FirstOrDefault() :
+                             _ctxAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString())
+
+                     });
+
+                    var result = await client.PostAsync(uri, content);
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var json = await result.Content.ReadAsStringAsync();
+                        var verifyResponse = JsonConvert.DeserializeObject<SiteVerifyResult>(json);
+                        if (verifyResponse.Success)
+                        {
+                            _logger.LogInformation("Verifying Google Recaptcha was successful");
+                            return true;
+                        }
+                    }
+                    _logger.LogInformation("Verifying Google Recaptcha was failed");
+                    return false;
                 }
             }
+            return false;
         }
     }
 }

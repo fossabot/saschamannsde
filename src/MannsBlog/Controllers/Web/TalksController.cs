@@ -12,10 +12,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using MannsBlog.Services.DataProviders;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MannsBlog.Controllers.Web
 {
@@ -33,17 +31,6 @@ namespace MannsBlog.Controllers.Web
         public IActionResult Index()
         {
             return View(_talks.Get());
-        }
-
-        [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
-        {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
-            );
-            return LocalRedirect(returnUrl);
         }
     }
 }
