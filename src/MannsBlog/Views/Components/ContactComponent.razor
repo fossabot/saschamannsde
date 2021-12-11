@@ -96,7 +96,7 @@
     {
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(ContactFormModel);
         var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-        var response = await Http.PostAsync("/Mailer/SendMessage", stringContent);
+        var response = await Http.PostAsync("/Contact/SendMessage", stringContent);
         Logger.LogInformation("Executed PostAsync.");
         Debug.Write("Executed PostAsync");
 

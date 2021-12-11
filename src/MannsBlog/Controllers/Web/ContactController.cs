@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace MannsBlog.Controllers.Web
 {
     [Route("[controller]")]
-    public class MailerController : Controller
+    public class ContactController : Controller
     {
         private readonly IMailService _mailService;
-        private readonly ILogger<MailerController> _logger;
+        private readonly ILogger<ContactController> _logger;
         private readonly GoogleCaptchaService _captcha;
 
-        public MailerController(IMailService mailService,
-            ILogger<MailerController> logger,
+        public ContactController(IMailService mailService,
+            ILogger<ContactController> logger,
             GoogleCaptchaService captcha)
         {
             _mailService = mailService;
