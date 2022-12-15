@@ -18,12 +18,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MannsBlog.Helpers
 {
+    /// <summary>
+    /// Extension for using HealthChecks.
+    /// </summary>
     public static class HealthCheckExtensions
     {
+        /// <summary>
+        /// Configures the health checks.
+        /// </summary>
+        /// <param name="coll">The Servicecollection.</param>
+        /// <param name="config">The configuration.</param>
+        /// <returns>Service Collection.</returns>
         public static IServiceCollection ConfigureHealthChecks(this IServiceCollection coll, IConfiguration config)
         {
             var connectionString = config["MannsDb:ConnectionString"];
-            var instrumentationKey = config["ApplicationInsights:InstrumentationKey"];
+            var instrumentationKey = config["ApplicationInsights:ConnectionString"];
 
             coll.AddHealthChecks()
               .AddSqlServer(connectionString, name: "DbConnection")

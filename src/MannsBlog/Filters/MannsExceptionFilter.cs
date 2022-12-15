@@ -12,34 +12,40 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 
 namespace MannsBlog.Filters
 {
-  public class MannsExceptionFilter : ExceptionFilterAttribute
-  {
-    private readonly IHostEnvironment _hostingEnvironment;
-
-    public MannsExceptionFilter(IHostEnvironment hostingEnvironment)
+    /// <summary>
+    /// My Exceptionfilter.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.ExceptionFilterAttribute" />
+    public class MannsExceptionFilter : ExceptionFilterAttribute
     {
-      _hostingEnvironment = hostingEnvironment;
-    }
+        private readonly IHostEnvironment _hostingEnvironment;
 
-    public override void OnException(ExceptionContext context)
-    {
-      if (_hostingEnvironment.IsDevelopment())
-      {
-        return;
-      }
-      
-      
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MannsExceptionFilter"/> class.
+        /// </summary>
+        /// <param name="hostingEnvironment">The hosting environment.</param>
+        public MannsExceptionFilter(IHostEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+        /// <summary>
+        /// Method for case of Exception.
+        /// </summary>
+        /// <param name="context">Exception Context.</param>
+        /// <inheritdoc />
+        public override void OnException(ExceptionContext context)
+        {
+            if (_hostingEnvironment.IsDevelopment())
+            {
+                return;
+            }
+        }
     }
-  }
 }

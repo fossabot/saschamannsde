@@ -260,7 +260,7 @@ namespace MannsBlog
                 app.UseExceptionHandler("/Exception");
 
                 // Support logging to email
-                loggerFactory.AddEmail(mailService, contextAccessor, LogLevel.Critical);
+                loggerFactory.AddEmail(mailService, contextAccessor, settings, LogLevel.Critical);
 
                 app.UseHttpsRedirection();
             }

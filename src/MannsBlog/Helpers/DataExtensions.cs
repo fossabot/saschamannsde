@@ -20,9 +20,16 @@ using MannsBlog.EntityFramework.Entities;
 
 namespace MannsBlog.Helpers
 {
+    /// <summary>
+    /// Extensionclass for Data.
+    /// </summary>
     public static class DataExtensions
     {
-
+        /// <summary>
+        /// Gets the summary.
+        /// </summary>
+        /// <param name="me">A given Blogstory.</param>
+        /// <returns>Blogs Summary.</returns>
         public static string GetSummary(this BlogStory me)
         {
             var maxparagraphs = 2;
@@ -34,21 +41,31 @@ namespace MannsBlog.Helpers
             {
                 x++;
                 bldr.Append(m.Value);
-                if (x == maxparagraphs) break;
+                if (x == maxparagraphs)
+                {
+                    break;
+                }
             }
+
             return bldr.ToString();
 
         }
 
+        /// <summary>
+        /// Gets the story URL.
+        /// </summary>
+        /// <param name="story">The story.</param>
+        /// <returns>Current Date for Slug.</returns>
         public static string GetStoryUrl(this BlogStory story)
         {
             return string.Format("{0:0000}/{1:00}/{2:00}/{3}", story.DatePublished.Year, story.DatePublished.Month, story.DatePublished.Day, GetUrlSafeTitle(story));
         }
 
-        //public static Uri GetStoryFullUri(this BlogStory story, HttpRequest request)
-        //{
-        //  return new Uri(new Uri(request.GetDisplayUrl()), story.GetStoryUrl());
-        //}
+        /// <summary>
+        /// Gets the URL safe title.
+        /// </summary>
+        /// <param name="story">The story.</param>
+        /// <returns>Save URL.</returns>
 
         public static string GetUrlSafeTitle(this BlogStory story)
         {
@@ -63,21 +80,25 @@ namespace MannsBlog.Helpers
                 bldr.Append(rd);
                 bldr.Append("-");
             }
+
             return bldr.ToString(0, bldr.Length - 1);
         }
 
         // https://stackoverflow.com/questions/7470997/replace-german-characters-umlauts-accents-with-english-equivalents
         private static string RemoveDiacritics(string s)
         {
-            String normalizedString = s.Normalize(NormalizationForm.FormD);
-            String wodia = String.Empty;
+            string normalizedString = s.Normalize(NormalizationForm.FormD);
+            string wodia = string.Empty;
 
             for (int i = 0; i < normalizedString.Length; i++)
             {
                 Char c = normalizedString[i];
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
                     wodia += c;
+                }
             }
+
             return wodia;
         }
     }

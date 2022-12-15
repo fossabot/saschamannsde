@@ -13,39 +13,59 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MannsBlog.Config;
+using MannsBlog.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using MannsBlog.Services;
+using Microsoft.Extensions.Options;
 
 namespace MannsBlog.Logger
 {
-  public static class EmailLoggerExtensions
-  {
-    public static ILoggerFactory AddEmail(this ILoggerFactory factory, 
-                                          IMailService mailService, 
-                                          IHttpContextAccessor contextAccessor,
-                                          Func<string, LogLevel, bool>? filter = null)
+    /// <summary>
+    /// Logger Extension.
+    /// </summary>
+    public static class EmailLoggerExtensions
     {
+        /// <summary>
+        /// Adds the email.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="mailService">The mail service.</param>
+        /// <param name="contextAccessor">The context accessor.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>factory.</returns>
+        public static ILoggerFactory AddEmail(this ILoggerFactory factory,
+                                              IMailService mailService,
+                                              IHttpContextAccessor contextAccessor,
+                                              IOptions<AppSettings> settings,
+                                              Func<string, LogLevel, bool>? filter = null)
+        {
 #pragma warning disable CS8604 // Possible null reference argument.
-      factory.AddProvider(new EmailLoggerProvider(filter, mailService, contextAccessor));
+            factory.AddProvider(new EmailLoggerProvider(filter, mailService, contextAccessor, settings));
 #pragma warning restore CS8604 // Possible null reference argument.
-      return factory;
-    }
+            return factory;
+        }
 
-    public static ILoggerFactory AddEmail(this ILoggerFactory factory, 
-      IMailService mailService,
-      IHttpContextAccessor contextAccessor, 
-      LogLevel minLevel)
-    {
-      return AddEmail(
-          factory,
-          mailService,
-          contextAccessor,
-          (_, logLevel) => logLevel >= minLevel);
+        /// <summary>
+        /// Adds the email.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="mailService">The mail service.</param>
+        /// <param name="contextAccessor">The context accessor.</param>
+        /// <param name="minLevel">The minimum level.</param>
+        /// <returns>Add Email object.</returns>
+        public static ILoggerFactory AddEmail(this ILoggerFactory factory,
+          IMailService mailService,
+          IHttpContextAccessor contextAccessor,
+          IOptions<AppSettings> settings,
+          LogLevel minLevel)
+        {
+            return AddEmail(
+                factory,
+                mailService,
+                contextAccessor,
+                settings,
+                (_, logLevel) => logLevel >= minLevel);
+        }
     }
-  }
 }

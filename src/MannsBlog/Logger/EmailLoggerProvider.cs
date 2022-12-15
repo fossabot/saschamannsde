@@ -13,36 +13,57 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MannsBlog.Config;
+using MannsBlog.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using MannsBlog.Services;
+using Microsoft.Extensions.Options;
 
 namespace MannsBlog.Logger
 {
-  public class EmailLoggerProvider : ILoggerProvider
-  {
-    private readonly Func<string, LogLevel, bool> _filter;
-    private readonly IMailService _mailService;
-    private readonly IHttpContextAccessor _contextAccessor;
-
-    public EmailLoggerProvider(Func<string, LogLevel, bool> filter, IMailService mailService, IHttpContextAccessor contextAccessor)
+    /// <summary>
+    /// Logging Provider.
+    /// </summary>
+    /// <seealso cref="Microsoft.Extensions.Logging.ILoggerProvider" />
+    public class EmailLoggerProvider : ILoggerProvider
     {
-      _mailService = mailService;
-      _contextAccessor = contextAccessor;
-      _filter = filter;
-    }
+        private readonly Func<string, LogLevel, bool> _filter;
+        private readonly IMailService _mailService;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IOptions<AppSettings> _settings;
 
-    public ILogger CreateLogger(string categoryName)
-    {
-      return new EmailLogger(categoryName, _filter, _mailService, _contextAccessor);
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmailLoggerProvider"/> class.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="mailService">The mail service.</param>
+        /// <param name="contextAccessor">The context accessor.</param>
+        /// <param name="settings">The settings.</param>
+        public EmailLoggerProvider(Func<string, LogLevel, bool> filter, IMailService mailService, IHttpContextAccessor contextAccessor, IOptions<AppSettings> settings)
+        {
+            _mailService = mailService;
+            _contextAccessor = contextAccessor;
+            _filter = filter;
+            _settings = settings;
+        }
 
-    public void Dispose()
-    {
+        /// <summary>
+        /// Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger" /> instance.
+        /// </summary>
+        /// <param name="categoryName">The category name for messages produced by the logger.</param>
+        /// <returns>
+        /// The instance of <see cref="T:Microsoft.Extensions.Logging.ILogger" /> that was created.
+        /// </returns>
+        public ILogger CreateLogger(string categoryName)
+        {
+            return new EmailLogger(categoryName, _filter, _mailService, _contextAccessor, _settings);
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+        }
     }
-  }
 }
