@@ -21,10 +21,8 @@
 @using Microsoft.Extensions.Logging
 @using Microsoft.JSInterop
 @using MannsBlog.Models
+@using MannsBlog.Models;
 @using System.Diagnostics
-@using Syncfusion.Blazor
-@using Syncfusion.Blazor.Inputs
-@using Syncfusion.Blazor.Buttons
 
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
@@ -38,16 +36,16 @@
     private string alerttext { get; set; }
     private string btnVisibility = "d-block";
     private string sendVisibility = "d-none";
-    string google { get; set; }    
+    string google { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            google = await JSRuntime.InvokeAsync<string>("runCaptcha");            
+            google = await JSRuntime.InvokeAsync<string>("runCaptcha");
             StateHasChanged();
         }
-    }    
+    }
 
     private async Task OnSubmit()
     {
@@ -125,10 +123,10 @@
         alerttextclass = "text-danger";
         alerttext = message;
         Logger.LogInformation("Executed ShowErrorAlert.");
-    }        
+    }
 }
 
-<div class="control-section col-lg-12">
+@*<div class="control-section col-lg-12">
     <div class="content-wrapper form-group e-input-group">
         <EditForm Model="@ContactFormModel" OnValidSubmit="@OnSubmit">
             <DataAnnotationsValidator />
@@ -136,40 +134,40 @@
             <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <label for="Name" class="bg-black text-light border-black equal-widths">Your Name</label>
-                </div>                
+                </div>
                 <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Name" Placeholder="Full Name" ID="Name"/>
                 <ValidationMessage For="@(() => ContactFormModel.Name)" />
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <label for="Email" class="bg-black text-light border-black equal-widths">Your Email</label>
-                </div>                
+                </div>
                 <SfTextBox Type="InputType.Email" @bind-Value="@ContactFormModel.Email" Placeholder="Email" ID="Email"/>
                 <ValidationMessage For="@(() => ContactFormModel.Email)" />
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <label for="Subject" class="bg-black text-light border-black equal-widths">Your Subject</label>
-                </div>                
+                </div>
                 <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Subject" Placeholder="Subject" ID="Subject"/>
                 <ValidationMessage For="@(() => ContactFormModel.Subject)" />
             </div>
             <div class="input-group multiline">
                 <div class="input-group-prepend">
                     <label for="Message" class="bg-black text-light border-black equal-widths h-100">Your Message</label>
-                </div>                
+                </div>
                 <SfTextBox Type="InputType.Text" @bind-Value="@ContactFormModel.Message" Placeholder="Message" ID="Message" Multiline=true  Width="100" />
                 <ValidationMessage For="@(() => ContactFormModel.Message)" />
             </div>
             <div class="sfButton mt-3">
                 <SfButton id="submitBtn" CssClass="e-success" type="submit">Submit</SfButton>
-            </div>            
+            </div>
             <div class="bg-primary text-light rounded p-2 @sendVisibility">
                 <i class="fas fa-cog fa-spinner"></i> Sending
             </div>
-        </EditForm>        
+        </EditForm>
     </div>
-</div>
+</div>*@
 <h4>Currently this form is out of order for styling and debugging purposes. For important things or if you know how to get razor forms working, just drop a note to: Sascha[dot]Manns [et] outlook.de</h4>
 
 @if (displaySendAlert == true)

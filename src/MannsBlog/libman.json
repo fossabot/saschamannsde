@@ -1,158 +1,53 @@
 {
   "version": "1.0",
-  "defaultProvider": "cdnjs",
+  "defaultProvider": "unpkg",
   "libraries": [
     {
-      "provider": "unpkg",
-      "library": "lodash@4.17.21",
-      "destination": "wwwroot/lib/lodash/",
-      "files": [
-        "lodash.js",
-        "lodash.min.js"
-      ]
-    },    
-    {
-      "provider": "unpkg",
-      "library": "magnific-popup@1.1.0",
-      "destination": "wwwroot/lib/magnific-popup/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "owl.carousel@2.3.4",
-      "destination": "wwwroot/lib/owl.carousel/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "pagepiling.js@1.5.6",
-      "destination": "wwwroot/lib/pagepiling.js/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "tether@2.0.0",
-      "destination": "wwwroot/lib/tether/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "ajaxchimp@1.3.0",
-      "destination": "wwwroot/lib/ajaxchimp/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "jquery@3.6.0",
-      "destination": "wwwroot/lib/jquery"
-    },
-    {
-      "provider": "unpkg",
-      "library": "animsition@4.0.2",
-      "destination": "wwwroot/lib/animsition/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "bootstrap@5.0.2",
+      "library": "bootstrap@5.2.3",
       "destination": "wwwroot/lib/bootstrap/"
     },
     {
-      "provider": "unpkg",
+      "library": "open-iconic@1.1.1",
+      "destination": "wwwroot/lib/open-iconic/"
+    },
+    {
+      "library": "lodash@4.17.21",
+      "destination": "wwwroot/lib/lodash/"
+    },
+    {
+      "library": "@fortawesome/fontawesome-free@6.2.1",
+      "destination": "wwwroot/lib/fortawesome/fontawesome-free/"
+    },
+    {
       "library": "cookieconsent@3.1.1",
       "destination": "wwwroot/lib/cookieconsent/"
     },
     {
-      "provider": "unpkg",
-      "library": "highlight.js@11.1.0",
+      "library": "respond@0.9.0",
+      "destination": "wwwroot/lib/respond/"
+    },
+    {
+      "library": "tether@2.0.0",
+      "destination": "wwwroot/lib/tether/"
+    },
+    {
+      "library": "highlight.js@11.7.0",
       "destination": "wwwroot/lib/highlight.js/"
     },
     {
-      "provider": "unpkg",
-      "library": "jarallax@1.12.0",
-      "destination": "wwwroot/lib/jarallax/"
+      "library": "jquery@3.6.2",
+      "destination": "wwwroot/lib/jquery/"
     },
     {
-      "provider": "unpkg",
-      "library": "jquery-validation@1.19.3",
-      "destination": "wwwroot/lib/jquery-validation/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "normalize-url@4.5.1",
-      "destination": "wwwroot/lib/normalize-url"
-    },
-    {
-      "provider": "unpkg",
-      "library": "popper@1.0.1",
-      "destination": "wwwroot/lib/popper/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "prismjs@1.24.1",
-      "destination": "wwwroot/lib/prismjs/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "respond.js@1.4.2",
-      "destination": "wwwroot/lib/respond.js/"
-    },
-    {
-      "library": "typeit@7.0.4",
+      "library": "typeit@8.7.0",
       "destination": "wwwroot/lib/typeit/"
     },
     {
-      "provider": "unpkg",
-      "library": "vue@2.6.14",
-      "destination": "wwwroot/lib/vue/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "vee-validate@3.4.10",
-      "destination": "wwwroot/lib/vee-validate/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "vue-resource@1.5.3",
-      "destination": "wwwroot/lib/vue-resource/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "@fortawesome/fontawesome-free@5.15.3",
-      "destination": "wwwroot/lib/fortawesome/fontawesome-free/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "github-calendar@2.2.7",
-      "destination": "wwwroot/lib/github-calendar/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "ionicons@5.5.2",
-      "destination": "wwwroot/lib/ionicons/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "aos@2.3.4",
-      "destination": "wwwroot/lib/aos/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "@skyscanner/popper.js@1.12.9-beta.1",
-      "destination": "wwwroot/lib/skyscanner/popper.js/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "vanilla-lazyload@17.4.0",
+      "library": "vanilla-lazyload@17.8.3",
       "destination": "wwwroot/lib/vanilla-lazyload/"
     },
     {
-      "provider": "unpkg",
-      "library": "@highlightjs/cdn-assets@11.1.0",
-      "destination": "wwwroot/lib/highlightjs/cdn-assets/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "autoprefixer@10.4.0",
-      "destination": "wwwroot/lib/autoprefixer/"
-    },
-    {
-      "provider": "unpkg",
-      "library": "@codersrank/summary@0.9.11",
+      "library": "@codersrank/summary@0.9.13",
       "destination": "wwwroot/lib/codersrank/summary/"
     }
   ]

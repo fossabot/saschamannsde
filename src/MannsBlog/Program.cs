@@ -12,15 +12,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using MannsBlog.Data;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MannsBlog
 {
@@ -46,7 +45,8 @@ namespace MannsBlog
             var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
             using var scope = scopeFactory?.CreateScope();
             var initializer = scope?.ServiceProvider.GetService<MannsInitializer>();
-            await initializer!.SeedAsync();
+            await initializer!.SeedUserAsync();
+            await initializer!.SeedStoriesAsync();
         }
 
 
@@ -56,7 +56,7 @@ namespace MannsBlog
             builder.Sources.Clear();
 
             builder.SetBasePath(ctx.HostingEnvironment.ContentRootPath)
-              .AddJsonFile("config.json", false, true)
+              .AddJsonFile("appsettings.json", false, true)
               .AddUserSecrets(Assembly.GetEntryAssembly())
               .AddEnvironmentVariables();
         }

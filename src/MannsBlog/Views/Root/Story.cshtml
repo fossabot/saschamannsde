@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @using Microsoft.Extensions.Options
 @using Microsoft.AspNetCore.Builder
 @using Microsoft.AspNetCore.Localization
+@using MannsBlog.EntityFramework.Entities;
 @model BlogStory
 @inject MannsBlog.Services.AdService _ads
 @inject Microsoft.Extensions.Configuration.IConfiguration _config
@@ -119,17 +120,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </div>
     </div>
     <hr />
-    
+
     <table class="tg">
         <tbody>
-        <tr>
-            <td class="tg-0lax"><div data-type="xing/share" data-counter="right" @_localizer["xing-lang"]></div></td>
-            @*<td class="tg-0lax"><script type="IN/Share" data-url="@Model.Slug"></script></td>*@
-        </tr>
-        @*<tr>
+            <tr>
+                <td class="tg-0lax"><div data-type="xing/share" data-counter="right" @_localizer["xing-lang"]></div></td>
+                @*<td class="tg-0lax"><script type="IN/Share" data-url="@Model.Slug"></script></td>*@
+            </tr>
+            @*<tr>
             <td class="tg-0lax"></td>
             <td class="tg-0lax"></td>
-        </tr>*@
+            </tr>*@
         </tbody>
     </table>
 
@@ -140,25 +141,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div id="disqus_thread"></div>
 </div>
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism.css"/>
+    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism.css" />
     <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism-coy.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/contact.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/contact.css" />
 }
 @section Scripts {
     <script>
-    var disqus_config = function () {
-      this.page.url = "@("https://saschamanns.de/" + Model.GetStoryUrl())";
-      this.page.identifier = "@Model.UniqueId";
-    };
+        var disqus_config = function () {
+            this.page.url = "@("https://saschamanns.de/" + Model.GetStoryUrl())";
+            this.page.identifier = "@Model.UniqueId";
+        };
 
-    (function () { // DON'T EDIT BELOW THIS LINE
-      var d = document, s = d.createElement('script');
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
 
-      s.src = '//@(_config["Disqus:BlogName"]).disqus.com/embed.js';
+            s.src = '//@(_config["Disqus:BlogName"]).disqus.com/embed.js';
 
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
     </script>
     <noscript>@_localizer["disqus"] <a href="https://disqus.com/?ref_noscript" rel="nofollow">@_localizer["disqus1"]</a></noscript>
     <script>

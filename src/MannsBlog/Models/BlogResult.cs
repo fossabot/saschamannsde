@@ -1,4 +1,4 @@
-// Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+﻿// Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,19 +12,35 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MannsBlog.EntityFramework.Entities;
 
-namespace MannsBlog.Data
+namespace MannsBlog.Models
 {
-  public class Program
-  {
-    public static void Main(string[] args)
+    /// <summary>
+    /// BlogResult Model.
+    /// </summary>
+    public class BlogResult
     {
+        /// <summary>
+        /// The stories.
+        /// </summary>
+        public IEnumerable<BlogStory> Stories = new List<BlogStory>();
 
+        /// <summary>
+        /// The total results.
+        /// </summary>
+        public int TotalResults;
+
+        /// <summary>
+        /// The total pages.
+        /// </summary>
+        public int TotalPages;
+
+        /// <summary>
+        /// The current page.
+        /// </summary>
+        public int CurrentPage;
     }
-  }
 }

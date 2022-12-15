@@ -12,12 +12,19 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http;
 using HealthChecks.UI.Client;
 using MannsBlog.Config;
-using MannsBlog.Data;
+using MannsBlog.EntityFramework.Context;
 using MannsBlog.Helpers;
 using MannsBlog.Logger;
 using MannsBlog.MetaWeblog;
+using MannsBlog.Models;
+using MannsBlog.Repositories;
 using MannsBlog.Services;
 using MannsBlog.Services.DataProviders;
 using Microsoft.AspNetCore.Builder;
@@ -33,12 +40,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Syncfusion.Blazor;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
 using WilderMinds.AzureImageStorageService;
 using WilderMinds.MetaWeblog;
 
@@ -167,7 +168,6 @@ namespace MannsBlog
             }
 
             svcs.AddServerSideBlazor();
-            svcs.AddSyncfusionBlazor();
 
             svcs.AddApplicationInsightsTelemetry(_config["ApplicationInsights:InstrumentationKey"]);
 

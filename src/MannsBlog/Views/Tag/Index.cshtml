@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
+@using MannsBlog.Models;
 @model BlogResult
 @{
     ViewBag.Title = $"Tag: {ViewContext.RouteData.Values["tag"]} - Sascha Manns's Twilight Zone";
@@ -24,18 +25,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 @if (Model.Stories != null && Model.Stories.Count() > 0)
 {
-<div class="grid xl:grid-cols-3 gap-1 grid-cols-1 sm:grid-cols-2">
-  @foreach (var story in Model.Stories)
-  {
-    <partial name="_StoryBrief" model="story" />
-  }
-</div>
+    <div class="grid xl:grid-cols-3 gap-1 grid-cols-1 sm:grid-cols-2">
+        @foreach (var story in Model.Stories)
+        {
+            <partial name="_StoryBrief" model="story" />
+        }
+    </div>
 
-  <div>
-      <partial name="_Pager" />
-  </div>
+    <div>
+        <partial name="_Pager" />
+    </div>
 }
 else
 {
-  <div>No Stories Found...</div>
+    <div>No Stories Found...</div>
 }

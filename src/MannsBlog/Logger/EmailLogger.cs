@@ -13,75 +13,74 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using MannsBlog.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MannsBlog.Services;
 
 namespace MannsBlog.Logger
 {
-  public class EmailLogger : ILogger
-  {
-    private string _categoryName;
-    private Func<string, LogLevel, bool> _filter;
-    private IMailService _mailService;
-    private readonly IHttpContextAccessor _contextAccessor;
-
-    public EmailLogger(string categoryName, Func<string, LogLevel, bool> filter, IMailService mailService, IHttpContextAccessor contextAccessor)
+    public class EmailLogger : ILogger
     {
-      _categoryName = categoryName;
-      _filter = filter;
-      _mailService = mailService;
-      _contextAccessor = contextAccessor;
-    }
+        private string _categoryName;
+        private Func<string, LogLevel, bool> _filter;
+        private IMailService _mailService;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-    public IDisposable BeginScope<TState>(TState state)
-    {
-      // Not necessary
-      return null!;
-    }
+        public EmailLogger(string categoryName, Func<string, LogLevel, bool> filter, IMailService mailService, IHttpContextAccessor contextAccessor)
+        {
+            _categoryName = categoryName;
+            _filter = filter;
+            _mailService = mailService;
+            _contextAccessor = contextAccessor;
+        }
 
-    public bool IsEnabled(LogLevel logLevel)
-    {
-      return (_filter == null || _filter(_categoryName, logLevel));
-    }
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            // Not necessary
+            return null!;
+        }
 
-    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-    {
-      if (!IsEnabled(logLevel))
-      {
-        return;
-      }
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return (_filter == null || _filter(_categoryName, logLevel));
+        }
 
-      if (formatter == null)
-      {
-        throw new ArgumentNullException(nameof(formatter));
-      }
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            if (!IsEnabled(logLevel))
+            {
+                return;
+            }
 
-      var message = formatter(state, exception);
+            if (formatter == null)
+            {
+                throw new ArgumentNullException(nameof(formatter));
+            }
 
-      if (string.IsNullOrEmpty(message))
-      {
-        return;
-      }
+            var message = formatter(state, exception);
 
-      message = $@"<div>
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
+
+            message = $@"<div>
   <h1>Error on MannsBlog</h1>
 <p>Level: {logLevel}</p>
 <p>{message}</p>";
 
-      if (exception != null)
-      {
-        message += $"<p>{exception}</p>";
-      }
+            if (exception != null)
+            {
+                message += $"<p>{exception}</p>";
+            }
 
-      var url = UriHelper.GetEncodedPathAndQuery(_contextAccessor.HttpContext?.Request);
-      message += $"<p>Request: {url}</p></div>";
-      
+            var url = UriHelper.GetEncodedPathAndQuery(_contextAccessor.HttpContext?.Request);
+            message += $"<p>Request: {url}</p></div>";
 
-      _mailService.SendMailAsync("logmessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Log Message]", message).Wait();
 
+            _mailService.SendMailAsync("logmessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Log Message]", message).Wait();
+
+        }
     }
-  }
 }

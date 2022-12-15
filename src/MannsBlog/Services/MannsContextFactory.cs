@@ -12,31 +12,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MannsBlog.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using MannsBlog.Data;
 
 namespace MannsBlog.Services
 {
-  public class MannsContextFactory : IDesignTimeDbContextFactory<MannsContext>
-  {
-    public MannsContext CreateDbContext(string[] args)
+    public class MannsContextFactory : IDesignTimeDbContextFactory<MannsContext>
     {
-      // Create a configuration 
-      var config = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("config.json")
-        .AddEnvironmentVariables()
-        .Build();
+        public MannsContext CreateDbContext(string[] args)
+        {
+            // Create a configuration 
+            var config = new ConfigurationBuilder()
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile("appsettings.json")
+              .AddEnvironmentVariables()
+              .Build();
 
-      return new MannsContext(new DbContextOptionsBuilder<MannsContext>().Options, config);
+            return new MannsContext(new DbContextOptionsBuilder<MannsContext>().Options, config);
+        }
     }
-  }
 }

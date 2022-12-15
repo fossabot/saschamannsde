@@ -12,16 +12,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.Identity;
 
-namespace MannsBlog.Data
+namespace MannsBlog.Models
 {
-  public class EpisodeLink
-  {
-    public string Name { get; set; } = "";
-    public string Link { get; set; } = "";
-  }
+    /// <summary>
+    /// Class for use with the identified user.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Identity.IdentityUser" />
+    public class MannsUser : IdentityUser
+    {
+    }
 }

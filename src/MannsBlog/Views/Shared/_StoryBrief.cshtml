@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
+@using MannsBlog.EntityFramework.Entities;
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Localization
 @inject IViewLocalizer _localizer
@@ -71,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <i class="fas fa-edit"></i> Sascha Manns
             <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
             <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
-            <br/>
+            <br />
             <i class="fas fa-tags"></i>
             @foreach (var tag in Model.Categories.Split(','))
             {
@@ -82,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <a href="@Model.Slug" id="btn-read" class="btn btn-primary">@_localizer["btn-read"]</a>
         <script>
             ;
-            (function(d, s) {
+            (function (d, s) {
                 var x = d.createElement(s),
                     s = d.getElementsByTagName(s)[0];
                 x.src = "https://www.xing-share.com/plugins/share.js";
