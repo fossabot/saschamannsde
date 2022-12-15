@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
 @using Microsoft.AspNetCore.Mvc.Localization
 @*@inject MannsBlog.Services.DataProviders.CalendarProvider appearances*@
-@inject MannsBlog.Services.DataProviders.PublicationsProvider _pubs
+@inject MannsBlog.Services.DataProviders.PublicationProvider _pubs
 @inject IViewLocalizer _localizer
 
 @{
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <li><a href="https://www.facebook.com/sascha.manns" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a></li>
             <li><a href="https://instagram.com/sascha.manns" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
             <li><a href="https://www.linkedin.com/in/saigkill/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-            <li><a href="https://blazot.com/saigkill" target="_blank"><img src="https://blazot.com/images/blazotsquarelogo.svg" width="2%"/> Blazot</a></li>
+            <li><a href="https://blazot.com/saigkill" target="_blank"><img src="https://blazot.com/images/blazotsquarelogo.svg" width="2%" /> Blazot</a></li>
             <li><a href="https://www.amazon.de/-/e/B07J3CPKR1" target="_blank"><i class="fab fa-amazon"></i> @_localizer["amazon-page"]</a></li>
             <li><a href="skype:schurik0815"><i class="fab fa-skype"></i> Skype</a></li>
             <li><a href="https://www.xing.com/profile/SaschaZyroslawKyrill_Manns/cv" target="_blank"><i class="fab fa-xing-square"></i> XING</a></li>
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <li><a href="https://www.amazon.de/registry/wishlist/D75HOEQ00BDD"><img src="~/img/misc/amazon.svg" width="12%" style="margin-top: 10px" /></a></li>
                 <li><a href="https://paypal.me/SaschaManns" target="_blank"><img src="~/img/misc/paypal_donate.svg" width="12%" style="margin-right: 5px; margin-top: 10px" /></a></li>
                 <li><a href="https://www.patreon.com/saigkill"><img src="~/img/misc/patreon.svg" width="12%" style="margin-top: 10px" /></a></li>
-                <li><a href="https://liberapay.com/saigkill/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" style="margin-top: 10px"></a></li>                
+                <li><a href="https://liberapay.com/saigkill/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" style="margin-top: 10px"></a></li>
             </ul>
         </div>
     </div>
@@ -111,7 +111,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="col-lg-6">
         <h4>@_localizer["opensource"]</h4>
         <div class="card" id="openSourceList">
-
         </div>
     </div>
 </div>

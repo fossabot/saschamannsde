@@ -12,18 +12,36 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MannsBlog.Models
 {
+    /// <summary>
+    /// Model for Site Verifying (Recaptcha).
+    /// </summary>
     public class SiteVerifyModel
     {
-    public string Secret { get; set; } = "";
-    public string Response { get; set; } = "";
-    public string RemoteIp { get; set; } = "";
-  }
+        /// <summary>
+        /// Gets or sets the secret.
+        /// </summary>
+        /// <value>
+        /// The secret.
+        /// </value>
+        public string Secret { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the response.
+        /// </summary>
+        /// <value>
+        /// The response.
+        /// </value>
+        public string Response { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the remote ip.
+        /// </summary>
+        /// <value>
+        /// The remote ip.
+        /// </value>
+        public string RemoteIp { get; set; } = string.Empty;
+    }
 }

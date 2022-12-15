@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @using System.Globalization;
 @using Microsoft.AspNetCore.Mvc.Localization
-@inject MannsBlog.Services.DataProviders.PublicationsProvider _publications
+@inject MannsBlog.Services.DataProviders.PublicationProvider _publications
 @inject MannsBlog.Services.DataProviders.JobsProvider _jobs
 @inject MannsBlog.Services.DataProviders.CertsProvider _certs
 @inject MannsBlog.Services.DataProviders.TestimonialsProvider _testimonials
@@ -98,18 +98,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <!-- Video -->
     @*<section id="video" class="section pp-scrollable d-flex align-items-center position-absolute" style="background-image:url('@host/img/cv/bg/1920x1080-1.jpg');">
-        <div class="intro">
-        <div class="container">
-        <div class="row align-items-center">
-        <div class="col-md-6 col-lg-5">
-        <h2 class="h1"><span class="text-primary">Watch</span><br>Video.</h2>
-        <p class="lead mt-4 mb-5">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
-        <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" class="popup-youtube icon-video-play"></a>
-        </div>
-        </div>
-        </div>
-        </div>
-        </section>*@
+    <div class="intro">
+    <div class="container">
+    <div class="row align-items-center">
+    <div class="col-md-6 col-lg-5">
+    <h2 class="h1"><span class="text-primary">Watch</span><br>Video.</h2>
+    <p class="lead mt-4 mb-5">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+    <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" class="popup-youtube icon-video-play"></a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>*@
 
     <!-- Experience -->
     <section id="experience-jobs" class="section pp-scrollable d-flex align-items-center position-absolute">
@@ -214,7 +214,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <a href="@proj.ProjectHref" class="popup-with-zoom-anim">
                                     <figure class="position-relative">
                                         <!-- 1140x641-->
-                                        <img alt="" class="@proj.Width" src="@proj.Portfoliolink">
+                                        <img alt="" class="@proj.Width" src="@proj.PortfolioLink">
                                         <figcaption class="text-white">
                                             <h3 class="mb-2 text-white"><a href="@proj.ProjectLink">@proj.Projectname</a></h3>
                                         </figcaption>
@@ -236,40 +236,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <!-- Partners -->
     @*<section id="partners" class="section pp-scrollable d-flex align-items-center position-absolute">
-        <div class="intro">
-        <div class="container">
-        <h2><span class="text-primary">Best</span> Partners.</h2>
-        <div class="mt-5 pt-5">
-        <div class="row-partners row">
-        <div class="col-partner col-md-6 col-lg-3 mb-5">
-        <img src="@host/img/cv/partners/1.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3 mb-5">
-        <img src="@host/img/cv/partners/2.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3 mb-5">
-        <img src="@host/img/cv/partners/3.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3 mb-5">
-        <img src="@host/img/cv/partners/4.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3 mb-5">
-        <img src="@host/img/cv/partners/5.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3">
-        <img src="@host/img/cv/partners/6.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3">
-        <img src="@host/img/cv/partners/7.png">
-        </div>
-        <div class="col-partner col-md-6 col-lg-3">
-        <img src="@host/img/cv/partners/8.png">
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </section>*@
+    <div class="intro">
+    <div class="container">
+    <h2><span class="text-primary">Best</span> Partners.</h2>
+    <div class="mt-5 pt-5">
+    <div class="row-partners row">
+    <div class="col-partner col-md-6 col-lg-3 mb-5">
+    <img src="@host/img/cv/partners/1.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3 mb-5">
+    <img src="@host/img/cv/partners/2.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3 mb-5">
+    <img src="@host/img/cv/partners/3.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3 mb-5">
+    <img src="@host/img/cv/partners/4.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3 mb-5">
+    <img src="@host/img/cv/partners/5.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3">
+    <img src="@host/img/cv/partners/6.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3">
+    <img src="@host/img/cv/partners/7.png">
+    </div>
+    <div class="col-partner col-md-6 col-lg-3">
+    <img src="@host/img/cv/partners/8.png">
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>*@
 
     <!-- Testimonials -->
     <section id="testimonials" class="testimonials section">
@@ -290,120 +290,119 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <!-- News -->
     @*<section id="news" class="section pp-scrollable d-flex position-absolute align-items-center bg-light">
-        <div class="intro">
-        <div class="container">
-        <h2><span class="text-primary">Last</span> News.</h2>
-        <div class="mt-5 pt-4">
-        <div class="row-news row">
-        <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="0">
-        <figure class="position-relative">
-        <div class="position-relative">
-        <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-1.jpg"></a>
-        <mark class="date">12.03.2020</mark>
-        </div>
-        <figcaption>
-        <h5><a href="">How to work from home</a></h5>On the other hand, we denounce with righteous...
-        </figcaption>
-        </figure>
-        </div>
-        <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="100">
-        <figure class="position-relative">
-        <div class="position-relative"><!-- 640x520 -->
-        <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-2.jpg"></a>
-        <mark class="date">12.03.2020</mark>
-        </div>
-        <figcaption>
-        <h5><a href="">Welcome to my page!</a></h5>
-        There are many variations of passages of Lorem Ipsum  the...
-        </figcaption>
-        </figure>
-        </div>
-        <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="200">
-        <figure class="position-relative">
-        <div class="position-relative">
-        <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-3.jpg"></a>
-        <mark class="date">12.03.2020</mark>
-        </div>
-        <figcaption>
-        <h5><a href="">Business</a></h5>On the other hand, we denounce with righteous...
-        </figcaption>
-        </figure>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </section>*@
+    <div class="intro">
+    <div class="container">
+    <h2><span class="text-primary">Last</span> News.</h2>
+    <div class="mt-5 pt-4">
+    <div class="row-news row">
+    <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="0">
+    <figure class="position-relative">
+    <div class="position-relative">
+    <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-1.jpg"></a>
+    <mark class="date">12.03.2020</mark>
+    </div>
+    <figcaption>
+    <h5><a href="">How to work from home</a></h5>On the other hand, we denounce with righteous...
+    </figcaption>
+    </figure>
+    </div>
+    <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="100">
+    <figure class="position-relative">
+    <div class="position-relative"><!-- 640x520 -->
+    <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-2.jpg"></a>
+    <mark class="date">12.03.2020</mark>
+    </div>
+    <figcaption>
+    <h5><a href="">Welcome to my page!</a></h5>
+    There are many variations of passages of Lorem Ipsum  the...
+    </figcaption>
+    </figure>
+    </div>
+    <div class="col-news col-md-6 col-lg-4" data-aos="fade-in" data-aos-delay="200">
+    <figure class="position-relative">
+    <div class="position-relative">
+    <a href=""><img alt="" class="w-100 d-block" src="@host/img/cv/news/640x520-3.jpg"></a>
+    <mark class="date">12.03.2020</mark>
+    </div>
+    <figcaption>
+    <h5><a href="">Business</a></h5>On the other hand, we denounce with righteous...
+    </figcaption>
+    </figure>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>*@
 
     <!-- Modal -->
     @*<div class="modal fade" id="send-request">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h2 class="modal-title mt-0">Send request</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <p>
-        Leave your contacts and our managers
-        will contact you soon.
-        </p>
-        <form class="form-request js-ajax-form">
-        <div class="form-group">
-        <input type="text" name="name" class="form-control" placeholder="Name">
-        </div>
-        <div class="form-group">
-        <input type="email" name="email" class="form-control" required="" placeholder="Email *">
-        </div>
-        <div class="form-group">
-        <textarea rows="3" name="message" class="form-control" placeholder="Message"></textarea>
-        </div>
-        <div class="message" id="success-message">Your message is successfully sent...</div>
-        <div class="message" id="error-message">Sorry something went wrong</div>
-        <div class="form-group mb-0 text-right">
-        <button type="submit" class="btn">Submit</button>
-        </div>
-        </form>
-        </div>
-        </div>
-        </div>
-        </div>*@
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h2 class="modal-title mt-0">Send request</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <p>
+    Leave your contacts and our managers
+    will contact you soon.
+    </p>
+    <form class="form-request js-ajax-form">
+    <div class="form-group">
+    <input type="text" name="name" class="form-control" placeholder="Name">
+    </div>
+    <div class="form-group">
+    <input type="email" name="email" class="form-control" required="" placeholder="Email *">
+    </div>
+    <div class="form-group">
+    <textarea rows="3" name="message" class="form-control" placeholder="Message"></textarea>
+    </div>
+    <div class="message" id="success-message">Your message is successfully sent...</div>
+    <div class="message" id="error-message">Sorry something went wrong</div>
+    <div class="form-group mb-0 text-right">
+    <button type="submit" class="btn">Submit</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>*@
 
     <!-- Project Modal Dialog 1 -->
-
     @foreach (var pro in _projects.Get())
     {
-<div id="@pro.ProjectHrefTarget" class="container mfp-hide zoom-anim-dialog">
-    <h2 class="mt-0">@pro.Projectname</h2>
-    <div class="mt-5 pt-2 text-dark">
-        <div class="row">
-            <div class="mb-5 col-md-6 col-lg-3">
-                <h6 class="my-0">Clients:</h6>
-                <span>@pro.Clients</span>
-            </div>
-            <div class="mb-5 col-md-6 col-lg-3">
-                <h6 class="my-0">Completion:</h6>
-                <span>@pro.Completion</span>
-            </div>
-            <div class="mb-5 col-md-6 col-lg-3">
-                <h6 class="my-0">Project Type:</h6>
-                <span>@pro.ProjectType</span>
-            </div>
-            <div class="mb-5 col-md-6 col-lg-3">
-                <h6 class="my-0">Authors</h6>
-                <span>@pro.Authors</span>
-            </div>
+        <div id="@pro.ProjectHrefTarget" class="container mfp-hide zoom-anim-dialog">
+            <h2 class="mt-0">@pro.Projectname</h2>
+            <div class="mt-5 pt-2 text-dark">
+                <div class="row">
+                    <div class="mb-5 col-md-6 col-lg-3">
+                        <h6 class="my-0">Clients:</h6>
+                        <span>@pro.Clients</span>
+                    </div>
+                    <div class="mb-5 col-md-6 col-lg-3">
+                        <h6 class="my-0">Completion:</h6>
+                        <span>@pro.Completion</span>
+                    </div>
+                    <div class="mb-5 col-md-6 col-lg-3">
+                        <h6 class="my-0">Project Type:</h6>
+                        <span>@pro.ProjectType</span>
+                    </div>
+                    <div class="mb-5 col-md-6 col-lg-3">
+                        <h6 class="my-0">Authors</h6>
+                        <span>@pro.Authors</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-5 col-md-6 col-lg-3">
+                        <h6 class="my-0">Goal</h6>
+                        <span>@pro.Goal</span>
+                    </div>
+                </div>
+            </div><!-- 1140x641 -->
+            <img alt="" class="mt-5 pt-2 @pro.Width" src="@pro.PortfolioLink">
         </div>
-        <div class="row">
-            <div class="mb-5 col-md-6 col-lg-3">
-                <h6 class="my-0">Goal</h6>
-                <span>@pro.Goal</span>
-            </div>
-        </div>
-    </div><!-- 1140x641 -->
-    <img alt="" class="mt-5 pt-2 @pro.Width" src="@pro.Portfoliolink">
-</div>
     }
 </div>

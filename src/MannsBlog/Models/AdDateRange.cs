@@ -13,26 +13,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MannsBlog.Models
 {
-  public class AdDateRange
-  {
-    public AdDateRange(string startDate, string endDate, params string[] ads)
+    /// <summary>
+    /// Ad Date Range Service.
+    /// </summary>
+    public class AdDateRange
     {
-      if (!DateTime.TryParse(startDate, out Start) || !DateTime.TryParse(endDate, out End) || ads == null || ads.Length == 0)
-      {
-        throw new InvalidOperationException("Invalid Ads");
-      }
-      Ads = ads;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdDateRange"/> class.
+        /// </summary>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <param name="ads">The ads.</param>
+        /// <exception cref="System.InvalidOperationException">Invalid Ads</exception>
+        public AdDateRange(string startDate, string endDate, params string[] ads)
+        {
+            if (!DateTime.TryParse(startDate, out Start) || !DateTime.TryParse(endDate, out End) || ads == null || ads.Length == 0)
+            {
+                throw new InvalidOperationException("Invalid Ads");
+            }
 
-    public readonly DateTime Start;
-    public readonly DateTime End;
-    public readonly string[] Ads;
-  }
+            Ads = ads;
+        }
+
+        public readonly DateTime Start;
+        public readonly DateTime End;
+        public readonly string[] Ads;
+    }
 }

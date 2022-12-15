@@ -150,7 +150,7 @@ namespace MannsBlog
 
             // Data Providers (non-EF)
             svcs.AddScoped<CalendarProvider>();
-            svcs.AddScoped<PublicationsProvider>();
+            svcs.AddScoped<PublicationProvider>();
             svcs.AddScoped<TalksProvider>();
             svcs.AddScoped<VideosProvider>();
             svcs.AddScoped<JobsProvider>();

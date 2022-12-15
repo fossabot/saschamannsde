@@ -16,24 +16,57 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MannsBlog.Models
 {
+    /// <summary>
+    /// Model for the Contact Form.
+    /// </summary>
     public class ContactFormModel
     {
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         [Required]
         [EmailAddress]
-        public string Email { get; set; } = "";
+        public string Email { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
         [StringLength(4096, ErrorMessage = "Your message is too long. Please shorten it to max. 4096 chars.")]
         [MinLength(5)]
         [Required]
-        public string Message { get; set; } = "";
+        public string Message { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [Required]
         [StringLength(100, ErrorMessage = "Name is too long.")]
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the subject.
+        /// </summary>
+        /// <value>
+        /// The subject.
+        /// </value>
         [Required]
-        public string Subject { get; set; } = "";
+        public string Subject { get; set; } = string.Empty;
 
-        public string Recaptcha { get; set; } = "";
+        /// <summary>
+        /// Gets or sets the recaptcha.
+        /// </summary>
+        /// <value>
+        /// The recaptcha.
+        /// </value>
+        public string Recaptcha { get; set; } = string.Empty;
     }
 }
