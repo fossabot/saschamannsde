@@ -13,37 +13,45 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MannsBlog.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using MannsBlog.Services;
 
 namespace MannsBlog.Controllers.Api
 {
-  public class ActiveUsersController : Controller
-  {
-    private IMemoryCache _cache;
-
-    public ActiveUsersController(IMemoryCache cache)
+    /// <summary>
+    /// Controller for all active users.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    public class ActiveUsersController : Controller
     {
-      _cache = cache;
-    }
+        private IMemoryCache _cache;
 
-    [HttpGet("/api/active/users")]
-    public IActionResult Get()
-    {
-      try
-      {
-        var users = ActiveUsersMiddleware.GetActiveUserCount(_cache);
-        return Ok(new { ActiveUsers = users, Message = $"{users} active on the site" });
-      }
-      catch (Exception ex)
-      {
-        return Ok(new { ActiveUsers = 0, Message = $"Exception Thrown during process: {ex}" });
-      }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActiveUsersController"/> class.
+        /// </summary>
+        /// <param name="cache">The cache.</param>
+        public ActiveUsersController(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
+
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>OK Result.</returns>
+        [HttpGet("/api/active/users")]
+        public IActionResult Get()
+        {
+            try
+            {
+                var users = ActiveUsersMiddleware.GetActiveUserCount(_cache);
+                return Ok(new { ActiveUsers = users, Message = $"{users} active on the site" });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { ActiveUsers = 0, Message = $"Exception Thrown during process: {ex}" });
+            }
+        }
     }
-  }
 }

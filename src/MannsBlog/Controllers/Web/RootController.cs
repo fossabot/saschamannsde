@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -35,11 +36,14 @@ using WilderMinds.RssSyndication;
 
 namespace MannsBlog.Controllers.Web
 {
-
+    /// <summary>
+    /// Main-Controller.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("")]
     public class RootController : Controller
     {
-        private readonly int MyYear = DateTime.Now.Year;
+        private readonly int myYear = DateTime.Now.Year;
         readonly int _pageSize = 15;
 
         private IMannsRepository _repo;
@@ -48,7 +52,23 @@ namespace MannsBlog.Controllers.Web
         private IConfiguration _config;
         private AdService _adService;
         private readonly IMailService _mailService;
+        private readonly IViewLocalizer _localizer;
+        private readonly string _firstname;
+        private readonly string _surname;
+        private readonly string _name;
+        private readonly string _email;
+        private readonly string _url;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RootController"/> class.
+        /// </summary>
+        /// <param name="repo">The repo.</param>
+        /// <param name="mailService">The mail service.</param>
+        /// <param name="memoryCache">The memory cache.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="adService">The ad service.</param>
+        /// <param name="config">The configuration.</param>
+        /// <param name="localizer">The localizer.</param>
         public RootController(IMannsRepository repo,
                               IMailService mailService,
                               IMemoryCache memoryCache,
@@ -62,21 +82,56 @@ namespace MannsBlog.Controllers.Web
             _mailService = mailService;
             _logger = logger;
             _adService = adService;
+
+#pragma warning disable CS8601 // Mögliche Nullverweiszuweisung.
+            _firstname = _config["Blog:UserFirstname"];
+            _surname = _config["Blog:UserSurname"];
+            _name = _firstname + " " + _surname;
+            _email = _config["Blog:Email"];
+
+            bool useHttps = bool.Parse(_config["Blog:UseHttps"]);
+            if (useHttps)
+            {
+                _url = _config["Blog:HTTPSUrl"];
+            }
+            else
+            {
+                _url = _config["Blog:HTTPUrl"];
+            }
+#pragma warning restore CS8601 // Mögliche Nullverweiszuweisung.
         }
 
         #region Main
+
+        /// <summary>
+        /// Returns the Index with pager.
+        /// </summary>
+        /// <returns>Index.</returns>
         [HttpGet("")]
         public Task<IActionResult> Index()
         {
             return Pager(1);
         }
 
+        /// <summary>
+        /// Returns the pagesd (calucalted) View.
+        /// </summary>
+        /// <param name="page">Pagenumber.</param>
+        /// <returns>View.</returns>
         [HttpGet("blog/{page:int?}")]
         public async Task<IActionResult> Pager(int page = 1)
         {
             return View("~/Views/Root/Index.cshtml", await _repo.GetStories(_pageSize, page));
         }
 
+        /// <summary>
+        /// Get the view with the blog story.
+        /// </summary>
+        /// <param name="year">The year.</param>
+        /// <param name="month">The month.</param>
+        /// <param name="day">The day.</param>
+        /// <param name="slug">The slug.</param>
+        /// <returns>Story View.</returns>
         [HttpGet("{year:int}/{month:int}/{day:int}/{slug}")]
         public async Task<IActionResult> Story(int year, int month, int day, string slug)
         {
@@ -87,7 +142,10 @@ namespace MannsBlog.Controllers.Web
                 var story = await _repo.GetStory(fullSlug);
 
                 // Try with other slug if it doesn't work
-                if (story == null) story = await _repo.GetStory($"{year:0000}/{month:00}/{day:00}/{slug}");
+                if (story == null)
+                {
+                    story = await _repo.GetStory($"{year:0000}/{month:00}/{day:00}/{slug}");
+                }
 
                 if (story != null)
                 {
@@ -101,9 +159,12 @@ namespace MannsBlog.Controllers.Web
             }
 
             return Redirect("/");
-
         }
 
+        /// <summary>
+        /// Fixes the syntaxes.
+        /// </summary>
+        /// <param name="story">The story.</param>
         private void FixSyntaxes(BlogStory story)
         {
             var html = story.Body;
@@ -115,23 +176,34 @@ namespace MannsBlog.Controllers.Web
                 foreach (var pre in pres)
                 {
                     var code = pre.FirstChild;
-                    if (code != null && !code.Attributes.Contains("class")) code.Attributes.Add("class", "lang-none");
+                    if (code != null && !code.Attributes.Contains("class"))
+                    {
+                        code.Attributes.Add("class", "lang-none");
+                    }
                 }
+
                 story.Body = doc.DocumentNode.OuterHtml;
-            };
+            }
         }
         #endregion
 
         #region Redirect
-        //[HttpGet("download")]
-        //public IActionResult Download()
-        //{
+        // [HttpGet("download")]
+        // public IActionResult Download()
+        // {
         //    return Redirect("")
-        //}
+        // }
         #endregion
 
         #region Errors & Exceptions
+
+        /// <summary>
+        /// Returns a Error View.
+        /// </summary>
+        /// <param name="errorCode">The error code.</param>
+        /// <returns>ErrorView.</returns>
         [HttpGet("Error/{code:int}")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "<Ausstehend>")]
         public IActionResult Error(int errorCode)
         {
             if (Response.StatusCode == (int)HttpStatusCode.NotFound ||
@@ -144,6 +216,10 @@ namespace MannsBlog.Controllers.Web
             return View();
         }
 
+        /// <summary>
+        /// Returns Exception Site.
+        /// </summary>
+        /// <returns>Exception.</returns>
         [HttpGet("Exception")]
         public async Task<IActionResult> Exception()
         {
@@ -182,7 +258,7 @@ namespace MannsBlog.Controllers.Web
                 var message = $@"<p>RequestUrl: {request.RawTarget}</p>
 <p>Exception: ${exception.Error}</p>";
 
-                await _mailService.SendMailAsync("logmessage.txt", "Sascha Manns", "Sascha.Manns@outlook.de", "[MannsBlog Exception]", message);
+                await _mailService.SendMailAsync("logmessage.txt", _name, _email, "[MannsBlog Exception]", message);
             }
 
             return View();
@@ -190,63 +266,106 @@ namespace MannsBlog.Controllers.Web
         #endregion
 
         #region Views
+
+        /// <summary>
+        /// The About-Me View.
+        /// </summary>
+        /// <returns>View.</returns>
         [HttpGet("about")]
         public IActionResult About()
         {
             return View();
         }
 
+        /// <summary>
+        /// Redirects to Feedburner.
+        /// </summary>
+        /// <returns>Redirect.</returns>
         [HttpGet("rss")]
         public IActionResult Rss()
         {
-            return Redirect("http://feeds.feedburner.com/saigkills-backtrace");
+            return Redirect("http://saschamanns.de/feed");
         }
 
+        /// <summary>
+        /// Tests the error.
+        /// </summary>
+        /// <returns>InvalidOperationException.</returns>
+        /// <exception cref="System.InvalidOperationException">Failure.</exception>
         [HttpGet("testerror")]
         public IActionResult TestError()
         {
             throw new InvalidOperationException("Failure");
         }
 
+        /// <summary>
+        /// Its the imprint.
+        /// </summary>
+        /// <returns>Imprint-View.</returns>
         [HttpGet("imprint")]
         public IActionResult Imprint()
         {
             return View();
         }
 
+        /// <summary>
+        /// The Privacy Policy.
+        /// </summary>
+        /// <returns>Privacy View.</returns>
         [HttpGet("privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// My Curriculum Vitae Site.
+        /// </summary>
+        /// <returns>CurriculumVitae View.</returns>
         [HttpGet("curriculum_vitae")]
         public IActionResult CurriculumVitae()
         {
             return View();
         }
 
+        /// <summary>
+        /// My testimonial site.
+        /// </summary>
+        /// <returns>Testimonials Site.</returns>
         [HttpGet("testimonials")]
         public IActionResult Testimonials()
         {
             return View();
         }
-        #endregion        
+        #endregion
 
         #region Set Language
+
+        /// <summary>
+        /// Sets the language.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>Localisation Url.</returns>
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) }
-            );
+                new CookieOptions { Expires = System.DateTimeOffset.UtcNow.AddYears(1) });
             return LocalRedirect(returnUrl);
         }
         #endregion
 
         #region Feeds
+
+        // TODO: You have to modify this feeds to match your categories.
+
+        /// <summary>
+        /// This is the main feed including all categories in english.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("feed")]
         public async Task<IActionResult> Feed()
         {
@@ -254,8 +373,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - English Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/feed"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/feed"), // There is your
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -272,7 +391,7 @@ namespace MannsBlog.Controllers.Web
         </div>";
 
             var ad = "If you liked this article: " + _adService.InlineAdd();
-            var entries = await _repo.GetStoriesByTag("en-US", 25, 1);
+            var entries = await _repo.GetStoriesByTag("en-US", 25, 1); // Just returns stories with "en-US".
 
             foreach (var entry in entries.Stories)
             {
@@ -283,20 +402,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
-
         }
 
+        /// <summary>
+        /// Feed with all german articles in all category.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("feed-de")]
         public async Task<IActionResult> FeedDe()
         {
@@ -304,8 +427,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - German Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/feed-de"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/feed-de"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -333,19 +456,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
 
+        /// <summary>
+        /// My german Opensource Feed.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("opensource-de")]
         public async Task<IActionResult> OpensourceDe()
         {
@@ -353,8 +481,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - German Opensource Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/opensource-de"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/opensource-de"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -382,19 +510,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
 
+        /// <summary>
+        /// My english Opensource feed.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("opensource")]
         public async Task<IActionResult> Opensource()
         {
@@ -402,8 +535,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - English Opensource Feed",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/opensource"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/opensource"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -418,7 +551,6 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            //var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
 
             var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("Opensource", 25, 1);
@@ -432,19 +564,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
 
+        /// <summary>
+        /// My engish RSS-Feed.
+        /// </summary>
+        /// <returns>RSS-Feee.</returns>
         [HttpGet("linux")]
         public async Task<ActionResult> Linux()
         {
@@ -452,8 +589,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - Linux Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/linux"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/linux"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -481,19 +618,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
 
+        /// <summary>
+        /// My english Windows feed.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("windows")]
         public async Task<IActionResult> Windows()
         {
@@ -501,8 +643,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - Windows Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/windows"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/windows"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -530,19 +672,24 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 
             return File(Encoding.UTF8.GetBytes(feed.Serialize()), "text/xml");
         }
 
+        /// <summary>
+        /// My DotNetCore Feed.
+        /// </summary>
+        /// <returns>RSS-Feed.</returns>
         [HttpGet("dotnetcore")]
         public async Task<IActionResult> DotNetCore()
         {
@@ -550,8 +697,8 @@ namespace MannsBlog.Controllers.Web
             {
                 Title = "Sascha Manns's Twilight Zone - Dotnetcore Feed (German and English)",
                 Description = "Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff",
-                Link = new Uri("https://saschamanns.de/dotnetcore"),
-                Copyright = "©" + " " + MyYear + " " + " Sascha Manns"
+                Link = new Uri(_url + "/dotnetcore"),
+                Copyright = "©" + " " + myYear + " " + " " + _name,
             };
 
             var license = @"<div>
@@ -566,8 +713,6 @@ namespace MannsBlog.Controllers.Web
           Based on a work at <a xmlns:dct=""https://purl.org/dc/terms/"" href=""https://saschamanns.de""
             rel=""dct:source"">saschamanns.de</a>.</div>
         </div>";
-            //var ad = @"<hr/><div>If you liked this article, so <a target=""_blank"" href=""https://www.buymeacoffee.com/PE0y8DF""><img src=""~/img/misc/buymeacoffee.jpg"" alt=""Buy me a coffee"" width=""12%""></a>.</div>";
-
             var ad = "If you liked this article: " + _adService.InlineAdd();
             var entries = await _repo.GetStoriesByTag("DotNetCore", 25, 1);
 
@@ -580,13 +725,14 @@ namespace MannsBlog.Controllers.Web
                     Link = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug),
                     Permalink = new Uri(new Uri(Request.GetEncodedUrl()), entry.Slug).ToString(),
                     PublishDate = entry.DatePublished,
-                    Author = new Author() { Name = "Sascha Manns", Email = "Sascha.Manns@outlook.de" }
+                    Author = new Author() { Name = _name, Email = _email },
                 };
 
                 foreach (var cat in entry.Categories.Split(','))
                 {
                     item.Categories.Add(cat);
                 }
+
                 feed.Items.Add(item);
             }
 

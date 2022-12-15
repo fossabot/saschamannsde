@@ -21,18 +21,31 @@ using Microsoft.Extensions.Logging;
 
 namespace MannsBlog.Controllers.Web
 {
+    /// <summary>
+    /// Controller for searching in the blog.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("[controller]")]
     public class SearchController : Controller
     {
         private readonly IMannsRepository _repo;
         private readonly ILogger<SearchController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchController"/> class.
+        /// </summary>
+        /// <param name="repo">The repo.</param>
+        /// <param name="logger">The logger.</param>
         public SearchController(IMannsRepository repo, ILogger<SearchController> logger)
         {
             _repo = repo;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Indexes this instance.
+        /// </summary>
+        /// <returns>Search-View.</returns>
         [HttpGet("")]
         public IActionResult Index()
         {
@@ -40,6 +53,12 @@ namespace MannsBlog.Controllers.Web
             return View(new BlogResult());
         }
 
+        /// <summary>
+        /// Pagers the specified term.
+        /// </summary>
+        /// <param name="term">The term.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>Searchresults.</returns>
         [HttpGet("{term}/{page:int?}")]
         public async Task<IActionResult> Pager(string term, int page = 1)
         {

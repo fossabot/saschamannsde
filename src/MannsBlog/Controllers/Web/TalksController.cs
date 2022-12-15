@@ -17,16 +17,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MannsBlog.Controllers.Web
 {
+    /// <summary>
+    /// Controller for the held talks.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("[controller]")]
     public class TalksController : Controller
     {
         private TalksProvider _talks;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TalksController"/> class.
+        /// </summary>
+        /// <param name="talks">The talks.</param>
         public TalksController(TalksProvider talks)
         {
             _talks = talks;
         }
 
+        /// <summary>
+        /// Talks view.
+        /// </summary>
+        /// <returns>Talks View.</returns>
         [HttpGet("")]
         public IActionResult Index()
         {

@@ -19,20 +19,43 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MannsBlog.Controllers.Web
 {
+    /// <summary>
+    /// Controller for standard Admin tasks.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("[controller]")]
     public class AdminController : Controller
     {
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="oldPwd">The old password.</param>
+        /// <param name="newPwd">The new password.</param>
+        /// <returns>OK or BadRequest.</returns>
         [Route("changepwd")]
-        public async Task<IActionResult> ChangePwd([FromServices] UserManager<MannsUser> userManager,
+        public async Task<IActionResult> ChangePwd(
+          [FromServices] UserManager<MannsUser> userManager,
           string username,
           string oldPwd,
           string newPwd)
         {
             var user = await userManager.FindByEmailAsync(username);
-            if (user == null) return BadRequest(new { success = false });
+            if (user == null)
+            {
+                return this.BadRequest(new { success = false });
+            }
+
             var result = await userManager.ChangePasswordAsync(user, oldPwd, newPwd);
-            if (result.Succeeded) return Ok(new { success = true });
-            else return BadRequest(new { success = false, errors = result.Errors });
+            if (result.Succeeded)
+            {
+                return this.Ok(new { success = true });
+            }
+            else
+            {
+                return this.BadRequest(new { success = false, errors = result.Errors });
+            }
         }
     }
 }

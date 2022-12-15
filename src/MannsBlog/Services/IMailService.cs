@@ -1,4 +1,6 @@
-﻿// Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+﻿// <copyright file="IMailService.cs" company="Sascha Manns">
+// @author: Sascha Manns, Sascha.Manns@outlook.de
+// @copyright: 2022, Sascha Manns, https://saschamanns.de
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,12 +14,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// </copyright>
+
 using System.Threading.Tasks;
 
 namespace MannsBlog.Services
 {
-  public interface IMailService
-  {
-    Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg);
-  }
+    /// <summary>
+    /// Interface for the MailService.
+    /// </summary>
+    public interface IMailService
+    {
+        /// <summary>
+        /// Sends the mail sendgrid asynchronous.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="msg">The MSG.</param>
+        /// <returns>True or false depending on sending email success.</returns>
+        Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg);
+    }
 }

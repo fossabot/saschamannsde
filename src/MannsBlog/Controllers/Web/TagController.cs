@@ -21,25 +21,45 @@ using Microsoft.Extensions.Logging;
 
 namespace MannsBlog.Controllers.Web
 {
+    /// <summary>
+    /// Controller for Tags.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("[controller]")]
     public class TagController : Controller
     {
         private readonly IMannsRepository _repo;
         private readonly ILogger<TagController> _logger;
-        readonly int _pageSize = 25;
+        private readonly int _pageSize = 25;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagController"/> class.
+        /// </summary>
+        /// <param name="repo">The repo.</param>
+        /// <param name="logger">The logger.</param>
         public TagController(IMannsRepository repo, ILogger<TagController> logger)
         {
             _repo = repo;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Tag search results.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <returns>Pager.</returns>
         [HttpGet("{tag}")]
         public Task<IActionResult> Index(string tag)
         {
             return Pager(tag, 1);
         }
 
+        /// <summary>
+        /// Pagers the specified tag.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>Searched Tags.</returns>
         [HttpGet("{tag}/{page}")]
         public async Task<IActionResult> Pager(string tag, int page)
         {

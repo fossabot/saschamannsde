@@ -45,17 +45,50 @@ using WilderMinds.MetaWeblog;
 
 namespace MannsBlog
 {
+    /// <summary>
+    /// Class for Startup the application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// The cors policy name.
+        /// </summary>
+        public const string CorsPolicyName = "_saigkill_cors";
+
+        /// <summary>
+        /// The configuration.
+        /// </summary>
         private readonly IConfiguration _config;
+
+        /// <summary>
+        /// The env.
+        /// </summary>
         private readonly IHostEnvironment _env;
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <value>
+        /// The configuration.
+        /// </value>
+        public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="env">The env.</param>
         public Startup(IConfiguration config, IHostEnvironment env)
         {
             _config = config;
             _env = env;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="env">The env.</param>
         public void ConfigureServices(IServiceCollection svcs)
         {
             svcs.Configure<AppSettings>(_config);
@@ -64,10 +97,15 @@ namespace MannsBlog
             {
                 svcs.AddTransient<IMailService, LoggingMailService>();
             }
+            else if (_config.GetValue<bool>("Blog:UseSendgrid") == true)
+            {
+                svcs.AddTransient<IMailService, SendgridMailService>();
+            }
             else
             {
-                svcs.AddTransient<IMailService, MailService>();
+                svcs.AddTransient<IMailService, OutlookMailService>();
             }
+
             svcs.AddTransient<GoogleCaptchaService>();
 
             svcs.AddDbContext<MannsContext>(ServiceLifetime.Scoped);
@@ -84,6 +122,27 @@ namespace MannsBlog
                 svcs.AddScoped<IMannsRepository, MannsRepository>();
             }
 
+            svcs.AddCors(setup =>
+            {
+                var httpsOrigin = this._config.GetValue<string>("Blog:HTTPSUrl");
+                var httpOrigin = this._config.GetValue<string>("Blog:HTTPUrl");
+                setup.AddPolicy(CorsPolicyName, cfg =>
+                {
+                    if (this._env.IsDevelopment())
+                    {
+                        cfg.AllowAnyMethod();
+                        cfg.AllowAnyOrigin();
+                        cfg.AllowAnyHeader();
+                    }
+                    else
+                    {
+                        cfg.WithMethods("POST");
+                        cfg.WithOrigins(httpsOrigin, httpOrigin);
+                        cfg.AllowAnyHeader();
+                    }
+                });
+            });
+
             svcs.ConfigureHealthChecks(_config);
 
             svcs.AddTransient<MannsInitializer>();
@@ -91,23 +150,23 @@ namespace MannsBlog
 
             // Data Providers (non-EF)
             svcs.AddScoped<CalendarProvider>();
-            //svcs.AddScoped<CoursesProvider>();
             svcs.AddScoped<PublicationsProvider>();
-            //svcs.AddScoped<PodcastEpisodesProvider>();
             svcs.AddScoped<TalksProvider>();
             svcs.AddScoped<VideosProvider>();
             svcs.AddScoped<JobsProvider>();
             svcs.AddScoped<TestimonialsProvider>();
             svcs.AddScoped<CertsProvider>();
             svcs.AddScoped<ProjectsProvider>();
-            if (_env.IsDevelopment() && _config.GetValue<bool>("BlobStorage:TestInDev") == false ||
+
+            if ((_env.IsDevelopment() && _config.GetValue<bool>("BlobStorage:TestInDev") == false) ||
                 _config["BlobStorage:Account"] == "FOO")
             {
                 svcs.AddTransient<IAzureImageStorageService, FakeAzureImageService>();
             }
             else
             {
-                svcs.AddAzureImageStorageService(_config["BlobStorage:Account"],
+                svcs.AddAzureImageStorageService(
+                  _config["BlobStorage:Account"],
                   _config["BlobStorage:Key"],
                   _config["BlobStorage:StorageUrl"]);
             }
@@ -138,7 +197,7 @@ namespace MannsBlog
                 List<CultureInfo> supportedCultures = new List<CultureInfo>
                 {
                     new CultureInfo("en-US"),
-                    new CultureInfo("de-DE")
+                    new CultureInfo("de-DE"),
                 };
 
                 options.DefaultRequestCulture = new RequestCulture("en-US");
@@ -162,18 +221,26 @@ namespace MannsBlog
                     var uriHelper = s.GetRequiredService<NavigationManager>();
                     return new HttpClient()
                     {
-                        BaseAddress = new Uri(uriHelper.BaseUri)
+                        BaseAddress = new Uri(uriHelper.BaseUri),
                     };
                 });
             }
 
             svcs.AddServerSideBlazor();
 
-            svcs.AddApplicationInsightsTelemetry(_config["ApplicationInsights:InstrumentationKey"]);
+            svcs.AddApplicationInsightsTelemetry(_config);
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the specified application.
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="loggerFactory">The logger factory.</param>
+        /// <param name="mailService">The mail service.</param>
+        /// <param name="settings">The settings.</param>
+        /// <param name="contextAccessor">The context accessor.</param>
         public void Configure(IApplicationBuilder app,
                               ILoggerFactory loggerFactory,
                               IMailService mailService,
@@ -185,7 +252,6 @@ namespace MannsBlog
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -200,7 +266,7 @@ namespace MannsBlog
             }
 
             // Syncfusion License Key
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(settings.Value.Syncfusion.BlazorKey);
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(settings.Value.Syncfusion.License);
 
             // Support MetaWeblog API
             app.UseMetaWeblog("/livewriter");
@@ -218,6 +284,7 @@ namespace MannsBlog
             }
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -233,7 +300,7 @@ namespace MannsBlog
                 cfg.MapHealthChecks("/_hc.json", new HealthCheckOptions()
                 {
                     Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
                 });
                 cfg.MapBlazorHub();
             });
