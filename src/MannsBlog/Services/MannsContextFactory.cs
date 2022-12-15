@@ -20,8 +20,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace MannsBlog.Services
 {
+    /// <summary>
+    /// Factory Class for MannsContext.
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory&lt;MannsBlog.EntityFramework.Context.MannsContext&gt;" />
     public class MannsContextFactory : IDesignTimeDbContextFactory<MannsContext>
     {
+        /// <summary>
+        /// Creates a new instance of a derived context.
+        /// </summary>
+        /// <param name="args">Arguments provided by the design-time service.</param>
+        /// <returns>
+        /// An instance of <typeparamref name="TContext" />.
+        /// </returns>
         public MannsContext CreateDbContext(string[] args)
         {
             // Create a configuration 

@@ -13,26 +13,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using MannsBlog.Config;
 using MannsBlog.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace MannsBlog.Services
 {
+    /// <summary>
+    /// Service for Googles Recaptcha.
+    /// </summary>
     public class GoogleCaptchaService
     {
         private readonly ILogger<GoogleCaptchaService> _logger;
         private readonly IOptions<AppSettings> _settings;
         private readonly IHttpContextAccessor _ctxAccessor;
 
-        public GoogleCaptchaService(ILogger<GoogleCaptchaService> logger,
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GoogleCaptchaService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="settings">The settings.</param>
+        /// <param name="ctxAccessor">The CTX accessor.</param>
+        public GoogleCaptchaService(
+          ILogger<GoogleCaptchaService> logger,
           IOptions<AppSettings> settings,
           IHttpContextAccessor ctxAccessor)
         {
@@ -41,6 +51,11 @@ namespace MannsBlog.Services
             _ctxAccessor = ctxAccessor;
         }
 
+        /// <summary>
+        /// Verifies the specified recaptcha.
+        /// </summary>
+        /// <param name="recaptcha">The recaptcha.</param>
+        /// <returns>True or False.</returns>
         public async Task<bool> Verify(string recaptcha)
         {
             var uri = "https://www.google.com/recaptcha/api/siteverify";
@@ -49,7 +64,7 @@ namespace MannsBlog.Services
             if (request is not null)
             {
 
-                //make the api call and determine validity
+                // make the api call and determine validity
                 using (var client = new HttpClient())
                 {
                     var content = new FormUrlEncodedContent(new[]
@@ -58,9 +73,8 @@ namespace MannsBlog.Services
                          new KeyValuePair<string?, string?>("response", recaptcha),
                          new KeyValuePair<string?, string?>("remoteip", request.Headers.ContainsKey("HTTP_X_FORWARDED_FOR") ?
                              request.Headers["HTTP_X_FORWARDED_FOR"].FirstOrDefault() :
-                             _ctxAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString())
-
-                     });
+                             _ctxAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString()),
+                    });
 
                     var result = await client.PostAsync(uri, content);
 
@@ -74,10 +88,12 @@ namespace MannsBlog.Services
                             return true;
                         }
                     }
+
                     _logger.LogInformation("Verifying Google Recaptcha was failed");
                     return false;
                 }
             }
+
             return false;
         }
     }

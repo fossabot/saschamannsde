@@ -18,16 +18,34 @@ using WilderMinds.AzureImageStorageService;
 
 namespace MannsBlog.Services
 {
-  public class FakeAzureImageService : IAzureImageStorageService
-  {
-    public Task<ImageResponse> StoreImage(string containerName, string storageImagePath, Stream imageStream)
+    /// <summary>
+    /// Fake Service for Azure Blob Services.
+    /// </summary>
+    /// <seealso cref="WilderMinds.AzureImageStorageService.IAzureImageStorageService" />
+    public class FakeAzureImageService : IAzureImageStorageService
     {
-      return Task.FromResult(new ImageResponse() { Success = true });
-    }
+        /// <summary>
+        /// Stores the image.
+        /// </summary>
+        /// <param name="containerName">Name of the container.</param>
+        /// <param name="storageImagePath">The storage image path.</param>
+        /// <param name="imageStream">The image stream.</param>
+        /// <returns>True ImageResponse.</returns>
+        public Task<ImageResponse> StoreImage(string containerName, string storageImagePath, Stream imageStream)
+        {
+            return Task.FromResult(new ImageResponse() { Success = true });
+        }
 
-    public Task<ImageResponse> StoreImage(string containerName, string storeImagePath, byte[] imageData)
-    {
-      return Task.FromResult(new ImageResponse() { Success = true });
+        /// <summary>
+        /// Stores the image.
+        /// </summary>
+        /// <param name="containerName">Name of the container.</param>
+        /// <param name="storeImagePath">The store image path.</param>
+        /// <param name="imageData">The image data.</param>
+        /// <returns>True Image Response.</returns>
+        public Task<ImageResponse> StoreImage(string containerName, string storeImagePath, byte[] imageData)
+        {
+            return Task.FromResult(new ImageResponse() { Success = true });
+        }
     }
-  }
 }

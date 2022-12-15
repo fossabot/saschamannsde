@@ -14,9 +14,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace MannsBlog.Services
 {
-  public class SpamState
-  {
-    public bool Success { get; internal set; }
-    public object? Reason { get; internal set; }
-  }
+    /// <summary>
+    /// State of the Spam.
+    /// </summary>
+    public class SpamState
+    {
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SpamState"/> is success.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if success; otherwise, <c>false</c>.
+        /// </value>
+        public bool Success { get; internal set; }
+
+        /// <summary>
+        /// Gets the reason.
+        /// </summary>
+        /// <value>
+        /// The reason.
+        /// </value>
+        public object? Reason { get; internal set; }
+    }
 }

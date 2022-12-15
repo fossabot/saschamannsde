@@ -67,7 +67,7 @@ namespace MannsBlog.Controllers.Web
                     }
 
                     // Captcha
-                    if (!(await _captcha.Verify(form.Recaptcha)))
+                    if (!await _captcha.Verify(form.Recaptcha))
                     {
                         return BadRequest("Failed to send email: You might be a bot...try again later.");
                     }
