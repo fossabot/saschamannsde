@@ -39,7 +39,7 @@
       "destination": "wwwroot/lib/jquery/"
     },
     {
-      "library": "typeit@8.7.0",
+      "library": "typeit@8.7.1",
       "destination": "wwwroot/lib/typeit/"
     },
     {

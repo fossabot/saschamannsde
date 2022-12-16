@@ -2,6 +2,14 @@
   "dependencies": {
     "secrets1": {
       "type": "secrets"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "MannsDb:ConnectionString"
+    },
+    "appInsights1": {
+      "type": "appInsights",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
     }
   }
 }

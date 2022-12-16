@@ -1,6 +1,25 @@
-﻿.testimonial {
-    padding: 70px 30px 50px;
-    margin: 50px 30px 30px;
+﻿/*
+<copyright file="Testimonials.css" company="Sascha Manns">
+@author: Sascha Manns, Sascha.Manns@outlook.de
+@copyright: 2022, Sascha Manns, https://saschamanns.de
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+</copyright>
+*/
+.testimonial {
+    padding: 70px 50px 50px;
+    margin: 50px 50px 30px;
     border: 1px solid #007bff; /*#ea816b;*/
     position: relative;
 }
@@ -66,7 +85,7 @@
     }
 
 .owl-theme .owl-controls {
-    width: 100%;
+    width: 80%;
     height: 50px;
     opacity: 1;
     position: absolute;
@@ -104,8 +123,8 @@
     .owl-next:after {
         content: "\f105";
     }
-
-@media only screen and (max-width: 479px) {
+    /*479 px*/
+@media only screen and (max-width: 390px) {
     .testimonial {
         padding: 70px 10px 30px;
     }

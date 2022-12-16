@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Localization
 @inject IViewLocalizer _localizer
+@inject IConfiguration _config
 @model BlogStory
 @{
     var wordCount = @Model.Body; // Get all content of the story
@@ -27,49 +28,104 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var strMinutes = (minutes == 1) ? _localizer["minute"].Value : _localizer["minutes"].Value;
     var strSeconds = (seconds == 1) ? _localizer["second"].Value : _localizer["seconds"].Value;
 
+    var name = _config["Blog:UserFirstname"] + " " + _config["Blog:UserSurname"];
+
     string imgsrc = String.Empty;
     string imgid = String.Empty;
+    string cat = string.Empty;
 
     if (Model.Categories.Contains("Development"))
     {
         imgsrc = "https://raw.githubusercontent.com/Gapur/Gapur/master/coding.gif";
         imgid = "developmentsbrief";
+        cat = "e-card-image-cat-dev";
     }
     if ((Model.Categories.Contains("Opensource")))
     {
         imgsrc = "/img/markers/opensource.png";
         imgid = "opensourcesbrief";
+        cat = "e-card-image-cat-os";
 
     }
     if (Model.Categories.Contains("Linux"))
     {
         imgsrc = "/img/markers/tux.png";
         imgid = "linuxsbrief";
+        cat = "e-card-image-cat-lx";
     }
     if (Model.Categories.Contains("Windows"))
     {
         imgsrc = "/img/markers/Windows-10.png";
         imgid = "winsbrief";
+        cat = "e-card-image-cat-win";
     }
     if (Model.Categories.Contains("C-Sharp"))
     {
         imgsrc = "/img/markers/c-sharp.png";
         imgid = "csharpsbrief";
+        cat = "e-card-image-cat-csharp";
     }
     if (Model.Categories.Contains("Insider"))
     {
         imgsrc = "/img/markers/win-insider.png";
         imgid = "insidersbrief";
+        cat = "e-card-image-cat-insider";
     }
 
 }
-<div class="card card-body post-card">
-    <div class="post-preview">
-        <img class="card-img-top" id="@imgid" src="@imgsrc" alt="Post Image" />
-        <h3 itemprop="headline" class="post-title"><a href=@Model.Slug>@Model.Title</a></h3>
-        <p class="post-meta">
+@section Styles {
+    .e-card-image-cat-dev {
+        background: url('https://raw.githubusercontent.com/Gapur/Gapur/master/coding.gif');
+        height: 160px;
+    }
+
+    .e-card-image-cat-os {
+        background: url('/img/markers/opensource.png');
+        height: 160px;
+    }
+
+    .e-card-image-cat-lx {
+        background: url('/img/markers/tux.png');
+        height: 160px;
+    }
+
+    .e-card-image-cat-win {
+        background: url('/img/markers/Windows-10.png');
+        height: 160px;
+    }
+
+    .e-card-image-cat-csharp {
+        background: url('/img/markers/c-sharp.png');
+        height: 160px;
+    }
+
+    .e-card-image-cat-insider {
+        background: url('/img/markers/win-insider.png')
+        height: 160px;
+    }
+
+    .e-card-image {
+        background: url('/img/markers/win-insider.png')
+        height: 160px;
+    }
+
+    .e-card {
+        width: 300px;
+        margin: auto;
+    }
+
+}
+<div class="e-card">
+    <div class="e-card-image"></div>
+    <div class="e-card-header">
+        <div class="e-card-header-caption">
+            @*<img class="e-card-image" id="@imgid" src="@imgsrc" alt="Post Image" />*@
+            <div class="e-card-header-title"><a href=@Model.Slug>@Model.Title</a></div>
+        </div>
+
+        <div class="e-card-content">
             <i class="fas fa-calendar"></i> @Model.DatePublished.ToString("MMMM dd, yyyy")
-            <i class="fas fa-edit"></i> Sascha Manns
+            <i class="fas fa-edit"></i> @name
             <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
             <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
             <br />
@@ -78,17 +134,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             {
                 <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="">@tag</a>
             }
-        </p>
-        @Html.Raw(Model.GetSummary())
-        <a href="@Model.Slug" id="btn-read" class="btn btn-primary">@_localizer["btn-read"]</a>
-        <script>
-            ;
-            (function (d, s) {
-                var x = d.createElement(s),
-                    s = d.getElementsByTagName(s)[0];
-                x.src = "https://www.xing-share.com/plugins/share.js";
-                s.parentNode.insertBefore(x, s);
-            })(document, "script");
-        </script>
+            @Html.Raw(Model.GetSummary())
+        </div>
+        <div class="e-card-actions">
+            <a href="@Model.Slug" id="btn-read" class="e-card-btn">@_localizer["btn-read"]</a>
+        </div>
+
     </div>
 </div>

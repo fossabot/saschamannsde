@@ -2,6 +2,18 @@
   "dependencies": {
     "secrets1": {
       "type": "secrets.user"
+    },
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/saigkill/databases/saschamannsde",
+      "type": "mssql.azure",
+      "connectionId": "MannsDb:ConnectionString"
+    },
+    "appInsights1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/saschamanns",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
     }
   }
 }

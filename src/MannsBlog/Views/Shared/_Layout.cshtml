@@ -19,13 +19,15 @@
 @inject IViewLocalizer _localizer
 @inject Microsoft.Extensions.Configuration.IConfiguration _config
 @inject MannsBlog.Services.AdService _ads
-@*@inject CoursesProvider courses*@
 @{
 
     var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF, WinUI3";
     var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
 
     var culture = CultureInfo.CurrentCulture.Name;
+    var htmllang = culture.Split('-');
+    var finallang = htmllang[0];
+
     var typittarget = String.Empty;
 
     if (culture == "de-DE")
@@ -40,25 +42,35 @@
     var typeittargetdev = typittarget + ".js";
     var typeittargetprod = typittarget + ".min.js";
 
-
+    var blog = _config["Blog:BlogName"];
+    var url = _config["Blog:HTTPSUrl"];
+    var name = _config["Blog:UserFirstname"] + " " + _config["Blog:UserSurname"];
+    var em = _config["Blog:Email"];
+    char at = '@';
+    string at1 = at.ToString();
+    int idx = em.IndexOf(at1);
+    string email = em.Insert(idx, at1);
+    string syncVersion = _config["Syncfusion:Version"];
+    string syncStyle = "https://cdn.syncfusion.com/ej2/" + syncVersion + "/bootstrap5.css";
+    string syncScript = "https://cdn.syncfusion.com/ej2/" + syncVersion + "/dist/ej2.min.js";
 }
 <!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="@finallang">
 <!--<![endif]-->
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta itemprop="publisher" name='article:publisher' content='https://facebook.com/sascha.manns' />
+    <meta itemprop="publisher" name='article:publisher' content='@url' />
     <meta itemprop="description" name='description' content='@description' />
     <meta itemprop="keywords" name='keywords' content='@keywords' />
-    <meta itemprop="author" name='author' content='Sascha Manns' />
-    <meta name='designer' content='Sascha Manns' />
-    <meta name='contact' content='Sascha.Manns@@outlook.de' />
+    <meta itemprop="author" name='author' content='@name' />
+    <meta name='designer' content='@name' />
+    <meta name='contact' content='@email' />
     <meta itemprop="copyrightHolder" name='copyright' content='Copyright (c) 2017 - @DateTime.Now.Year @_localizer["copyright"]' />
     <meta itemprop="copyrightYear" content="@DateTime.Now.Year" />
     <meta name="Distribution" content="global" />
@@ -79,37 +91,37 @@
     <meta name='wot-verification' content='4342b071a6863eac12d4' />
 
     <!-- Dublin Core Tags -->
-    <meta name="DC.Publisher" content="Sascha Manns" />
+    <meta name="DC.Publisher" content="@name" />
     <meta name="DC.Language" scheme="UTF-8" content="de-DE" />
     <meta name="DC.Creator" content="@ViewBag.Title" />
     <meta name="DC.Type" scheme="DCMIType" content="Text" />
     <meta name="DC.Format" scheme="IMT" content="text/html" />
     <meta name="DC.Format.MIME" content="text/html" />
     <meta name="DC.Format.SysReq" content="Internet browser" />
-    <meta name="DC.Source" content="https://saschamanns.de">
+    <meta name="DC.Source" content="@url">
     <meta name="DC.Coverage" content="World">
-    <meta name="DC.Identifier" content="https://saschamanns.de" />
+    <meta name="DC.Identifier" content="@url" />
     <meta name="DC.Subject" content="Allgemein" />
     <meta name="DC.Subject.Keyword" content="@keywords" />
 
     <!-- for Facebook -->
     <meta property="og:title" content="Sascha Manns's Twilight Zone" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
+    <meta property="og:image" content="@url/img/me/Sascha.jpg" />
     <meta property="og:description" content="@description" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="og:determiner" content="auto" />
     <meta property="og:locale" content="de-DE" />
-    <meta property="og:url" content="https://saschamanns.de" />
+    <meta property="og:url" content="@url" />
     <meta property="og:site_name" content="@ViewBag.Title" />
     <meta property="fb:app_id" content="225909907991067" />
-    <meta property="og:website" content="https://saschamanns.de" />
+    <meta property="og:website" content="@url" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@ViewBag.Title" />
     <meta name="twitter:description" content="@description" />
-    <meta name="twitter:image" content="https://saschamanns.de/img/me/Sascha.jpg" />
+    <meta name="twitter:image" content="@url/img/me/Sascha.jpg" />
     <meta name="twitter:creator" content="@("@saigkill") " />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -131,8 +143,13 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="alternate" type="application/rss+xml" title="RSS All (en)" href="https://feeds.feedburner.com/saigkills-backtrace" />
-    <link rel="alternate" type="application/rss+xml" title="RSS All (de)" href="http://feeds.feedburner.com/SaschaMannssTwilightZoneDE" />
+    <link rel="alternate" type="application/rss+xml" title="Standardfeed (en)" href="@url/feed" />
+    <link rel="alternate" type="application/rss+xml" title="Standardfeed (de)" href="@url/feed-de" />
+    <link rel="alternate" type="application/rss+xml" title="Opensource (de)" href="@url/opensource-de" />
+    <link rel="alternate" type="application/rss+xml" title="Opensource (en)" href="@url/opensource" />
+    <link rel="alternate" type="application/rss+xml" title="Linux (All Langs)" href="@url/linux" />
+    <link rel="alternate" type="application/rss+xml" title="Windows (All Langs)" href="@url/windows" />
+    <link rel="alternate" type="application/rss+xml" title="Dotnet Core (All Langs)" href="@url/dotnetcore" />
 
     <title>@ViewBag.Title</title>
 
@@ -147,6 +164,8 @@
         <link href="~/lib/cookieconsent/build/cookieconsent.min.css" rel="stylesheet" />
         <link href="~/lib/highlight.js/styles/default.css" rel="stylesheet" />
         <link href="~/css/fonts.css" rel="stylesheet" />
+        <!-- Syncfusion Essential JS 2 Styles -->
+        <link rel="stylesheet" href="@syncStyle" />
         <link href="~/css/site.css" rel="stylesheet" />
         @RenderSection("Styles", required: false)
     </environment>
@@ -161,11 +180,15 @@
         <link href="~/lib/cookieconsent/build/cookieconsent.min.css" rel="stylesheet" />
         <link href="~/lib/highlight.js/styles/default.css" rel="stylesheet" />
         <link href="~/css/fonts.min.css" rel="stylesheet" />
+        <!-- Syncfusion Essential JS 2 Styles -->
+        <link rel="stylesheet" href="@syncStyle" />
         <link href="~/css/site.min.css" rel="stylesheet" />
         @RenderSection("Styles", required: false)
     </environment>
 
-    <link href="_content/Syncfusion.Blazor/styles/bootstrap5.css" rel="stylesheet" />    
+    <!-- Syncfusion ASP.NET Core controls scripts -->
+    <script src="@syncScript"></script>
+
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -175,9 +198,9 @@
 </head>
 <body>
 
-    <!-- Navigation -->    
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-inverse" style="background-color: rgba(1,71,130,1)">
-        <a class="navbar-brand" asp-controller="Root" asp-action="Index">Sascha Manns Twilight Zone</a>
+        <a class="navbar-brand" asp-controller="Root" asp-action="Index">@blog</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#theMenu">
             &#9776;
         </button>
@@ -219,6 +242,7 @@
     }
 
     <partial name="_CookieConsentPartial" />
+
     <!-- Main Content -->
     <div class="container">
         <div class="row">
@@ -391,7 +415,7 @@
         <script src="~/js/about.min.js"></script>
         <script src="~/js/audio.min.js"></script>
         <script src="~/js/@typeittargetprod"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>        
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
 
         <!-- Clarity -->
         <script type="text/javascript">
@@ -412,11 +436,10 @@
             pageTracker._initData();
             pageTracker._trackPageview();
         </script>
-        <script id="dsq-count-scr" src="https://@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>        
+        <script id="dsq-count-scr" src="https://@(_config["Disqus:BlogName"]).disqus.com/count.js" async></script>
     </environment>
     <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
-    <script src="~/lib/codersrank/summary/codersrank-summary.min.js"></script>    
-    <script src="_content/Syncfusion.Blazor/scripts/syncfusion-blazor.min.js"></script>
+    <script src="~/lib/codersrank/summary/codersrank-summary.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

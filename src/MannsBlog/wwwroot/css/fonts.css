@@ -1,38 +1,22 @@
-﻿/*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');*/
+﻿/*
+<copyright file="fonts.css" company="Sascha Manns">
+@author: Sascha Manns, Sascha.Manns@outlook.de
+@copyright: 2022, Sascha Manns, https://saschamanns.de
 
-@font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Regular-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Regular-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Regular-102.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-@font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Bold-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Bold-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Bold-102.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-@font-face {
-    font-family: 'Arezzo Pro Light';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Arezzo Pro Light'), url(../fonts/WOFF/arezzo-pro-cd-light-webfont.woff) format('woff');
-    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
-}
-
-@font-face {
-    font-family: 'Hubert';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Hubert'), url(../fonts/WOFF/hubert-webfont.woff) format('woff');
-    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
-}
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+</copyright>
+*/
 
 @font-face {
     font-family: 'Isonorm Pro';
@@ -65,25 +49,3 @@
     src: local('Segoe UI Light'), local('SegoeUILight'), url(../fonts/TTF/segoeuil.ttf) format('ttf');
     /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
 }
-
-/*@font-face {
-    font-family: 'Hobo Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Hobo Pro'), local('HoboPro'), url(../fonts/WOFF/hobo-pro-webfont.woff) format('woff');*/
-    /* unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; */
-/*}*/
-
-/*@font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-Italic-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-Italic-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-Italic-102.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../fonts/WOFF2/Atkinson-Hyperlegible-BoldItalic-102a.woff2') format('woff2'), url('../fonts/WOFF/Atkinson-Hyperlegible-BoldItalic-102.woff') format('woff'), url('../fonts/TTF/Atkinson-Hyperlegible-BoldItalic-102.ttf') format('truetype');
-  font-weight: bold;
-  font-style: italic;
-}*/

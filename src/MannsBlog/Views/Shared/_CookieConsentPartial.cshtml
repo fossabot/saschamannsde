@@ -23,20 +23,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var cookieString = consentFeature?.CreateConsentCookie();
 }
 
-@if (showBanner)
-{
-    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        @_localizer["cookie-string"] <a asp-controller="Root" asp-action="Privacy">@_localizer["button"]</a>.
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">@_localizer["button1"]</span>
-        </button>
-    </div>
-    <script>
-        (function () {
+@section Styles {
+
+    .msg-default-section .content-section {
+        margin: 0 auto;
+        max-width: 450px;
+        padding-top: 10px;
+        }
+
+    .msg-default-section .e-message {
+        margin: 10px 0;
+        }
+}
+
+@section Scripts {
+    @*(function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
                 document.cookie = button.dataset.cookieString;
             }, false);
-        })();
+        })();*@
+
+        window.onload = function () {
+            document.getElementById('targetButton').onclick = function () {
+                var dialog = document.getElementById("dialog").ej2_instances[0]
+                dialog.show(); }}
+}
+@if (!showBanner)
+{
+    @*<div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        @_localizer["cookie-string"] <a asp-controller="Root" asp-action="Privacy">@_localizer["button"]</a>.
+        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+            <span aria-hidden="true">@_localizer["button1"]</span>
+        </button>
+    </div>*@
+    @*<div class="control-section" style="width:400px;margin:0 auto;">
+        <ejs-toast id="element" extendedTimeout="20000" width="300" height="150">
+            <e-toast-position X="Right" Y="Bottom"></e-toast-position>
+            <e-content-template>
+                <div class="content">
+                    @_localizer["cookie-string"]
+                </div>
+            </e-content-template>
+        </ejs-toast>
+        <ejs-button id="show_toast" content="@_localizer["button1"]" cssClass="e-btn"></ejs-button>
+    </div>*@
+    @*<div class="msg-default-section">
+        <div class="content-section">
+            <ejs-message id="msg_default" content="TEST" severity="Info"></ejs-message>
+        </div>
+    </div>*@
+    <div id="container" style="height:400px;">
+        <ejs-button id="targetButton" content="Open Dialog"></ejs-button>
+        <ejs-dialog id="dialog" header="Dialog" content="This is a Dialog with content" target="#container" width="250px"></ejs-dialog>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById('targetButton').onclick = function () {
+                var dialog = document.getElementById("dialog").ej2_instances[0]
+                dialog.show();
+            }
+        }
     </script>
 }

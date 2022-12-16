@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Authors>Sascha Manns</Authors>
 		<AssemblyName>MannsBlog</AssemblyName>
 		<PackageId>MannsBlog</PackageId>
@@ -32,7 +32,6 @@
 		<None Include="wwwroot\**\*" CopyToPublishDirectory="PreserveNewest" />
 		<None Include="..\.editorconfig" Link=".editorconfig" />
 		<None Include="bundleconfig.json" />
-		<None Include="config.json" CopyToPublishDirectory="PreserveNewest" />
 		<None Include="web.config" CopyToPublishDirectory="PreserveNewest" />
 		<None Include="Data\**\*" CopyToPublishDirectory="PreserveNewest" />
 		<None Include="EmailTemplates\**\*" CopyToPublishDirectory="PreserveNewest" />
@@ -104,30 +103,16 @@
 		<EmbeddedResource Remove="obj\**" />
 		<None Remove="obj\**" />
 		<TypeScriptCompile Remove="obj\**" />
-		<TypeScriptCompile Remove="wwwroot\lib\**" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Remove="bundleconfig.json" />
-		<Content Remove="wwwroot\css\clean-blog.css" />
-		<Content Remove="wwwroot\js\about.min.js" />
-		<Content Remove="wwwroot\js\talk-de.js" />
-		<Content Remove="wwwroot\js\video-de.js" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="logs\" />
-		<Folder Include="wwwroot\img\ads\" />
-		<Folder Include="wwwroot\img\AppThumbs\" />
-		<Folder Include="wwwroot\img\cv\news\" />
-		<Folder Include="wwwroot\img\cv\partners\" />
-		<Folder Include="wwwroot\img\headshots\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="wwwroot\css\fonts.css">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<Folder Include="wwwroot\3rdparty\js\" />
+		<Folder Include="wwwroot\lib\" />
 	</ItemGroup>
 
 
