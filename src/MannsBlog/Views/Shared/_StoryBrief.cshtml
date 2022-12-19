@@ -31,114 +31,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var name = _config["Blog:UserFirstname"] + " " + _config["Blog:UserSurname"];
 
     string imgsrc = String.Empty;
-    string imgid = String.Empty;
-    string cat = string.Empty;
 
     if (Model.Categories.Contains("Development"))
     {
         imgsrc = "https://raw.githubusercontent.com/Gapur/Gapur/master/coding.gif";
-        imgid = "developmentsbrief";
-        cat = "e-card-image-cat-dev";
     }
     if ((Model.Categories.Contains("Opensource")))
     {
         imgsrc = "/img/markers/opensource.png";
-        imgid = "opensourcesbrief";
-        cat = "e-card-image-cat-os";
 
     }
     if (Model.Categories.Contains("Linux"))
     {
         imgsrc = "/img/markers/tux.png";
-        imgid = "linuxsbrief";
-        cat = "e-card-image-cat-lx";
     }
     if (Model.Categories.Contains("Windows"))
     {
         imgsrc = "/img/markers/Windows-10.png";
-        imgid = "winsbrief";
-        cat = "e-card-image-cat-win";
     }
     if (Model.Categories.Contains("C-Sharp"))
     {
         imgsrc = "/img/markers/c-sharp.png";
-        imgid = "csharpsbrief";
-        cat = "e-card-image-cat-csharp";
     }
     if (Model.Categories.Contains("Insider"))
     {
         imgsrc = "/img/markers/win-insider.png";
-        imgid = "insidersbrief";
-        cat = "e-card-image-cat-insider";
     }
 
 }
-@section Styles {
-    .e-card-image-cat-dev {
-        background: url('https://raw.githubusercontent.com/Gapur/Gapur/master/coding.gif');
-        height: 160px;
-    }
 
-    .e-card-image-cat-os {
-        background: url('/img/markers/opensource.png');
-        height: 160px;
-    }
-
-    .e-card-image-cat-lx {
-        background: url('/img/markers/tux.png');
-        height: 160px;
-    }
-
-    .e-card-image-cat-win {
-        background: url('/img/markers/Windows-10.png');
-        height: 160px;
-    }
-
-    .e-card-image-cat-csharp {
-        background: url('/img/markers/c-sharp.png');
-        height: 160px;
-    }
-
-    .e-card-image-cat-insider {
-        background: url('/img/markers/win-insider.png')
-        height: 160px;
-    }
-
-    .e-card-image {
-        background: url('/img/markers/win-insider.png')
-        height: 160px;
-    }
-
-    .e-card {
-        width: 300px;
-        margin: auto;
-    }
-
-}
-<div class="e-card">
-    <div class="e-card-image"></div>
-    <div class="e-card-header">
-        <div class="e-card-header-caption">
-            @*<img class="e-card-image" id="@imgid" src="@imgsrc" alt="Post Image" />*@
-            <div class="e-card-header-title"><a href=@Model.Slug>@Model.Title</a></div>
+<div class="container">
+    <div class="row">
+        <div tabindex="0" class="e-card" id="basic">
+            <div class="card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title" class="margin-top: -40px;"><h4><a href=@Model.Slug>@Model.Title</a></h4></div>
+                </div>
+            </div>
+            <div class="e-card-content">
+                <div class="col-md-8">
+                    <i class="fas fa-calendar"></i> @Model.DatePublished.ToString("MMMM dd, yyyy")
+                    <i class="fas fa-edit"></i> @name
+                    <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
+                    <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
+                    <br />
+                    <i class="fas fa-tags"></i>
+                    @foreach (var tag in Model.Categories.Split(','))
+                    {
+                        <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="" class="btn">@tag</a>
+                    }
+                    @Html.Raw(Model.GetSummary())
+                    <div class="e-card-actions">
+                        <a href="@Model.Slug" id="btn-read" class="e-card-btn">@_localizer["btn-read"]</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card-image">
+                        <img width="100px" height="100px" style="margin-left: 900px; margin-top: -400px;" src="@imgsrc" alt="Category Image" />
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="e-card-content">
-            <i class="fas fa-calendar"></i> @Model.DatePublished.ToString("MMMM dd, yyyy")
-            <i class="fas fa-edit"></i> @name
-            <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
-            <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
-            <br />
-            <i class="fas fa-tags"></i>
-            @foreach (var tag in Model.Categories.Split(','))
-            {
-                <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="">@tag</a>
-            }
-            @Html.Raw(Model.GetSummary())
-        </div>
-        <div class="e-card-actions">
-            <a href="@Model.Slug" id="btn-read" class="e-card-btn">@_localizer["btn-read"]</a>
-        </div>
-
     </div>
 </div>

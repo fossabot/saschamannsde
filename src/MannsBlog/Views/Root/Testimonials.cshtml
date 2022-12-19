@@ -26,23 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @inject MannsBlog.Services.DataProviders.TestimonialsProvider _tests
 @section styles {
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.min.css" />
-        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.default.css" />
         <link rel="stylesheet" href="~/css/Testimonials.css" />
     </environment>
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.carousel.css" />
-        <link rel="stylesheet" href="~/lib/owl.carousel/dist/assets/owl.theme.css" />
         <link rel="stylesheet" href="~/css/Testimonials.min.css" />
     </environment>
 }
 @section scripts {
     <environment exclude="Development">
-        <script src="~/lib/owl.carousel/dist/owl.carousel.js"></script>
         <script src="~/js/Testimonials.js"></script>
     </environment>
     <environment include="Production,Staging">
-        <script src="~/lib/owl.carousel/dist/owl.carousel.min.js"></script>
         <script src="~/js/Testimonials.min.js"></script>
     </environment>
 
@@ -52,11 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-            <div id="testimonial-slider" class="carousel-project owl-carousel">
-                @foreach (var testimonial in _tests.Get())
-                {
-                    <div class="testimonial">
+        <div class="col-md-offset2 col-md-8">
+            <div class="control-container">
+                <ejs-carousel id="defaultCarousel" animationEffect="Fade">
+                    <e-carousel-items>
+                        @foreach (var testimonial in _tests.Get())
+                        {
+                            <e-carousel-item template='<div class="testimonial">
                         <div class="pic">
                             <img src="@testimonial.ImagePath" alt="">
                         </div>
@@ -67,9 +63,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             @testimonial.Recommender
                             <span class="post"> - @testimonial.RecommenderJob, @testimonial.RecommenderLocation</span>
                         </h3>
-                    </div>
-                }
+                    </div>'></e-carousel-item>
+                        }
+                    </e-carousel-items>
+                </ejs-carousel>
             </div>
+            <style>
+
+                .container {
+                    margin-top: 30px;
+                }
+
+                .control-container {
+                    background-color: #adb5bd;
+                    height: 500px;
+                    margin: 0 auto;
+                    width: 700px;
+                }
+
+                .e-carousel .slide-content {
+                    align-items: center;
+                    display: flex;
+                    font-size: 1.25rem;
+                    height: 100%;
+                    justify-content: center;
+                }
+            </style>
         </div>
     </div>
 </div>

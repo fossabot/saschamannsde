@@ -189,6 +189,8 @@
     <!-- Syncfusion ASP.NET Core controls scripts -->
     <script src="@syncScript"></script>
 
+    <partial name="_GoogleStructuredData" /></partial>
+
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -263,7 +265,7 @@
                 <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-xs-12 text-center">
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <a rel="me" href="https://mastodon.social/@@saigkill" title="Mastodon">
+                            <a rel="me" href="https://social.linux.pizza/@@saigkill" title="Mastodon">
                                 <span class="fa-stack fa-lg fa-hover-spin">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-mastodon fa-stack-1x fa-inverse"></i>
@@ -381,7 +383,14 @@
                     </div>
                     <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
                     <p class="copyright text-primary">
-                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 5</a>, <a href="https://blazor.net/" target="_blank">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank">Entity Framework Core 5</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.
+                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 6</a>, <a href="https://blazor.net/" target="_blank">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank">Entity Framework Core 7</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a>, <a href="https://www.syncfusion.com/aspnet-core-ui-controls" target="_blank">Syncfusion ASP.NET Core UI Controls</a> , @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.
+                    </p>
+                    <p>
+                        <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                            <img style="border:0;width:88px;height:31px"
+                                 src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+                                 alt="CSS ist valide!" />
+                        </a>
                     </p>
                 </div>
             </div>
@@ -395,9 +404,9 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/tether/dist/js/tether.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        <script src="~/lib/typeit/typeit.min.js"></script>
+        <script src="~/lib/typeit/dist/index.umd.js"></script>
         <script src="~/lib/vanilla-lazyload/dist/lazyload.js"></script>
-        <script src="~/lib/highlightjs/cdn-assets/highlight.js"></script>
+        <script src="~/lib/highlight.js/lib/core.js"></script>
         <script src="~/js/clean-blog.js"></script>
         <script src="~/js/about.js"></script>
         <script src="~/js/audio.js"></script>
@@ -408,9 +417,9 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/tether/dist/js/tether.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/lib/typeit/typeit.min.js"></script>
+        <script src="~/lib/typeit/dist/index.umd.js"></script>
         <script src="~/lib/vanilla-lazyload/dist/lazyload.min.js"></script>
-        <script src="~/lib/highlightjs/cdn-assets/highlight.min.js"></script>
+        <script src="~/lib/highlight.js/lib/core.js"></script>
         <script src="~/js/clean-blog.min.js"></script>
         <script src="~/js/about.min.js"></script>
         <script src="~/js/audio.min.js"></script>
@@ -440,6 +449,8 @@
     </environment>
     <script src="~/lib/cookieconsent/build/cookieconsent.min.js"></script>
     <script src="~/lib/codersrank/summary/codersrank-summary.min.js"></script>
+    <!-- Syncfusion ASP.NET Core Script Manager -->
+    <ejs-scripts></ejs-scripts>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

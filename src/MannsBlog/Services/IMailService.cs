@@ -16,7 +16,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // </copyright>
 
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace MannsBlog.Services
 {
@@ -33,7 +35,8 @@ namespace MannsBlog.Services
         /// <param name="email">The email.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="msg">The MSG.</param>
+        /// <param name="attachment">The Attachment.</param>
         /// <returns>True or false depending on sending email success.</returns>
-        Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg);
+        Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg, [Optional] IFormFile attachment);
     }
 }

@@ -5,15 +5,17 @@
         var $openSourceList = $("#openSourceList");
         if ($openSourceList.length > 0) {
             var template = _.template(
-                "<div class='single_about single_expart'>" +
-                "   <div class='card-header'>" +
-                "       <a href='<%= html_url %>' target='blank'><h4 class='card-subtitle'><%= name %></h4></a>" +
+                "<div class='card'>" +
+                "<div tabindex='0' class='e-card-about' id='basic'>" +
+                "   <div class='e-card-header'>" +
+                "     <div class='e-card-header-caption'>" +
+                "       <h4 class='e-card-header-caption-title'><a href='<%= html_url %>' target'_blank'><%= name %></a></h4>" +
+                "     </div>" +
                 "   </div>" +
-                "   <div class='card-body'>" +
-                "       <div class='card-text'>" +
-                "           <small><%= description %></small>" +
+                "   <div class='e-card-content'>" +
+                "           <div><small><%= description %></small></div>" +
                 "       </div>" +
-                "   </div>" +
+                " </div>" +
                 "</div>");
             $.get("https://api.github.com/users/saigkill/repos?type=owner&sort-updated")
                 .then(function (result) {

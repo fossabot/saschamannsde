@@ -14,8 +14,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MannsBlog.Config;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -58,10 +60,11 @@ namespace MannsBlog.Services
         /// <param name="email">The email.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="msg">The MSG.</param>
+        /// <param name="attachement">The Attachment.</param>
         /// <returns>
         /// True or false depending on sending email success.
         /// </returns>
-        public async Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg)
+        public async Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg, [Optional] IFormFile attachement)
         {
             try
             {
@@ -91,6 +94,14 @@ namespace MannsBlog.Services
                   $"saschamanns.de Site Mail",
                   formattedMessage,
                   formattedMessage);
+
+                if (attachement.Length > 0)
+                {
+                    using (var fileStream = File.OpenRead(attachement.ToString()))
+                    {
+                        await mailMsg.AddAttachmentAsync(attachement, fileStream);
+                    }
+                }
 
                 this.logger.LogInformation("Attempting to send mail via SendGrid");
                 var response = await client.SendEmailAsync(mailMsg);

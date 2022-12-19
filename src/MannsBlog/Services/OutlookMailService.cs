@@ -16,8 +16,10 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MannsBlog.Config;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -58,10 +60,11 @@ namespace MannsBlog.Services
         /// <param name="email">The email.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="msg">The MSG.</param>
+        /// <param name="attachment">The Attachement.</param>
         /// <returns>
         /// True or false depending on sending email success.
         /// </returns>
-        public async Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg)
+        public async Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg, [Optional] IFormFile attachment)
         {
             try
             {
@@ -90,6 +93,13 @@ namespace MannsBlog.Services
                 };
 
                 mail.IsBodyHtml = true;
+
+                if (attachment.Length > 0)
+                {
+                    string fileName = Path.GetFileName(attachment.ToString());
+                    mail.Attachments.Add(new Attachment(fileName.ToString()));
+                }
+
                 mail.To.Add(new MailAddress(this.settings.Value.Outlook.Mailaddress));
 
                 var client = new SmtpClient()

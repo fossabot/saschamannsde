@@ -49,6 +49,22 @@
     {
       "library": "@codersrank/summary@0.9.13",
       "destination": "wwwroot/lib/codersrank/summary/"
+    },
+    {
+      "library": "vue-resource@1.5.3",
+      "destination": "wwwroot/lib/vue-resource/"
+    },
+    {
+      "library": "vee-validate@4.7.3",
+      "destination": "wwwroot/lib/vee-validate/"
+    },
+    {
+      "library": "vue@3.2.45",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "tinymce@6.3.1",
+      "destination": "wwwroot/lib/tinymce/"
     }
   ]
 }

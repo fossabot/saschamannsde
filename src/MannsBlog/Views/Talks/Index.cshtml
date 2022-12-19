@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <environment names="Development">
     </environment>
     <environment names="Production,Staging">
-        
+
     </environment>
 }
 @section scripts {
@@ -60,19 +60,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <p>@_localizer["slides"]:</p>
     @foreach (var t in Model)
     {
-        <div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card ">
-                <div class="card-body">
-                    <button class="btn btn-outline-primary pull-right talk-toggle" data-id="@t.Id">@_localizer["show-talk"]</button>
-                    @*<a class="btn btn-outline-primary pull-right" asp-controller="Talks" asp-action="Talk" asp-route-id="@t.Id" target="_blank" role="button">View in new Tab</a>*@
-                    <h3 itemprop="headline" class="card-title">@t.Title</h3>
-                    <div class="card-text"><small>@_localizer["held"]: @t.Date.ToString("D") on @t.Where</small></div>
-                    <p class="card-text">@t.Blurp</p>
+        <div tabindex="0" class="e-card" id="basic">
+            <div class="card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title" class="margin-top: -40px;"><h4>@t.Title</h4></div>
                 </div>
+            </div>
+            <div class="e-card-content">
+                <div class="card-text"><small>@_localizer["held"]: @t.Date.ToString("D") on @t.Where</small></div>
+                <p class="card-text">@t.Blurp</p>
                 <div class="collapse" id="talk-@t.Id">
                     <iframe src="@t.Link" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe><div style="margin-bottom:5px"> <strong> <a href="@t.Link" title="@t.Title" target="_blank">@t.Title</a> </strong> von <strong><a href="https://www.slideshare.net/saigkill" target="_blank">Sascha Manns</a></strong> </div>
+                </div>
+                <div class="e-card-actions">
+                    <button class="btn btn-outline-primary pull-right talk-toggle" data-id="@t.Id">@_localizer["show-talk"]</button>
                 </div>
             </div>
         </div>
     }
 </div>
+

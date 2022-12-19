@@ -1,0 +1,90 @@
+﻿@*
+Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*@
+@page
+@using System.Net.Http
+@using Microsoft.Extensions.Configuration;
+@using Newtonsoft.Json.Linq
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Mvc.Localization
+@using MannsBlog.Models
+@inject IConfiguration _config
+@inject IViewLocalizer _localizer
+@model MannsBlog.Views.Root.Contact
+
+@section styles {
+    <link href="/css/contact.css" rel="stylesheet" />
+    <style>
+        .multiline {
+            margin-top: 60px;
+            width: 100%;
+        }
+    </style>
+}
+
+@section Scripts{
+    <environment include="Development">
+        <script type="text/javascript" src="~/lib/tinymce/tinymce.js"></script>
+        <script type="text/javascript">
+            tinymce.init({ selector: 'textarea', width: 300 });
+        </script>
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/lib/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+            tinymce.init({ selector: 'textarea', width: 300 });
+        </script>
+    </environment>
+}
+
+@{
+    ViewBag.Title = _localizer["viewbag-title"];
+    ViewBag.PageName = _localizer["viewbag-pagename"];
+    ViewBag.PageBlurb = _localizer["viewbag-pageblurp"];
+    ViewBag.PageImage = "/img/headers/code2.jpg";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 80px">Name:</td>
+            <td><input type="text" name="Name" /></td>
+        </tr>
+        <tr>
+            <td>Subject:</td>
+            <td><input type="text" name="Subject" /></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" name="Email" /></td>
+        </tr>
+        <tr>
+            <td valign="top">Body:</td>
+            <td><textarea cols="20" rows="10" name="Body"></textarea></td>
+        </tr>
+        <tr>
+            <td>Attachment:</td>
+            <td><input type="file" name="Attachment" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Send" asp-page-handler="Submit" /></td>
+        </tr>
+    </table>
+    <br />
+    <span style="color:green">@Model.Message</span>
+</form>

@@ -67,6 +67,7 @@ namespace MannsBlog.Services
                 // make the api call and determine validity
                 using (var client = new HttpClient())
                 {
+#pragma warning disable SA1118 // Parameter should not span multiple lines
                     var content = new FormUrlEncodedContent(new[]
                     {
                          new KeyValuePair<string?, string?>("secret", _settings.Value.Google.CaptchaSecret),
@@ -75,6 +76,7 @@ namespace MannsBlog.Services
                              request.Headers["HTTP_X_FORWARDED_FOR"].FirstOrDefault() :
                              _ctxAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString()),
                     });
+#pragma warning restore SA1118 // Parameter should not span multiple lines
 
                     var result = await client.PostAsync(uri, content);
 

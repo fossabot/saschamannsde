@@ -126,6 +126,9 @@
   <data name="Search" xml:space="preserve">
     <value>Suchbegriff...</value>
   </data>
+  <data name="Stardate" xml:space="preserve">
+    <value>Sternzeit</value>
+  </data>
   <data name="Visitors" xml:space="preserve">
     <value>Besucher</value>
   </data>

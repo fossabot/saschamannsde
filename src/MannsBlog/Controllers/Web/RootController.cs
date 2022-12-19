@@ -58,6 +58,7 @@ namespace MannsBlog.Controllers.Web
         private readonly string _name;
         private readonly string _email;
         private readonly string _url;
+        private readonly GoogleCaptchaService _captcha;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RootController"/> class.
@@ -74,7 +75,8 @@ namespace MannsBlog.Controllers.Web
                               IMemoryCache memoryCache,
                               ILogger<RootController> logger,
                               AdService adService,
-                              IConfiguration config)
+                              IConfiguration config,
+                              GoogleCaptchaService captcha)
         {
             _repo = repo;
             _memoryCache = memoryCache;
@@ -82,6 +84,7 @@ namespace MannsBlog.Controllers.Web
             _mailService = mailService;
             _logger = logger;
             _adService = adService;
+            _captcha = captcha;
 
 #pragma warning disable CS8601 // Mögliche Nullverweiszuweisung.
             _firstname = _config["Blog:UserFirstname"];
@@ -185,6 +188,7 @@ namespace MannsBlog.Controllers.Web
                 story.Body = doc.DocumentNode.OuterHtml;
             }
         }
+
         #endregion
 
         #region Redirect
@@ -334,6 +338,16 @@ namespace MannsBlog.Controllers.Web
         /// <returns>Testimonials Site.</returns>
         [HttpGet("testimonials")]
         public IActionResult Testimonials()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Returns the Index.
+        /// </summary>
+        /// <returns>Contact View.</returns>
+        [HttpGet("contact")]
+        public IActionResult Contact()
         {
             return View();
         }

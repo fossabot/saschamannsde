@@ -227,6 +227,7 @@ namespace MannsBlog
             }
 
             svcs.AddServerSideBlazor();
+            svcs.AddRazorPages();
 
             svcs.AddApplicationInsightsTelemetry(_config);
 
@@ -303,6 +304,7 @@ namespace MannsBlog
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
                 });
                 cfg.MapBlazorHub();
+                cfg.MapRazorPages();
             });
         }
     }

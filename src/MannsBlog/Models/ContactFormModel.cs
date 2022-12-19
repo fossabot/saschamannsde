@@ -12,7 +12,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace MannsBlog.Models
 {
@@ -40,7 +42,7 @@ namespace MannsBlog.Models
         [StringLength(4096, ErrorMessage = "Your message is too long. Please shorten it to max. 4096 chars.")]
         [MinLength(5)]
         [Required]
-        public string Message { get; set; } = string.Empty;
+        public string Body { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name.
@@ -49,7 +51,7 @@ namespace MannsBlog.Models
         /// The name.
         /// </value>
         [Required]
-        [StringLength(100, ErrorMessage = "Name is too long.")]
+        [StringLength(100, ErrorMessage = "Name is too long. Just 100 chars allowed.")]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
@@ -59,7 +61,16 @@ namespace MannsBlog.Models
         /// The subject.
         /// </value>
         [Required]
+        [StringLength(150, ErrorMessage = "Subject too long. Just 150 chars allowed.")]
         public string Subject { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the attachment.
+        /// </summary>
+        /// <value>
+        /// The attachment.
+        /// </value>
+        public IFormFile? Attachment { get; set; }
 
         /// <summary>
         /// Gets or sets the recaptcha.
