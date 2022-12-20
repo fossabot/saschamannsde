@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </copyright>
 */
+
 .testimonial {
     padding: 70px 50px 50px;
     margin: 50px 50px 30px;
@@ -44,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     .testimonial .description {
         font-size: 15px;
-        color: #007bff;/*#5e595b;*/
+        color: #007bff; /*#5e595b;*/
         line-height: 27px;
         text-align: center;
         margin: 0;
@@ -53,13 +54,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         .testimonial .description:before {
             content: "\f10d";
-            font-family: "Font Awesome 5 Free";
+            font-family: "Font Awesome 6 Free";
             font-weight: 900;
             font-size: 25px;
             color: #d7d7d7;
             position: absolute;
             top: 0;
-            left: -2px;
+            left: -30px;
         }
 
     .testimonial .title {
@@ -81,49 +82,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     .testimonial .post {
         font-size: 15px;
-        color: #007bff;/*#671a36;*/
+        color: #007bff; /*#671a36;*/
     }
 
-.owl-theme .owl-controls {
-    width: 80%;
-    height: 50px;
-    opacity: 1;
-    position: absolute;
-    top: 38%;
-}
 
-    .owl-theme .owl-controls .owl-buttons div {
-        width: 50px;
-        height: 50px;
-        line-height: 40px;
-        border-radius: 0;
-        background: transparent;
-    }
-
-.owl-prev {
-    position: absolute;
-    left: -5%;
-}
-
-.owl-next {
-    position: absolute;
-    right: -5%;
-}
-
-    .owl-prev:after,
-    .owl-next:after {
-        content: "\f104";
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        font-size: 30px;
-        color: #014782;
-        opacity: 1;
-    }
-
-    .owl-next:after {
-        content: "\f105";
-    }
-    /*479 px*/
 @media only screen and (max-width: 390px) {
     .testimonial {
         padding: 70px 10px 30px;

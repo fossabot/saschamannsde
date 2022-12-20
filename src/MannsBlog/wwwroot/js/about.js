@@ -5,7 +5,7 @@
         var $openSourceList = $("#openSourceList");
         if ($openSourceList.length > 0) {
             var template = _.template(
-                "<div class='card'>" +
+                "<div class='e-card'>" +
                 "<div tabindex='0' class='e-card-about' id='basic'>" +
                 "   <div class='e-card-header'>" +
                 "     <div class='e-card-header-caption'>" +
