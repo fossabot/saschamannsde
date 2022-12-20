@@ -10,13 +10,13 @@ Project Status:
 
 I re-wrote my blog using a new stack of web technologies including:
 
- - .NET 5
- - ASP.NET Core 5
- - Entity Framework Core 5
- - Vue
- - Bootstrap 4 
+ - .NET 6
+ - ASP.NET Core 6
+ - Entity Framework Core 7
+ - Bootstrap 5
  - Azure Websites (Docker)
  - Azure Blob Storage
+ - Syncfusion controls
  
 The project wasn't build to be a blog engine or a easy to re-use for your own blog. It doesn't mean you can't use it for that. Feel free to fork the project, but that wasn't a design goal. 
 

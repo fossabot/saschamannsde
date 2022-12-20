@@ -35,10 +35,6 @@
       "destination": "wwwroot/lib/highlight.js/"
     },
     {
-      "library": "jquery@3.6.2",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
       "library": "typeit@8.7.1",
       "destination": "wwwroot/lib/typeit/"
     },
@@ -51,20 +47,32 @@
       "destination": "wwwroot/lib/codersrank/summary/"
     },
     {
-      "library": "vue-resource@1.5.3",
-      "destination": "wwwroot/lib/vue-resource/"
-    },
-    {
-      "library": "vee-validate@4.7.3",
-      "destination": "wwwroot/lib/vee-validate/"
-    },
-    {
-      "library": "vue@3.2.45",
-      "destination": "wwwroot/lib/vue/"
-    },
-    {
       "library": "tinymce@6.3.1",
       "destination": "wwwroot/lib/tinymce/"
+    },
+    {
+      "library": "jquery@3.6.2",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "@codersrank/skills-chart@0.9.21",
+      "destination": "wwwroot/lib/codersrank/skills-chart/"
+    },
+    {
+      "library": "@codersrank/activity@0.9.14",
+      "destination": "wwwroot/lib/codersrank/activity/"
+    },
+    {
+      "library": "@codersrank/education@0.9.12",
+      "destination": "wwwroot/lib/codersrank/education/"
+    },
+    {
+      "library": "@codersrank/portfolio@0.9.10",
+      "destination": "wwwroot/lib/codersrank/portfolio/"
+    },
+    {
+      "library": "@codersrank/work-experience@0.9.8",
+      "destination": "wwwroot/lib/codersrank/work-experience/"
     }
   ]
 }

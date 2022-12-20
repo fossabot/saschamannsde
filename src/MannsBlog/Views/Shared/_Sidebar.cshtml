@@ -17,35 +17,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
-    DateTime startpoint = DateTime.Now;
-    int year = startpoint.Year; // 2015
-    int month = startpoint.Month; //12
-    int day = startpoint.Day; // 25
-    int hour = startpoint.Hour; // 10
-    int minute = startpoint.Minute; // 30
-    int second = startpoint.Second; // 45
-    int weekDay = (int)startpoint.DayOfWeek; // 5 due to Friday
-    bool lapYear = IsLeapYear(startpoint);
-    int x = 0;
-    if (lapYear)
-    {
-        x = 366;
-    }
-    else
-    {
-        x = 365;
-    }
+    //DateTime startpoint = DateTime.Now;
+    //int year = startpoint.Year; // 2015
+    //int month = startpoint.Month; //12
+    //int day = startpoint.Day; // 25
+    //int hour = startpoint.Hour; // 10
+    //int minute = startpoint.Minute; // 30
+    //int second = startpoint.Second; // 45
+    //int weekDay = (int)startpoint.DayOfWeek; // 5 due to Friday
+    //bool lapYear = IsLeapYear(startpoint);
+    //int x = 0;
+    //if (lapYear)
+    //{
+    //    x = 366;
+    //}
+    //else
+    //{
+    //    x = 365;
+    //}
 
-    int starDate = 1000 * (year + 1 / second * ((x - 1 + hour) / (24 + minute) / 1440) - 2323);
+    //int starDate = 1000 * (year + 1 / second * ((x - 1 + hour) / (24 + minute) / 1440) - 2323);
 
-    bool IsLeapYear(DateTime dt)
-    {
-        bool mod4 = dt.Year % 4 == 0;
-        bool mod100 = dt.Year % 100 == 0;
-        bool mod400 = dt.Year % 400 == 0;
+    //bool IsLeapYear(DateTime dt)
+    //{
+    //    bool mod4 = dt.Year % 4 == 0;
+    //    bool mod100 = dt.Year % 100 == 0;
+    //    bool mod400 = dt.Year % 400 == 0;
 
-        return (mod4 && (!mod100 || mod400));
-    }
+    //    return (mod4 && (!mod100 || mod400));
+    //}
 }
 
 <div class="col-lg-12">
@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <div class="col-lg-12">
     <div class="text-xs-center center-text"><h3><strong>Sascha Manns</strong></h3></div>
     <div class="text-xs-center"><p id="replaceJobs"></p></div>
-    <div class="text-xs-center">@_localizer["Stardate"]: @starDate</div>
+    @*<div class="text-xs-center">@_localizer["Stardate"]: @starDate</div>*@
     <ul class="list-inline  sidebar-icon-list text-xs-center">
         <li class="list-inline-item">
             <a rel="me" href="https://social.linux.pizza/@@saigkill" title="Mastodon">

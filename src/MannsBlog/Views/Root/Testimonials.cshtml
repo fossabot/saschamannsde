@@ -31,19 +31,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <environment include="Development">
         <link rel="stylesheet" href="~/css/Testimonials.min.css" />
     </environment>
+    <style>
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .control-container {
+            background-color: #adb5bd;
+            height: 500px;
+            margin: 0 auto;
+            width: 700px;
+        }
+
+        .e-carousel .slide-content {
+            align-items: center;
+            display: flex;
+            font-size: 1.25rem;
+            height: 100%;
+            justify-content: center;
+        }
+    </style>
 }
 @section scripts {
     <environment exclude="Development">
-        <script src="~/js/Testimonials.js"></script>
     </environment>
     <environment include="Production,Staging">
-        <script src="~/js/Testimonials.min.js"></script>
     </environment>
 
 }
 
 <h1>@_localizer["viewbag-pagename"]</h1>
-
+<h2>@_localizer["tests"]</h2>
 <div class="container">
     <div class="row">
         <div class="col-md-offset2 col-md-8">
@@ -68,27 +87,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </e-carousel-items>
                 </ejs-carousel>
             </div>
-            <style>
-
-                .container {
-                    margin-top: 30px;
-                }
-
-                .control-container {
-                    background-color: #adb5bd;
-                    height: 500px;
-                    margin: 0 auto;
-                    width: 700px;
-                }
-
-                .e-carousel .slide-content {
-                    align-items: center;
-                    display: flex;
-                    font-size: 1.25rem;
-                    height: 100%;
-                    justify-content: center;
-                }
-            </style>
         </div>
     </div>
 </div>
