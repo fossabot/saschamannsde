@@ -204,4 +204,13 @@
   <data name="write-me" xml:space="preserve">
     <value>Write me</value>
   </data>
+  <data name="viewbag-pageblurp" xml:space="preserve">
+    <value>My professional Experience</value>
+  </data>
+  <data name="viewbag-pagename" xml:space="preserve">
+    <value>Curriculum Vitae &amp; Experiences</value>
+  </data>
+  <data name="viewbag-title" xml:space="preserve">
+    <value>Curriculum Vitae - Sascha Manns's Twilight Zone</value>
+  </data>
 </root>
