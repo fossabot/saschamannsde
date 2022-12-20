@@ -1,3 +1,4 @@
+@using System.Globalization;
 @*
 Copyright (C) 2021 Sascha Manns <Sascha.Manns@outlook.de>
 
@@ -16,15 +17,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *@
 @model MannsBlog.Services.DataProviders.Video
 @{
-  ViewBag.Title = $"{Model.Title} - Shawn Mannsmuth's Rants and Raves";
-  ViewBag.PageName = Model.Title;
-  ViewBag.PageBlurb = Model.Description;
-  ViewBag.PageImage = "/img/headers/video.jpg";
+    ViewBag.Title = $"{Model.Title} - Saschas Twilight Zone";
+    ViewBag.PageName = Model.Title;
+    ViewBag.PageBlurb = Model.Description;
+    ViewBag.PageImage = "/img/headers/video.jpg";
+
+    var culture = CultureInfo.CurrentCulture.Name;
+    string videotarget = String.Empty;
+    videotarget = culture == "de-DE" ? "video-de" : "video";
+
+    bool isDevelopment = false;
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+    {
+        isDevelopment = true;
+    }
+
+    string cleanedtarget = String.Empty;
+    if (isDevelopment)
+    {
+        cleanedtarget = videotarget + ".js";
+    }
+    else
+    {
+        cleanedtarget = videotarget + ".min.js";
+    }
+}
+@section scripts {
+    <environment names="Development">
+        <script src="~/js/@cleanedtarget"></script>
+    </environment>
+    <environment names="Production,Staging">
+        <script src="~/js/@cleanedtarget"></script>
+    </environment>
 }
 <div class="row">
-  <div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="video-container auto-load">
-      <partial name="_VideoFrame" model="Model" />
+    <div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="video-container auto-load" id="video-@Model.Id">
+            <partial name="_VideoFrame" model="Model" />
+        </div>
     </div>
-  </div>
 </div>

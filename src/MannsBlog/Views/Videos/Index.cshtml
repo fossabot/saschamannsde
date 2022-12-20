@@ -56,17 +56,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <div class="row">
     @foreach (var v in Model)
     {
-        <div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="float-right"><small>@_localizer["published"]: @v.DatePublished.ToString("D")</small></div>
-            <h4>@v.Title</h4>
-            <p class="card-text">@v.Description</p>
-            <button class="btn btn-outline-primary pull-right video-toggle" data-id="@v.Id">@_localizer["show-video"]</button>
-            <a class="btn btn-primary pull-right" asp-controller="Videos" asp-action="Video" asp-route-id="@v.Id" target="_blank" role="button">@_localizer["show-tab"]</a>
-
-            <div class="video-container collapse" id="video-@v.Id">
-                <partial name="_VideoFrame" model="v" />
+        <div tabindex="0" class="e-card" id="basic">
+            <div class="card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title" class="margin-top: -40px;"><h4>@v.Title</h4></div>
+                </div>
             </div>
-            <hr />
+            <div class="e-card-content">
+                <div class="card-text"><small>@_localizer["published"]: @v.DatePublished.ToString("D")</small></div>
+                <p class="card-text">@v.Description</p>
+                <div class="collapse video-container" id="video-@v.Id">
+                    <partial name="_VideoFrame" model="v" />
+                </div>
+                <div class="e-card-actions">
+                    <button class="btn btn-outline-primary pull-right video-toggle" data-id="@v.Id">@_localizer["show-video"]</button>
+                    <a class="btn btn-primary pull-right" asp-controller="Videos" asp-action="Video" asp-route-id="@v.Id" target="_blank" role="button">@_localizer["show-tab"]</a>
+                </div>
+            </div>
         </div>
     }
 </div>
