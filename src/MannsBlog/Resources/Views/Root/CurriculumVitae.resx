@@ -213,4 +213,19 @@
   <data name="viewbag-title" xml:space="preserve">
     <value>Curriculum Vitae - Sascha Manns's Twilight Zone</value>
   </data>
+  <data name="skills-title" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="jobs-title" xml:space="preserve">
+    <value>Previous professional stations</value>
+  </data>
+  <data name="activity-title" xml:space="preserve">
+    <value>My coding Activity</value>
+  </data>
+  <data name="education-title" xml:space="preserve">
+    <value>Education and training</value>
+  </data>
+  <data name="portfolio-title" xml:space="preserve">
+    <value>My Portfolio</value>
+  </data>
 </root>
