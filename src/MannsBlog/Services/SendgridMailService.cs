@@ -97,10 +97,10 @@ namespace MannsBlog.Services
 
                 if (attachement.Length > 0)
                 {
-                    using (var fileStream = File.OpenRead(attachement.ToString()))
-                    {
-                        await mailMsg.AddAttachmentAsync(attachement, fileStream);
-                    }
+                    //using (FileStream fileStream = File.OpenRead(attachement))
+                    //{
+                    //    await mailMsg.AddAttachmentAsync(attachement, fileStream);
+                    //}
                 }
 
                 this.logger.LogInformation("Attempting to send mail via SendGrid");

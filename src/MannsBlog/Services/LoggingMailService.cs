@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace MannsBlog.Services
@@ -32,7 +33,7 @@ namespace MannsBlog.Services
         /// <returns>
         /// True or false depending on sending email success.
         /// </returns>
-        public Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg, [Optional] string attachment)
+        public Task<bool> SendMailAsync(string template, string name, string email, string subject, string msg, [Optional] IFormFile attachment)
         {
             _logger.LogDebug($"Email Requested from {name} subject of {subject}");
             return Task.FromResult(true);
