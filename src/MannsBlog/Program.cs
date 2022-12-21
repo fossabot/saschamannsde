@@ -30,6 +30,10 @@ namespace MannsBlog
             var host = WebHost.CreateDefaultBuilder(args)
                   .ConfigureAppConfiguration(ConfigureConfiguration)
                   .UseStartup<Startup>()
+                  //.UseKestrel(options =>
+                  //{
+                  //    options.AddServerHeader = false;
+                  //})
                   .Build();
 
             if (args.Contains("/seed"))

@@ -93,6 +93,18 @@ namespace MannsBlog
         {
             svcs.Configure<AppSettings>(_config);
 
+            svcs.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "MannsAntiCsrfCookie";
+                options.HeaderName = "MannsAntiCsrfHeader";
+                options.FormFieldName = "MannsAntiCsrfField";
+            });
+
+            svcs.AddSession(options =>
+            {
+                options.Cookie.Name = "SessionCookie";
+            });
+
             if (_env.IsDevelopment() && _config.GetValue<bool>("MailService:TestInDev") == false)
             {
                 svcs.AddTransient<IMailService, LoggingMailService>();
