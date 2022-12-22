@@ -36,7 +36,7 @@ namespace MannsBlog.Views.Root
         /// <value>
         /// The message.
         /// </value>
-        public string? Message { get; set; }
+        public string? Message { get; set; } = "Launching Emailprocess";
 
         private GoogleCaptchaService Captcha;
 

@@ -159,4 +159,10 @@
   <data name="viewbag-title" xml:space="preserve">
     <value>Über mich - Sascha Manns's Twilight Zone</value>
   </data>
+  <data name="supporter-company" xml:space="preserve">
+    <value>Meine Unterstützer</value>
+  </data>
+  <data name="supporter-company-thx" xml:space="preserve">
+    <value>Ich freue mich, das mich diese Firmen bei meiner Open Source Arbeit unterstützen.</value>
+  </data>
 </root>

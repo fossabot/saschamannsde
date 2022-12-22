@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         cleanedtarget = videotarget + ".min.js";
     }
 }
-@section scripts {
+@section Scripts {
     <environment names="Development">
         <script src="~/js/@cleanedtarget"></script>
     </environment>
@@ -56,21 +56,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <div class="row">
     @foreach (var v in Model)
     {
-        <div tabindex="0" class="e-card" id="basic">
+        <div tabindex="0" class="e-card" id="@v.Id">
             <div class="card-header">
                 <div class="e-card-header-caption">
-                    <div class="e-card-header-title" class="margin-top: -40px;"><h4>@v.Title</h4></div>
+                    <div class="e-card-header-title font-gray"><h4 class="font-gray">@v.Title</h4></div>
                 </div>
             </div>
-            <div class="e-card-content">
-                <div class="card-text"><small>@_localizer["published"]: @v.DatePublished.ToString("D")</small></div>
-                <p class="card-text">@v.Description</p>
+            <div class="e-card-content font-gray">
+                <div class="card-text font-gray"><small>@_localizer["published"]: @v.DatePublished.ToString("D")</small></div>
+                <p class="card-text font-gray">@v.Description</p>
                 <div class="collapse video-container" id="video-@v.Id">
                     <partial name="_VideoFrame" model="v" />
                 </div>
                 <div class="e-card-actions">
-                    <button class="btn btn-outline-primary pull-right video-toggle" data-id="@v.Id">@_localizer["show-video"]</button>
-                    <a class="btn btn-primary pull-right" asp-controller="Videos" asp-action="Video" asp-route-id="@v.Id" target="_blank" role="button">@_localizer["show-tab"]</a>
+                    <button class="btn btn-primary pull-right video-toggle" data-id="@v.Id">@_localizer["show-video"]</button>
+                    <a class="btn btn-outline-primary pull-right" asp-controller="Videos" asp-action="Video" asp-route-id="@v.Id" target="_blank" role="button">@_localizer["show-tab"]</a>
                 </div>
             </div>
         </div>

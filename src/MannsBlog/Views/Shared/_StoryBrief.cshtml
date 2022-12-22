@@ -60,34 +60,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 }
 
-<div class="container">
+<div class="container container-black">
     <div class="row">
-        <div tabindex="0" class="e-card" id="basic">
+        <div tabindex="0" class="e-card" id="@Model.Slug">
             <div class="card-header">
                 <div class="e-card-header-caption">
-                    <div class="e-card-header-title" class="margin-top: -40px;"><h4><a href=@Model.Slug>@Model.Title</a></h4></div>
+                    <div class="e-card-header-title font-gray"><h4><a href=@Model.Slug>@Model.Title</a></h4></div>
                 </div>
             </div>
             <div class="e-card-content">
                 <div class="col-md-8">
-                    <i class="fas fa-calendar"></i> @Model.DatePublished.ToString("MMMM dd, yyyy")
-                    <i class="fas fa-edit"></i> @name
-                    <i class="fas fa-comments"></i> <span class="disqus-comment-count" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
-                    <i class="fas fa-clock"></i> @minutes @strMinutes @seconds @strSeconds
+                    <i class="fas fa-calendar font-gray"></i> <span class="font-gray">@Model.DatePublished.ToString("MMMM dd, yyyy")</span>
+                    <i class="fas fa-edit font-gray"></i> <span class="font-gray">@name</span>
+                    <i class="fas fa-comments font-gray"></i> <span class="disqus-comment-count font-gray" data-disqus-identifier="@Model.UniqueId">@_localizer["comments"]</span>.
+                    <i class="fas fa-clock font-gray"></i> <span class="font-gray">@minutes @strMinutes @seconds @strSeconds</span>
                     <br />
-                    <i class="fas fa-tags"></i>
+                    <i class="fas fa-tags font-gray"></i>
                     @foreach (var tag in Model.Categories.Split(','))
                     {
-                        <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="" class="btn">@tag</a>
+                        <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag" asp-route-page="">@tag</a>
                     }
-                    @Html.Raw(Model.GetSummary())
+                    <div class="font-gray">
+                        @Html.Raw(Model.GetSummary())
+                    </div>
                     <div class="e-card-actions">
                         <a href="@Model.Slug" id="btn-read" class="e-card-btn">@_localizer["btn-read"]</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="e-card-image">
-                        <img width="100px" height="100px" style="margin-left: 900px; margin-top: -400px;" src="@imgsrc" alt="Category Image" />
+                        <img width="150" height="150" style="margin-left: 900px; margin-top: -400px;" src="@imgsrc" alt="Category Image" />
                     </div>
                 </div>
             </div>

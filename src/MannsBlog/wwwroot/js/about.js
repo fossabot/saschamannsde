@@ -6,14 +6,14 @@
         if ($openSourceList.length > 0) {
             var template = _.template(
                 "<div class='e-card'>" +
-                "<div tabindex='0' class='e-card-about' id='basic'>" +
-                "   <div class='e-card-header'>" +
+                "<div tabindex='0' class='e-card-about' id='<%= name %>'>" +
+                "   <div class='card-header'>" +
                 "     <div class='e-card-header-caption'>" +
                 "       <h4 class='e-card-header-caption-title'><a href='<%= html_url %>' target'_blank'><%= name %></a></h4>" +
                 "     </div>" +
                 "   </div>" +
-                "   <div class='e-card-content'>" +
-                "           <div><small><%= description %></small></div>" +
+                "   <div class='e-card-content font-gray'>" +
+                "           <div class='font-gray'><%= description %></div>" +
                 "       </div>" +
                 " </div>" +
                 "</div>");

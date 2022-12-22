@@ -1,78 +1,83 @@
 {
-  "version": "1.0",
-  "defaultProvider": "unpkg",
-  "libraries": [
-    {
-      "library": "bootstrap@5.2.3",
-      "destination": "wwwroot/lib/bootstrap/"
-    },
-    {
-      "library": "open-iconic@1.1.1",
-      "destination": "wwwroot/lib/open-iconic/"
-    },
-    {
-      "library": "lodash@4.17.21",
-      "destination": "wwwroot/lib/lodash/"
-    },
-    {
-      "library": "@fortawesome/fontawesome-free@6.2.1",
-      "destination": "wwwroot/lib/fortawesome/fontawesome-free/"
-    },
-    {
-      "library": "cookieconsent@3.1.1",
-      "destination": "wwwroot/lib/cookieconsent/"
-    },
-    {
-      "library": "respond@0.9.0",
-      "destination": "wwwroot/lib/respond/"
-    },
-    {
-      "library": "tether@2.0.0",
-      "destination": "wwwroot/lib/tether/"
-    },
-    {
-      "library": "highlight.js@11.7.0",
-      "destination": "wwwroot/lib/highlight.js/"
-    },
-    {
-      "library": "typeit@8.7.1",
-      "destination": "wwwroot/lib/typeit/"
-    },
-    {
-      "library": "vanilla-lazyload@17.8.3",
-      "destination": "wwwroot/lib/vanilla-lazyload/"
-    },
-    {
-      "library": "@codersrank/summary@0.9.13",
-      "destination": "wwwroot/lib/codersrank/summary/"
-    },
-    {
-      "library": "tinymce@6.3.1",
-      "destination": "wwwroot/lib/tinymce/"
-    },
-    {
-      "library": "jquery@3.6.2",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
-      "library": "@codersrank/skills-chart@0.9.21",
-      "destination": "wwwroot/lib/codersrank/skills-chart/"
-    },
-    {
-      "library": "@codersrank/activity@0.9.14",
-      "destination": "wwwroot/lib/codersrank/activity/"
-    },
-    {
-      "library": "@codersrank/education@0.9.12",
-      "destination": "wwwroot/lib/codersrank/education/"
-    },
-    {
-      "library": "@codersrank/portfolio@0.9.10",
-      "destination": "wwwroot/lib/codersrank/portfolio/"
-    },
-    {
-      "library": "@codersrank/work-experience@0.9.8",
-      "destination": "wwwroot/lib/codersrank/work-experience/"
-    }
-  ]
+    "version": "1.0",
+    "defaultProvider": "unpkg",
+    "libraries": [
+        {
+            "library": "bootstrap@5.2.3",
+            "destination": "wwwroot/lib/bootstrap/"
+        },
+        {
+            "library": "open-iconic@1.1.1",
+            "destination": "wwwroot/lib/open-iconic/"
+        },
+        {
+            "library": "lodash@4.17.21",
+            "destination": "wwwroot/lib/lodash/"
+        },
+        {
+            "library": "@fortawesome/fontawesome-free@6.2.1",
+            "destination": "wwwroot/lib/fortawesome/fontawesome-free/"
+        },
+        {
+            "library": "cookieconsent@3.1.1",
+            "destination": "wwwroot/lib/cookieconsent/"
+        },
+        {
+            "library": "respond@0.9.0",
+            "destination": "wwwroot/lib/respond/"
+        },
+        {
+            "library": "tether@2.0.0",
+            "destination": "wwwroot/lib/tether/"
+        },
+        {
+            "library": "highlight.js@11.7.0",
+            "destination": "wwwroot/lib/highlight.js/"
+        },
+        {
+            "library": "typeit@8.7.1",
+            "destination": "wwwroot/lib/typeit/"
+        },
+        {
+            "library": "vanilla-lazyload@17.8.3",
+            "destination": "wwwroot/lib/vanilla-lazyload/"
+        },
+        {
+            "library": "@codersrank/summary@0.9.13",
+            "destination": "wwwroot/lib/codersrank/summary/"
+        },
+        {
+            "library": "tinymce@6.3.1",
+            "destination": "wwwroot/lib/tinymce/"
+        },
+        {
+            "library": "jquery@3.6.2",
+            "destination": "wwwroot/lib/jquery/"
+        },
+        {
+            "library": "@codersrank/skills-chart@0.9.21",
+            "destination": "wwwroot/lib/codersrank/skills-chart/"
+        },
+        {
+            "library": "@codersrank/activity@0.9.14",
+            "destination": "wwwroot/lib/codersrank/activity/"
+        },
+        {
+            "library": "@codersrank/education@0.9.12",
+            "destination": "wwwroot/lib/codersrank/education/"
+        },
+        {
+            "library": "@codersrank/portfolio@0.9.10",
+            "destination": "wwwroot/lib/codersrank/portfolio/"
+        },
+        {
+            "library": "@codersrank/work-experience@0.9.8",
+            "destination": "wwwroot/lib/codersrank/work-experience/"
+        },
+        {
+            "provider": "unpkg",
+            "library": "bootstrap-dark-5@1.1.3",
+            "destination": "wwwroot/lib/bootstrap-dark-5/"
+        }
+    ]
 }

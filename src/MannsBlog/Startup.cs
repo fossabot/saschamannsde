@@ -93,6 +93,8 @@ namespace MannsBlog
         {
             svcs.Configure<AppSettings>(_config);
 
+            // Make Server a little bit non exhibitional
+            // DotnetPro: 10/22 S. 40
             svcs.AddAntiforgery(options =>
             {
                 options.Cookie.Name = "MannsAntiCsrfCookie";

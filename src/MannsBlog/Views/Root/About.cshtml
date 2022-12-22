@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 @section scripts {
     <script src="~/lib/lodash/lodash.js"></script>
+    <script src="~/js/about.js"></script>
 }
 @section styles {
     <style>
@@ -67,6 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <li><a rel="me" href="https://social.linux.pizza/@@saigkill" target="_blank"><i class="fab fa-mastodon"></i> Mastodon</a></li>
             <li><a href="https://steamcommunity.com/id/saigkill/"><i class="fab fa-steam-square"></i> Steam</a></li>
         </ul>
+        <hr />
         <h4>@_localizer["coding-activity"]</h4>
         <ul class="list-unstyled">
             <li><img src="~/img/social/openhub.png" alt="" class="alignnone size-medium wp-image-86" width="20" height="20"><a href="https://openhub.net/accounts/saigkill" target="_blank"> OpenHub</a></li>
@@ -77,6 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <li><a href="https://github.com/saigkill" target="_blank"><i class="fab fa-github-square"></i> GitHub</a></li>
             <li><a href="https://stackoverflow.com/users/7404985/sascha-manns" target="_blank"><i class="fab fa-stack-overflow"></i> Stack Overflow</a></li>
         </ul>
+        <hr />
         <h4>@_localizer["supporter"]</h4>
         <div id="besupporter">
             <ul class="list-unstyled">
@@ -85,7 +88,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <li><a href="https://paypal.me/SaschaManns" target="_blank"><img src="~/img/badges/paypal_donate.svg" width="12%" style="margin-right: 5px; margin-top: 10px" /></a></li>
                 <li><a href="https://www.patreon.com/saigkill"><img src="~/img/badges/patreon.svg" width="12%" style="margin-top: 10px" /></a></li>
                 <li><a href="https://liberapay.com/saigkill/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" style="margin-top: 10px"></a></li>
-                <li><a href="https://www.syncfusion.com"><img src="https://cdn.syncfusion.com/content/images/Logo/Logo_150dpi.png"</a></li>
+            </ul>
+        </div>
+        <hr />
+        <h4>@_localizer["supporter-company"]</h4>
+        <p>@_localizer["supporter-company-thx"]</p>
+        <div id="supporter-company">
+            <ul class="list-unstyled">
+                <li><a target="_blank" href="https://www.advancedinstaller.com/"><img src="~/img/supporters/advanced_installer_vertical_20.png" width="30%" /></a></li>
+                <li><a target="_blank" class="additional-space" href="http://www.innovasys.com/"><img src="~/img/supporters/Innovasys.png" class="additional-space" width="30%" style="margin-left: -0px;" /></a></li>
+                <li><a target="_blank" class="additional-space" href="https://www.jetbrains.com/"><img src="~/img/supporters/jetbrains.png" class="additional-space" width="20%" /></a></li>
+                <li><a target="_blank" class="additional-space" href="https://www.oxygenxml.com/"><img src="~/img/supporters/oxygen-xml-editor.jpg" class="additional-space" width="30%" /></a></li>
+                <li><a target="_blank" class="additional-space" href="https://www.renderx.com/"><img src="~/img/supporters/renderx.png" width="20%" class="additional-space" style="margin-left: -0px;" /></a></li>
+                <li><a target="_blank" class="additional-space" href="https://www.syncfusion.com/"><img src="~/img/supporters/syncfusion.jpeg" class="additional-space" width="30%" /></a></li>
             </ul>
         </div>
     </div>
@@ -99,20 +114,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div tabindex="0" class="e-card" id="basic">
                 <div class="card-header">
                     <div class="e-card-header-caption">
-                        <h4 class="card-subtitle"><a href="@pub.Link" target="_blank">@pub.Title</a></h4>
+                        <h4 class="card-subtitle font-gray"><a href="@pub.Link" target="_blank" class="font-gray">@pub.Title</a></h4>
                     </div>
                 </div>
                 <div class="e-card-content">
 
-                    <div class="card-text"><small>@pub.Comments</small></div>
-                    <div class="card-text"><small>@pub.PublicationName - @pub.Publisher</small></div>
+                    <div class="card-text font-gray"><small>@pub.Comments</small></div>
+                    <div class="card-text font-gray"><small>@pub.PublicationName - @pub.Publisher</small></div>
                     @if (!string.IsNullOrWhiteSpace(pub.Identifier))
                     {
-                        <div class="muted"><small>@pub.Identifier, @_localizer["publisher-published"]: <time datetime="@pub.DatePublished">@pub.DatePublished</time></small></div>
+                        <div class="muted font-gray"><small>@pub.Identifier, @_localizer["publisher-published"]: <time datetime="@pub.DatePublished">@pub.DatePublished</time></small></div>
                     }
                     else
                     {
-                        <div class="muted"><small>@_localizer["publisher-published"]: @pub.DatePublished</small></div>
+                        <div class="muted font-gray"><small>@_localizer["publisher-published"]: @pub.DatePublished</small></div>
                     }
                 </div>
             </div>

@@ -159,4 +159,10 @@
   <data name="viewbag-title" xml:space="preserve">
     <value>About Me - Sascha Manns's Twilight Zone</value>
   </data>
+  <data name="supporter-company" xml:space="preserve">
+    <value>My Supporters</value>
+  </data>
+  <data name="supporter-company-thx" xml:space="preserve">
+    <value>I'm happy about my supporters, where supporting my Open-Source-Work.</value>
+  </data>
 </root>

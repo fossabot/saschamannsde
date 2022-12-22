@@ -18,12 +18,6 @@
         ]
     },
     {
-        "outputFileName": "wwwroot/css/style-cv.min.css",
-        "inputFiles": [
-            "wwwroot/css/style-cv.css"
-        ]
-    },
-    {
         "outputFileName": "wwwroot/css/Testimonials.min.css",
         "inputFiles": [
             "wwwroot/css/Testimonials.css"
@@ -45,18 +39,6 @@
         "outputFileName": "wwwroot/js/clean-blog.min.js",
         "inputFiles": [
             "wwwroot/js/clean-blog.js"
-        ]
-    },
-    {
-        "outputFileName": "wwwroot/js/contact.min.js",
-        "inputFiles": [
-            "wwwroot/js/contact.js"
-        ]
-    },
-    {
-        "outputFileName": "wwwroot/js/interface.min.js",
-        "inputFiles": [
-            "wwwroot/js/interface.js"
         ]
     },
     {
@@ -117,12 +99,6 @@
         "outputFileName": "wwwroot/js/talk-de.min.js",
         "inputFiles": [
             "wwwroot/js/talk-de.js"
-        ]
-    },
-    {
-        "outputFileName": "wwwroot/js/contact.min.js",
-        "inputFiles": [
-            "wwwroot/js/contact.cs"
         ]
     }
 ]
