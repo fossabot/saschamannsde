@@ -1,0 +1,42 @@
+
+$css: '.e-css'!default;
+$imported-modules: () !default;
+.e-lib {
+ @at-root {
+/* stylelint-disable-line no-empty-source */
+
+@include export-module('sortable-layout') {
+  .e-lib.e-sortable {
+    outline: none;
+    position: relative;
+    user-select: none;
+
+    .e-disabled {
+      background-image: none;
+      cursor: default;
+      filter: alpha(Opacity=35);
+      opacity: .35;
+    }
+
+    * {
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  /* stylelint-disable */
+  .e-sortableclone {
+    position: fixed !important;
+  }
+  /* stylelint-enable */
+}
+
+
+ }
+ & .e-js [class^='e-'], & .e-js [class*=' e-'] {
+    box-sizing: content-box;
+ }
+}

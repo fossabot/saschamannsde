@@ -1,4 +1,4 @@
-﻿@import 'fonts.css';
+@import 'fonts.css';
 
 ::placeholder {
     color: white;
@@ -26,32 +26,36 @@ body {
             display: none;
         }
 
-        a img:hover,
-        a img:focus {
-            cursor: pointer;
+        html.dark a {
+            color: lightgray;
         }
 
-        a.btn {
-            text-decoration: none;
-            color: white;
-        }
+        /*a img:hover,
+            a img:focus {
+                cursor: pointer;
+            }
 
-            a.btn:hover {
+            a.btn {
                 text-decoration: none;
                 color: white;
             }
 
-        a:not(.btn),
-        p a:not(.btn) {
-            color: #003772;
-            text-decoration: none;
-        }
+                a.btn:hover {
+                    text-decoration: none;
+                    color: white;
+                }
 
-            a:not(.btn):hover,
-            p a:not(.btn):hover {
-                text-decoration: underline;
-                color: #3f9cff;
+            a:not(.btn),
+            p a:not(.btn) {
+                color: #003772;
+                text-decoration: none;
             }
+
+                a:not(.btn):hover,
+                p a:not(.btn):hover {
+                    text-decoration: underline;
+                    color: #3f9cff;
+                }*/
 
         blockquote {
             padding: 0 0 0 15px;
@@ -88,7 +92,7 @@ body {
         }
 
         h3 {
-            color: #003772;
+            color: lightgray;
             font-weight: 600;
         }
 
@@ -146,6 +150,10 @@ body {
     color: #2b2b2b;
 }
 
+.additional-space {
+    margin-top: 50px;
+}
+
 .appearance-block {
     font-size: 80%;
 }
@@ -190,7 +198,7 @@ body {
 
 .center-wo-minimize {
     display: block;
-    margin-left: auto;
+    margin-left: 1;
     margin-right: auto;
 }
 
@@ -202,7 +210,7 @@ body {
 
 .e-card e-card-content {
     width: 700px;
-    /*height: 100px;*/
+    color: lightgray;
     height: 100px;
 }
 
@@ -210,10 +218,20 @@ body {
     margin-top: 30px;
 }
 
+.e-card-header-title {
+    color: lightgray;
+}
+
 .e-card {
     width: 1100px;
     margin: auto;
     height: auto;
+    background-color: #222222;
+    color: lightgray;
+}
+
+.element.style {
+    margin-top: -300px;
 }
 
 .fa-hover-spin:hover {
@@ -221,6 +239,10 @@ body {
     -moz-animation: fa-spin 2s infinite linear;
     -o-animation: fa-spin 2s infinite linear;
     animation: fa-spin 2s infinite linear;
+}
+
+.font-gray {
+    color: lightgray;
 }
 
 .form-control.inline {

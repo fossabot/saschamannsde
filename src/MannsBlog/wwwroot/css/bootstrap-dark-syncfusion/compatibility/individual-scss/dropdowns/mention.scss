@@ -1,0 +1,22 @@
+@import "../base/base.scss";
+@import "../dropdowns/drop-down-base.scss";
+
+$css: '.e-css'!default;
+$imported-modules: () !default;
+.e-lib {
+ @at-root {
+/* stylelint-disable-line no-empty-source */
+
+@include export-module('mention-layout') {
+
+  //default
+  //undefined
+  //enddefault
+}
+
+
+ }
+ & .e-js [class^='e-'], & .e-js [class*=' e-'] {
+    box-sizing: content-box;
+ }
+}
