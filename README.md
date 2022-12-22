@@ -2,16 +2,20 @@
 
 Project Status:
 
-[![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/Production)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=26) (Prod)
+Open Issues: ![GitHub issues](https://img.shields.io/github/issues/saigkill/saschamannsde)
 
-[![Build status](https://dev.azure.com/saigkill/saschamannsde/_apis/build/status/saschamannsde-Azure%20Web%20App%20for%20ASP.NET-CI%20Development)](https://dev.azure.com/saigkill/saschamannsde/_build/latest?definitionId=25) (Dev)
+Codesee: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saigkill/saschamannsde/codesee-arch-diagram.yml)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_saschamannsde2&metric=alert_status)](https://sonarcloud.io/dashboard?id=saigkill_saschamannsde2)
+CodeQl: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saigkill/saschamannsde/codeql.yml)
+
+License: ![GitHub](https://img.shields.io/github/license/saigkill/saschamannsde)
+
+Quality Gate: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_saschamannsde&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_saschamannsde)
 
 I re-wrote my blog using a new stack of web technologies including:
 
- - .NET 6
- - ASP.NET Core 6
+ - .NET 7
+ - ASP.NET Core 7
  - Entity Framework Core 7
  - Bootstrap 5
  - Azure Websites (Docker)
