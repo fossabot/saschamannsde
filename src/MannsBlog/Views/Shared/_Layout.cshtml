@@ -28,8 +28,8 @@ SOFTWARE.
 @inject MannsBlog.Services.AdService _ads
 @{
 
-    var keywords = "Android, Java, C#, Linux, Ruby, Windows, Python, Windows Insider, WSL, Windows Subsystem for Linux, openSUSE, Ubuntu, Mono, Xamarin, .NET, XML, WSL, ASP, JavaScript, Windows Forms, WPF, WinUI3";
-    var description = "My personal Blog about Linux, Windows (WSL, Insider), Programming (Ruby, Python, Java, Android ASP and Mono/.NET) and other random stuff";
+    var keywords = _config["BlogKeywords"];
+    var description = _config["BlogDescription"];
 
     var culture = CultureInfo.CurrentCulture.Name;
     var htmllang = culture.Split('-');
@@ -385,9 +385,9 @@ SOFTWARE.
                     <div>
                         @await Html.PartialAsync("_SelectedLanguagePartial")
                     </div>
-                    <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
+                    <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en" rel="noopener"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
                     <p class="copyright text-primary">
-                        @_localizer["built"] <a href="https://get.asp.net" target="_blank">.NET 7</a>, <a href="https://blazor.net/" target="_blank">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank">Entity Framework Core 7</a>, <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a>, <a href="https://www.syncfusion.com/aspnet-core-ui-controls" target="_blank">Syncfusion ASP.NET Core UI Controls</a>, <a href="https://blazorbootstrap.com" target="_blank">Blazor Bootstrap</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank">Azure</a>.
+                        @_localizer["built"] <a href="https://get.asp.net" target="_blank" rel="noopener">.NET 7</a>, <a href="https://blazor.net/" target="_blank" rel="noopener">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank" rel="noopener">Entity Framework Core 7</a>, <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap 5</a>, <a href="https://www.syncfusion.com/aspnet-core-ui-controls" target="_blank" rel="noopener">Syncfusion ASP.NET Core UI Controls</a>, <a href="https://blazorbootstrap.com" target="_blank" rel="noopener">Blazor Bootstrap</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank" rel="noopener">Azure</a>.
                     </p>
                     <p>
                         <a href="http://jigsaw.w3.org/css-validator/check/referer">
