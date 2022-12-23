@@ -36,7 +36,7 @@ namespace MannsBlog.Views.Root
     /// Page Model for the Contact Page.
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.RazorPages.PageModel" />
-    public class Contact : PageModel
+    public class ContactModel : PageModel
     {
         /// <summary>
         /// Gets or sets the message.
@@ -44,13 +44,13 @@ namespace MannsBlog.Views.Root
         /// <value>
         /// The message.
         /// </value>
-        public string? Message { get; set; } = "Launching Emailprocess";
+        public string? Message { get; set; }
 
         private GoogleCaptchaService Captcha;
 
         private IMailService MailService;
 
-        private ILogger<Contact> Logger;
+        private ILogger<ContactModel> Logger;
 
         /// <summary>
         /// The configuration.
@@ -61,7 +61,7 @@ namespace MannsBlog.Views.Root
         /// Indexes the model.
         /// </summary>
         /// <param name="_configuration">The configuration.</param>
-        public void IndexModel(IConfiguration _configuration, GoogleCaptchaService _captcha, IMailService _mailService, ILogger<Contact> _logger)
+        public void IndexModel(IConfiguration _configuration, GoogleCaptchaService _captcha, IMailService _mailService, ILogger<ContactModel> _logger)
         {
             Configuration = _configuration;
             Captcha = _captcha;
@@ -83,17 +83,17 @@ namespace MannsBlog.Views.Root
                     if (!spamState.Success)
                     {
                         Logger.LogError("Spam detected. Break submitting proces..");
-                        Message = "Spam detected. Sorry";
+                        this.Message = "Spam detected. Sorry";
                     }
 
                     // Captcha
                     if (await Captcha.Verify(model.Recaptcha))
                     {
-                        Message = "Recaptcha solved. That are good news.";
+                        this.Message = "Recaptcha solved. That are good news.";
                         if (await MailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Body, model.Attachment))
                         {
                             Logger.LogInformation("Captcha verified. Sent mail.");
-                            Message = "Email sent.";
+                            this.Message = "Email sent.";
                         }
                     }
                 }

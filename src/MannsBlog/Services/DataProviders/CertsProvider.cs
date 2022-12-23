@@ -109,6 +109,14 @@ namespace MannsBlog.Services.DataProviders
         public string? Link { get; set; }
 
         /// <summary>
+        /// Gets or sets the img link.
+        /// </summary>
+        /// <value>
+        /// The link.
+        /// </value>
+        public string? LinkImg { get; set; }
+
+        /// <summary>
         /// Gets or sets the language.
         /// </summary>
         /// <value>

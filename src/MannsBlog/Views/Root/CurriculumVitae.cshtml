@@ -21,10 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *@
+@page
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject MannsBlog.Services.DataProviders.PublicationProvider _pubs
+@inject MannsBlog.Services.DataProviders.CertsProvider _certs
 @inject IViewLocalizer _localizer
-
+@model MannsBlog.Views.Root.CurriculumVitaeModel
 @{
     ViewBag.Title = _localizer["viewbag-title"];
     ViewBag.PageName = _localizer["viewbag-pagename"];
@@ -42,9 +44,29 @@ SOFTWARE.
         .e-card {
             width: 100px;
         }
+
+        .default-carousel-section .carousel-sample {
+            margin: 0 auto 2em;
+            max-width: 500px;
+            height: 300px;
+        }
+
+        .default-carousel .e-carousel-items .e-carousel-item .img-container {
+            height: 100%;
+        }
+
+        .default-carousel .e-carousel-items .e-carousel-item .img-caption {
+            bottom: 4em;
+            color: #fff;
+            font-size: 12pt;
+            height: 2em;
+            position: relative;
+            padding: 0.3em 1em;
+            text-align: center;
+            width: 100%;
+        }
     </style>
 }
-<h1>@_localizer["viewbag-pagename"]</h1>
 
 <section id="intro">
     <div class="container">
@@ -56,6 +78,7 @@ SOFTWARE.
     </div>
 </section>
 
+<hr />
 <!-- About -->
 <section id="about" class="section">
     <div class="intro">
@@ -165,6 +188,27 @@ SOFTWARE.
 </section>
 
 <hr />
+
+<!-- Certs-->
+@*<section id="certs" class="section">
+    <div class="col-md-offset2 col-md-8">
+        <div class="control-container">
+            <ejs-carousel id="defaultCarousel" animationEffect="Fade">
+                <e-carousel-items>
+                    @foreach (var certificate in _certs.Get())
+                    {
+                        <e-carousel-item template='<div class="testimonial">
+                        <div class="pic">
+                            <img src="@certificate.LinkImg" alt="">
+                        </div>
+                    </div>'>
+                                                    </e-carousel-item>
+                    }
+                </e-carousel-items>
+            </ejs-carousel>
+        </div>
+    </div>
+</section>*@
 
 <!-- Portfolio -->
 <section id="portfolio" class="section">
