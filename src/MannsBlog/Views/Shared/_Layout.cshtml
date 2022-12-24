@@ -211,9 +211,7 @@ SOFTWARE.
             &#9776;
         </button>
         <div class="collapse navbar-collapse" id="theMenu">
-            <ul class="navbar-nav nav-pills ml-auto">
-                <partial name="_Menu" />
-            </ul>
+            <partial name="_Menu" />
         </div>
     </nav>
 
@@ -385,7 +383,7 @@ SOFTWARE.
                     <div>
                         @await Html.PartialAsync("_SelectedLanguagePartial")
                     </div>
-                    <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en" rel="noopener"><img src="~/img/supporters/Logo_CC_by_SA.png" width="75" height="26" /></a></p>
+                    <p>@_localizer["content"] <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en" rel="noopener"><img src="~/img/supporters/Logo_CC_by_SA.png" alt="Creative Commons by ShareAlike Badge" width="75" height="26" /></a></p>
                     <p class="copyright text-primary">
                         @_localizer["built"] <a href="https://get.asp.net" target="_blank" rel="noopener">.NET 7</a>, <a href="https://blazor.net/" target="_blank" rel="noopener">Blazor/Razor</a>, <a href="https://github.com/aspnet/EntityFramework/" target="_blank" rel="noopener">Entity Framework Core 7</a>, <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a>, <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap 5</a>, <a href="https://www.syncfusion.com/aspnet-core-ui-controls" target="_blank" rel="noopener">Syncfusion ASP.NET Core UI Controls</a>, <a href="https://blazorbootstrap.com" target="_blank" rel="noopener">Blazor Bootstrap</a>, @_localizer["host"] <a href="http://azure.com/" target="_blank" rel="noopener">Azure</a>.
                     </p>

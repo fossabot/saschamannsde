@@ -34,14 +34,15 @@ SOFTWARE.
         return "";
     });
 }
-
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "Index")" asp-controller="Root" asp-action="Index" style="color: #eee">@_localizer["Home"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "About")" asp-controller="Root" asp-action="About" style="color: #eee">@_localizer["About"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "CurriculumVitae")" asp-controller="Root" asp-action="CurriculumVitae" style="color: #eee">Curriculum vitae</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "Testimonials")" asp-controller="Root" asp-action="Testimonials" style="color: #eee">@_localizer["Testimonials"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Videos", "")" asp-controller="Videos" asp-action="Index" style="color: #eee">Videos</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Talks", "")" asp-controller="Talks" asp-action="Index" style="color: #eee">@_localizer["Talks"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "Imprint")" asp-controller="Root" asp-action="Imprint" style="color: #eee">@_localizer["Imprint"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "Privacy")" asp-controller="Root" asp-action="Privacy" style="color: #eee">@_localizer["Privacy"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Search", "")" asp-controller="Search" asp-action="Index" style="color: #eee">@_localizer["Search"]</a></li>
-<li class="nav-item"><a class="nav-link @isCurrent("Root", "Contact")" asp-controller="Root" asp-action="Contact" style="color: #eee">@_localizer["Contact"]</a></li>
+<ul class="navbar-nav nav-pills ml-auto">
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "Index")" asp-controller="Root" asp-action="Index" style="color: #eee">@_localizer["Home"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "About")" asp-controller="Root" asp-action="About" style="color: #eee">@_localizer["About"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "CurriculumVitae")" asp-controller="Root" asp-action="CurriculumVitae" style="color: #eee">Curriculum vitae</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "Testimonials")" asp-controller="Root" asp-action="Testimonials" style="color: #eee">@_localizer["Testimonials"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Videos", "")" asp-controller="Videos" asp-action="Index" style="color: #eee">Videos</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Talks", "")" asp-controller="Talks" asp-action="Index" style="color: #eee">@_localizer["Talks"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "Imprint")" asp-controller="Root" asp-action="Imprint" style="color: #eee">@_localizer["Imprint"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "Privacy")" asp-controller="Root" asp-action="Privacy" style="color: #eee">@_localizer["Privacy"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Search", "")" asp-controller="Search" asp-action="Index" style="color: #eee">@_localizer["Search"]</a></li>
+    <li class="nav-item"><a class="nav-link @isCurrent("Root", "Contact")" asp-controller="Root" asp-action="Contact" style="color: #eee">@_localizer["Contact"]</a></li>
+</ul>

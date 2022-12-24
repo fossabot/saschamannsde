@@ -70,14 +70,14 @@ SOFTWARE.
         <div tabindex="0" class="e-card" id="@t.Id">
             <div class="card-header">
                 <div class="e-card-header-caption">
-                    <div class="e-card-header-title font-gray" class="margin-top: -40px;"><h4 class="font-gray">@t.Title</h4></div>
+                    <div class="e-card-header-title font-gray"><h4 class="font-gray">@t.Title</h4></div>
                 </div>
             </div>
             <div class="e-card-content">
                 <div class="card-text font-gray"><small>@_localizer["held"]: @t.Date.ToString("D") on @t.Where</small></div>
                 <p class="card-text font-gray">@t.Blurp</p>
                 <div class="collapse" id="talk-@t.Id">
-                    <iframe src="@t.Link" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe><div style="margin-bottom:5px"> <strong> <a href="@t.Link" title="@t.Title" target="_blank">@t.Title</a> </strong> von <strong><a href="https://www.slideshare.net/saigkill" target="_blank" rel="noopener">Sascha Manns</a></strong> </div>
+                    <iframe src="@t.Link" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" title="@t.Title" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe><div style="margin-bottom:5px"> <strong> <a href="@t.Link" title="@t.Title" target="_blank">@t.Title</a> </strong> von <strong><a href="https://www.slideshare.net/saigkill" target="_blank" rel="noopener">Sascha Manns</a></strong> </div>
                 </div>
                 <div class="e-card-actions">
                     <button class="btn btn-primary pull-right talk-toggle" data-id="@t.Id">@_localizer["show-talk"]</button>

@@ -57,7 +57,7 @@ SOFTWARE.
 
         .testimonial .description:before {
             content: "\f10d";
-            font-family: "Font Awesome 6 Free";
+            font-family: "Font Awesome 6 Free", sans-serif, serif;
             font-weight: 900;
             font-size: 25px;
             color: #d7d7d7;

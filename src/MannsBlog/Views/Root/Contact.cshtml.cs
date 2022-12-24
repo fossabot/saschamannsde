@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -39,6 +40,21 @@ namespace MannsBlog.Views.Root
     public class ContactModel : PageModel
     {
         /// <summary>
+        /// The configuration.
+        /// </summary>
+        [AllowNull]
+        private IConfiguration _configuration;
+
+        [AllowNull]
+        private GoogleCaptchaService _captcha;
+
+        [AllowNull]
+        private IMailService _mailService;
+
+        [AllowNull]
+        private ILogger<ContactModel> _logger;
+
+        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         /// <value>
@@ -46,33 +62,33 @@ namespace MannsBlog.Views.Root
         /// </value>
         public string? Message { get; set; }
 
-        private GoogleCaptchaService Captcha;
-
-        private IMailService MailService;
-
-        private ILogger<ContactModel> Logger;
-
-        /// <summary>
-        /// The configuration.
-        /// </summary>
-        private IConfiguration Configuration;
-
         /// <summary>
         /// Indexes the model.
         /// </summary>
-        /// <param name="_configuration">The configuration.</param>
-        public void IndexModel(IConfiguration _configuration, GoogleCaptchaService _captcha, IMailService _mailService, ILogger<ContactModel> _logger)
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="captcha">The captcha.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="mailService">The Mailing Service.</param>
+        public void IndexModel(IConfiguration configuration, GoogleCaptchaService captcha, IMailService mailService, ILogger<ContactModel> logger)
         {
-            Configuration = _configuration;
-            Captcha = _captcha;
-            MailService = _mailService;
-            Logger = _logger;
+            _configuration = configuration;
+            _captcha = captcha;
+            _mailService = mailService;
+            _logger = logger;
         }
 
+        /// <summary>
+        /// Called when [get].
+        /// </summary>
         public void OnGet()
         {
         }
 
+        /// <summary>
+        /// Called when [post submit].
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
         public async Task OnPostSubmit(ContactFormModel model)
         {
             try
@@ -82,17 +98,17 @@ namespace MannsBlog.Views.Root
                     var spamState = VerifyNoSpam(model);
                     if (!spamState.Success)
                     {
-                        Logger.LogError("Spam detected. Break submitting proces..");
+                        _logger.LogError("Spam detected. Break submitting proces..");
                         this.Message = "Spam detected. Sorry";
                     }
 
                     // Captcha
-                    if (await Captcha.Verify(model.Recaptcha))
+                    if (await _captcha.Verify(model.Recaptcha))
                     {
                         this.Message = "Recaptcha solved. That are good news.";
-                        if (await MailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Body, model.Attachment))
+                        if (await _mailService.SendMailAsync("ContactTemplate.txt", model.Name, model.Email, model.Subject, model.Body, model.Attachment))
                         {
-                            Logger.LogInformation("Captcha verified. Sent mail.");
+                            _logger.LogInformation("Captcha verified. Sent mail.");
                             this.Message = "Email sent.";
                         }
                     }
@@ -100,7 +116,7 @@ namespace MannsBlog.Views.Root
             }
             catch (Exception ex)
             {
-                Logger.LogError("Failed to send email from contact page", ex);
+                _logger.LogError("Failed to send email from contact page", ex);
             }
         }
 

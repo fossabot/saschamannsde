@@ -286,6 +286,22 @@ namespace MannsBlog.Config
             /// The user surname.
             /// </value>
             public string UserSurname { get; set; }
+
+            /// <summary>
+            /// Gets or sets the blog description.
+            /// </summary>
+            /// <value>
+            /// The blog description.
+            /// </value>
+            public string BlogDescription { get; set; }
+
+            /// <summary>
+            /// Gets or sets the blog keywords.
+            /// </summary>
+            /// <value>
+            /// The blog keywords.
+            /// </value>
+            public string BlogKeywords { get; set; }
         }
 
         /// <summary>
