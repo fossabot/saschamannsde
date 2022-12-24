@@ -110,7 +110,6 @@
 
 	<ItemGroup>
 		<Content Remove="bundleconfig.json" />
-		<Content Remove="wwwroot\js\contact.js" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -23,8 +23,8 @@
 // video.js
 (function ($) {
     $(".video-toggle").on("click", function () {
-        var $btn = $(this);
-        var $video = $("#video-" + $btn.attr("data-id"));
+        let $btn = $(this);
+        let $video = $("#video-" + $btn.attr("data-id"));
         if ($btn.text() == "Show Video") {
             $btn.text("Hide Video");
             loadVideo($video);
@@ -36,14 +36,14 @@
     });
 
     function loadVideo($video) {
-        var $iframe = $video.find("iframe");
+        let $iframe = $video.find("iframe");
         if (!$iframe.is('[src]')) {
             $iframe.attr("src", $iframe.attr("data-src"));
         }
     }
 
     $(document).ready(function () {
-        var $video = $(".video-container");
+        let $video = $(".video-container");
         if ($video.hasClass("auto-load")) loadVideo($video);
     });
 })(jQuery);

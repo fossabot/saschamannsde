@@ -93,9 +93,6 @@ body {
 
         body {
             margin: 0;
-        }
-
-        body {
             padding-top: 0px;
             padding-bottom: 0px;
         }
@@ -239,9 +236,6 @@ body {
 
 .e-card-header-title {
     margin-top: 30px;
-}
-
-.e-card-header-title {
     color: lightgray;
 }
 
@@ -313,9 +307,6 @@ body {
 .navbar {
     font-family: 'Segoe UI Light', 'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 100;
-}
-
-.navbar {
     margin-bottom: 40px;
 }
 
@@ -475,10 +466,7 @@ body {
 }
 
 #body_content {
-    margin-top: 0px !important;
-}
-
-#body_content {
+    /*margin-top: 0px !important;*/
     margin-top: 50px;
     height: 100%;
     overflow: hidden;

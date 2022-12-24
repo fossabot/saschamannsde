@@ -1,31 +1,31 @@
 /*When clicking on Full hide fail/success boxes */
-$('#name').focus(function() {
+$('#name').focus(function () {
     $('#success').html('');
 });
 
 // Floating label headings for the contact form
-$(function() {
-    $("body").on("input propertychange", ".floating-label-form-group", function(e) {
+$(function () {
+    $("body").on("input propertychange", ".floating-label-form-group", function (e) {
         $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
-    }).on("focus", ".floating-label-form-group", function() {
+    }).on("focus", ".floating-label-form-group", function () {
         $(this).addClass("floating-label-form-group-with-focus");
-    }).on("blur", ".floating-label-form-group", function() {
+    }).on("blur", ".floating-label-form-group", function () {
         $(this).removeClass("floating-label-form-group-with-focus");
     });
 });
 
 // Navigation Scripts to Show Header on Scroll-Up
-jQuery(document).ready(function($) {
-    var mql = 1170;
+jQuery(document).ready(function ($) {
+    let mql = 1170;
 
     //primary navigation slide-in effect
     if ($(window).width() > mql) {
-        var headerHeight = $('.navbar-custom').height();
+        let headerHeight = $('.navbar-custom').height();
         $(window).on('scroll', {
-                previousTop: 0
-            },
-            function() {
-                var currentTop = $(window).scrollTop();
+            previousTop: 0
+        },
+            function () {
+                let currentTop = $(window).scrollTop();
                 //check if user is scrolling up
                 if (currentTop < this.previousTop) {
                     //if scrolling up...

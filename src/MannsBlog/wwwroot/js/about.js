@@ -24,9 +24,9 @@
 (function ($) {
     $(document).ready(function () {
 
-        var $openSourceList = $("#openSourceList");
+        let $openSourceList = $("#openSourceList");
         if ($openSourceList.length > 0) {
-            var template = _.template(
+            let template = _.template(
                 "<div class='e-card'>" +
                 "<div tabindex='0' class='e-card-about' id='<%= name %>'>" +
                 "   <div class='card-header'>" +
@@ -41,7 +41,7 @@
                 "</div>");
             $.get("https://api.github.com/users/saigkill/repos?type=owner&sort-updated")
                 .then(function (result) {
-                    var results = _.filter(result, function (item) {
+                    let results = _.filter(result, function (item) {
                         return !item.fork;
                     });
                     results = _.orderBy(results, ["stargazers_count"], ["desc"]);

@@ -25,14 +25,14 @@ SOFTWARE.
 <div class="embed-responsive">
     @if (Model.VideoType == MannsBlog.Services.DataProviders.VideoType.YouTube)
     {
-        <iframe data-src="https://www.youtube.com/embed/@(Model.VideoCode)?rel=0" title="Youtube" frameborder="0" allowfullscreen></iframe>
+        <iframe data-src="https://www.youtube.com/embed/@(Model.VideoCode)?rel=0" title="Youtube" allowfullscreen></iframe>
     }
     else if (Model.VideoType == MannsBlog.Services.DataProviders.VideoType.Vimeo)
     {
-        <iframe data-src="https://player.vimeo.com/video/@(Model.VideoCode)" title="Vimeo" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe data-src="https://player.vimeo.com/video/@(Model.VideoCode)" title="Vimeo" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     }
     else if (Model.VideoType == MannsBlog.Services.DataProviders.VideoType.Channel9)
     {
-        <iframe data-src="https://channel9.msdn.com/@(Model.VideoCode)/player" title="Channel9" allowFullScreen frameBorder="0"></iframe>
+        <iframe data-src="https://channel9.msdn.com/@(Model.VideoCode)/player" title="Channel9" allowFullScreen></iframe>
     }
 </div>
