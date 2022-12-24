@@ -111,7 +111,7 @@ body {
         h5,
         h6 {
             font-weight: 400;
-            font-family: 'Space Grotesk Light', 'Isonorm Pro', 'Stafford Pro Light';
+            font-family: 'Space Grotesk Light', 'Isonorm Pro', 'Stafford Pro Light', 'Segoe UI Light', sans-serif, serif;
         }
 
         h3 {
