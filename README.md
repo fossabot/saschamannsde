@@ -3,6 +3,7 @@
 Project Status:
 
 Open Issues: ![GitHub issues](https://img.shields.io/github/issues/saigkill/saschamannsde)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaigkill%2Fsaschamannsde.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaigkill%2Fsaschamannsde?ref=badge_shield)
 
 Codesee: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saigkill/saschamannsde/codesee-arch-diagram.yml)
 
@@ -25,3 +26,7 @@ I re-wrote my blog using a new stack of web technologies including:
 The project wasn't build to be a blog engine or a easy to re-use for your own blog. It doesn't mean you can't use it for that. Feel free to fork the project, but that wasn't a design goal. 
 
 The current project is built with many pre-release technologies so that the code-base will change a lot as these technologies get closer to release. 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaigkill%2Fsaschamannsde.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaigkill%2Fsaschamannsde?ref=badge_large)
