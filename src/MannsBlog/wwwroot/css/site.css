@@ -109,6 +109,7 @@ body {
         h6 {
             font-weight: 400;
             font-family: 'Space Grotesk Light', 'Isonorm Pro', 'Stafford Pro Light', 'Segoe UI Light', sans-serif, serif;
+            color: lightgray;
         }
 
         h3 {
@@ -168,6 +169,10 @@ body {
     background-color: #ffa947;
     padding: 8px 8px 0 8px;
     color: #2b2b2b;
+}
+
+.ad img {
+    width: 50px;
 }
 
 .additional-space {
@@ -415,7 +420,7 @@ body {
 }
 
 .story-title {
-    color: #003772;
+    color: lightgray;
     font-weight: 600;
 }
 

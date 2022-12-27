@@ -3,6 +3,7 @@
 
 # Custom for Visual Studio
 *.cs     diff=csharp
+*.scss linguist-detectable=false
 
 # Standard to msysgit
 *.doc	 diff=astextplain

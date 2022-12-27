@@ -82,6 +82,7 @@ namespace MannsBlog.Views.Root
         /// </summary>
         public void OnGet()
         {
+            this.Message = string.Empty;
         }
 
         /// <summary>
