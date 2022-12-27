@@ -85,7 +85,7 @@ SOFTWARE.
     @*Header*@
     <div class="card post-card">
         <div class="row card-body">
-            <h2 class="story-title">@Model.Title</h2>
+            <h2 class="story-title font-gray">@Model.Title</h2>
             <div class="col">
                 <!-- @Model.Id -->
                 <hr />
@@ -129,16 +129,12 @@ SOFTWARE.
     <hr />
 
     <table class="tg">
-        <caption>Share Buttons</caption>
+        <caption>Action Buttons</caption>
         <tbody>
             <tr>
-                <td class="tg-0lax"><div data-type="xing/share" data-counter="right" @_localizer["xing-lang"]></div></td>
-                @*<td class="tg-0lax"><script type="IN/Share" data-url="@Model.Slug"></script></td>*@
+                <td class="tg-0lax"><div data-type="xing/share" style="margin-top: 100px" data-counter="right" @_localizer["xing-lang"]></div></td>
+                <td class="tg-0lax"><div style="margin-bottom: 18px;"><script type="IN/Share" data-url="@Model.Slug"></script></div></td>
             </tr>
-            @*<tr>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-            </tr>*@
         </tbody>
     </table>
 
@@ -150,7 +146,7 @@ SOFTWARE.
 </div>
 @section Styles {
     <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism.css" />
-    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism-coy.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/prismjs/themes/prism-dark.css" />
     <link rel="stylesheet" type="text/css" href="~/css/contact.css" />
 }
 @section Scripts {

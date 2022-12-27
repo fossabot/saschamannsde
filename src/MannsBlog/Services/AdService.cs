@@ -39,22 +39,23 @@ namespace MannsBlog.Services
     {
         private readonly ILogger<AdService> _logger;
 
-        // private static readonly string Ad1 =
-        //    @"<script type=""text/javascript"" src=""https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"" data-name=""bmc-button"" data-slug=""PE0y8DF"" data-color=""#FFDD00"" data-emoji=""""  data-font=""Cookie"" data-text=""Buy me a coffee"" data-outline-color=""#000000"" data-font-color=""#000000"" data-coffee-color=""#ffffff"" ></script>";
+        private static readonly string Ad1 =
+            @"<a href=""https://www.buymeacoffee.com/PE0y8DF"" target=""_blank"" rel=""noopener""><img alt=""Donate on Buymeacoffee"" src=""/img/badges/buymeacoffee.png""</a>";
+
         private static readonly string Ad2 =
             @"<a href=""https://liberapay.com/saigkill/donate"" target=""_blank""><img alt=""Donate using Liberapay"" src=""https://liberapay.com/assets/widgets/donate.svg"" width=""80%""></a>";
 
         private static readonly string Ad3 =
-            @"<a href=""https://www.patreon.com/bePatron?u=20278446"" data-patreon-widget-type=""become-patron-button"">Become a Patron!</a><script async src=""https://c6.patreon.com/becomePatronButton.bundle.js""></script>";
+            @"<div class=""""><a href=""https://www.patreon.com/bePatron?u=20278446""</a><img src=""/img/badges/patreon.svg"" alt=""Donate on Patreon"" width:""10%"" /><div>";
 
         private static readonly string Ad4 =
-            @"<a href=""https://www.amazon.de/registry/wishlist/D75HOEQ00BDD"" target=""_blank""><img src=""/img/misc/amazon.svg"" width=""100%""/></a>";
+            @"<a href=""https://www.amazon.de/registry/wishlist/D75HOEQ00BDD"" target=""_blank""><img src=""/img/badges/amazon.svg"" alt=""Show my Amazon Wishlist"" width=""100%""/></a>";
 
-        private static readonly string Ad5 = @"<a href=""https://paypal.me/SaschaManns"" target=""_blank""><img src=""/img/misc/paypal_donate.svg"" width=""100%""/></a>";
+        private static readonly string Ad5 = @"<a href=""https://paypal.me/SaschaManns"" target=""_blank""><img src=""/img/badges/paypal_donate.svg"" alt=""Donate on Paypal"" width=""100%""/></a>";
 
         private static readonly string Ad6 = @"<a href=""https://github.com/saigkill target=""_blank""><img src=""https://img.shields.io/github/followers/saigkill?style=social""/></a>";
 
-        private static readonly string Ad = @$"<table class=""tg""><tbody><tr><td class=""tg-01ax"">{Ad2}</td><td class=""tg-01ax"">{Ad3}</td><td class=""tg-01ax"">{Ad4}</td><td class=""tg-01ax"">{Ad5}</td><td class=""tg-01ax"">{Ad6}</td></tr></tbody></table>";
+        private static readonly string Ad = @$"<table class=""tg""><tbody><tr><td class=""tg-01ax"">{Ad1}</td><td class=""tg-01ax"">{Ad2}</td><td class=""tg-01ax"">{Ad3}</td><td class=""tg-01ax"">{Ad4}</td><td class=""tg-01ax"">{Ad5}</td><td class=""tg-01ax"">{Ad6}</td></tr></tbody></table>";
 
         private IConfiguration _config;
 
