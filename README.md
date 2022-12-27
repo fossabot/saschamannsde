@@ -11,7 +11,7 @@
 | What | Status |
 |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |Code quality Codeclimate | [![Maintainability](https://api.codeclimate.com/v1/badges/b6604d7e1a7aad06183a/maintainability)](https://codeclimate.com/github/saigkill/saschamannsde/maintainability) |
-|Code quality Sonarcloud | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_saschamannsde&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_saschamannsde)
+|Code coverage Codeclimate | [![Test Coverage](https://api.codeclimate.com/v1/badges/b6604d7e1a7aad06183a/test_coverage)](https://codeclimate.com/github/saigkill/saschamannsde/test_coverage)
 |Continuous integration | ![.NET Core](https://github.com/saigkill/latex_curriculum_vitae-dotnet/workflows/.NET%20Core/badge.svg) |
 |Downloads|![GitHub All Releases](https://img.shields.io/github/downloads/saigkill/saschamannsde/total)|
 |Security check | ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/saigkill/saschamannsde/codeql.yml) |
